@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ByteSpace Assessment
 
-## Getting Started
+Next.js 16, React 19, TypeScript, and Tailwind CSS 4 project for the ByteSpace course platform design in [docs](./docs).
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). To check the project setup, run `pnpm lint` and `pnpm build`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Design foundation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The global design tokens live in [src/app/globals.css](./src/app/globals.css), based on the three files in [docs/Style](./docs/Style):
 
-## Learn More
+- Primary blue: `#0043ff`; accent lime: `#bcfc01`; neutral, blue, and lime scales are available as Tailwind colors.
+- Headings: Poppins SemiBold, with 72/44/36/20px desktop reference sizes. Body and labels: Satoshi at the sizes in the typography guide.
+- Desktop content width: 1200px at 1440px viewport width, leaving 120px on each side. The `.site-grid` helper uses 12 columns and 40px gaps; it changes to 8 and 4 columns on smaller screens.
+- Use `.site-container` for section alignment and `.type-heading-*`, `.type-body-*`, or `.type-label-*` when matching the type scale.
 
-To learn more about Next.js, take a look at the following resources:
+Poppins is loaded with `next/font/google`. Satoshi is served by [Fontshare](https://www.fontshare.com/fonts/satoshi) through its CSS endpoint, so the first visit needs access to Fontshare; Arial is the fallback. Design screenshots are references, not page assets.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Current implementation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This branch establishes global typography, colors, spacing helpers, metadata, and the responsive grid. The page routes and sections from the design references are the next implementation step.
