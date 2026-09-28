@@ -32,7 +32,9 @@ export default function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
         />
       </head>
-      <body className="min-h-screen">{children}</body>
+      <body suppressHydrationWarning className="min-h-screen">
+        {children}
+      </body>
     </html>
   )
 }
