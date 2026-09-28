@@ -1,23 +1,56 @@
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap");
 @import "tailwindcss";
 
+/* Dark mode is not enabled in the current assessment. */
+
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+
 :root {
   color-scheme: light;
+
   --background: #ffffff;
   --foreground: #242528;
+  --surface: #f5f5f6;
   --muted: #666973;
   --border: #ced0d3;
+
   --primary: #0043ff;
+  --primary-foreground: #ffffff;
+
   --accent: #bcfc01;
+  --accent-foreground: #242528;
 }
+
+/*
+.dark {
+  color-scheme: dark;
+
+  --background: #242528;
+  --foreground: #f5f5f6;
+  --surface: #3a3b3f;
+  --muted: #abaeb5;
+  --border: #585a62;
+
+  --primary: #81c5ff;
+  --primary-foreground: #071e5f;
+
+  --accent: #bcfc01;
+  --accent-foreground: #242528;
+}
+*/
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
   --color-muted: var(--muted);
   --color-border: var(--border);
+
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
   --color-neutral-50: #f5f5f6;
   --color-neutral-100: #e5e6e8;
@@ -56,166 +89,74 @@
   --color-lime-950: #243300;
 
   --font-sans: "Satoshi", Arial, sans-serif;
-  --font-heading: var(--font-poppins), "Poppins", Arial, sans-serif;
-  --radius-card: 24px;
-  --radius-pill: 999px;
+  --font-heading: "Satoshi", Arial, sans-serif;
+
+  --text-heading-l: clamp(2.75rem, 5vw, 4.5rem);
+  --text-heading-l--line-height: 1.2;
+  --text-heading-l--font-weight: 600;
+  --text-heading-l--letter-spacing: -0.035em;
+
+  --text-heading-m: clamp(2rem, 3.2vw, 2.75rem);
+  --text-heading-m--line-height: 1.2;
+  --text-heading-m--font-weight: 600;
+  --text-heading-m--letter-spacing: -0.035em;
+
+  --text-heading-s: clamp(1.75rem, 2.6vw, 2.25rem);
+  --text-heading-s--line-height: 1.2;
+  --text-heading-s--font-weight: 600;
+  --text-heading-s--letter-spacing: -0.035em;
+
+  --text-heading-xs: 1.25rem;
+  --text-heading-xs--line-height: 1.2;
+  --text-heading-xs--font-weight: 600;
+
+  --text-body-l: 1.125rem;
+  --text-body-l--line-height: 1.6;
+
+  --text-body-m: 1rem;
+  --text-body-m--line-height: 1.6;
+
+  --text-body-s: 0.875rem;
+  --text-body-s--line-height: 1.6;
+
+  --text-body-xs: 0.75rem;
+  --text-body-xs--line-height: 1.6;
+
+  --text-label-l: 1.125rem;
+  --text-label-l--line-height: 1.2;
+  --text-label-l--font-weight: 500;
+
+  --text-label-m: 1rem;
+  --text-label-m--line-height: 1.2;
+  --text-label-m--font-weight: 500;
+
+  --text-label-s: 0.875rem;
+  --text-label-s--line-height: 1.2;
+  --text-label-s--font-weight: 500;
+
+  --text-label-xs: 0.75rem;
+  --text-label-xs--line-height: 1.2;
+  --text-label-xs--font-weight: 500;
+
+  --radius-card: 1.5rem;
+
+  --container-site: 90rem;
+  --breakpoint-wide: 90rem;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  min-width: 320px;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Satoshi", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--foreground);
-}
-
-:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 3px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-poppins), "Poppins", Arial, sans-serif;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.035em;
-}
-
-.type-heading-l {
-  font-size: clamp(2.75rem, 5vw, 4.5rem);
-  line-height: 1.2;
-}
-
-.type-heading-m {
-  font-size: clamp(2rem, 3.2vw, 2.75rem);
-  line-height: 1.2;
-}
-
-.type-heading-s {
-  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
-  line-height: 1.2;
-}
-
-.type-heading-xs {
-  font-size: 1.25rem;
-  line-height: 1.2;
-}
-
-.type-body-l {
-  font-size: 1.125rem;
-  line-height: 1.6;
-}
-
-.type-body-m {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.type-body-s {
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-.type-body-xs {
-  font-size: 0.75rem;
-  line-height: 1.6;
-}
-
-.type-label-l {
-  font-size: 1.125rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.type-label-m {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.type-label-s {
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.type-label-xs {
-  font-size: 0.75rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.site-container {
-  width: calc(100% - 40px);
-  max-width: 1200px;
-  margin-inline: auto;
-}
-
-.site-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-}
-
-@media (min-width: 768px) {
-  .site-container {
-    width: calc(100% - 80px);
-  }
-
-  .site-grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    gap: 24px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .site-container {
-    width: calc(100% - 240px);
-  }
-
-  .site-grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 40px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
+@layer base {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
   }
 }

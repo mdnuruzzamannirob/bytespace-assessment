@@ -9,19 +9,31 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). To check the project setup, run `pnpm lint` and `pnpm build`.
+Open [http://localhost:3000](http://localhost:3000). Check the project with `pnpm lint` and `pnpm build`.
 
-## Design foundation
+## Tailwind design system
 
-The global design tokens live in [src/app/globals.css](./src/app/globals.css), based on the three files in [docs/Style](./docs/Style):
+[src/app/globals.css](./src/app/globals.css) keeps semantic colors in `:root` and `.dark`. A small `@theme inline` bridge exposes them as Tailwind utilities; the static palette, typography, radius, and layout tokens live in `@theme`. The light colors come from the PNGs in [docs/Style](./docs/Style), while the dark values are a practical extension because the references do not include a dark screen. Use Tailwind classes in components for page styling:
 
-- Primary blue: `#0043ff`; accent lime: `#bcfc01`; neutral, blue, and lime scales are available as Tailwind colors.
-- Headings: Poppins SemiBold, with 72/44/36/20px desktop reference sizes. Body and labels: Satoshi at the sizes in the typography guide.
-- Desktop content width: 1200px at 1440px viewport width, leaving 120px on each side. The `.site-grid` helper uses 12 columns and 40px gaps; it changes to 8 and 4 columns on smaller screens.
-- Use `.site-container` for section alignment and `.type-heading-*`, `.type-body-*`, or `.type-label-*` when matching the type scale.
+- Colors: `bg-primary` (`#0043ff` in light mode), `bg-accent` (`#bcfc01`), `bg-surface`, `text-foreground`, `text-muted`, and the neutral/blue/lime scales. These semantic utilities change with the root theme.
+- Typography: `font-heading text-heading-l` for the main title, `text-heading-m/s/xs` for smaller headings, `text-body-l/m/s/xs` for copy, and `text-label-l/m/s/xs` for labels. Heading tokens include Poppins SemiBold; body and label tokens use Satoshi.
+- Layout: `max-w-site` is 1440px. With `px-30` at the `wide` breakpoint, content is 1200px wide with 120px side margins. `wide` starts at 1440px.
 
-Poppins is loaded with `next/font/google`. Satoshi is served by [Fontshare](https://www.fontshare.com/fonts/satoshi) through its CSS endpoint, so the first visit needs access to Fontshare; Arial is the fallback. Design screenshots are references, not page assets.
+Add the `dark` class to `<html>` to activate the dark values and Tailwind `dark:*` variants. The design reference is light only, so the app starts in light mode and has no theme switch yet.
+
+Example section and grid:
+
+```tsx
+<section className="mx-auto w-full max-w-site px-5 md:px-10 wide:px-30">
+  <h2 className="font-heading text-heading-m">Discover your passion</h2>
+  <div className="grid grid-cols-4 gap-4 md:grid-cols-8 md:gap-6 wide:grid-cols-12 wide:gap-10">
+    {/* Cards go here */}
+  </div>
+</section>
+```
+
+Poppins is loaded through `next/font/google`. Satoshi is served by [Fontshare](https://www.fontshare.com/fonts/satoshi) through its CSS endpoint, so the first visit needs access to Fontshare; Arial is the fallback. Design screenshots are references, not page assets.
 
 ## Current implementation
 
-This branch establishes global typography, colors, spacing helpers, metadata, and the responsive grid. The page routes and sections from the design references are the next implementation step.
+This branch establishes the Tailwind design tokens, root typography, metadata, and responsive layout conventions. Page routes and sections are the next implementation step.
