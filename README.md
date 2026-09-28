@@ -13,13 +13,13 @@ Open [http://localhost:3000](http://localhost:3000). Check the project with `pnp
 
 ## Tailwind design system
 
-[src/app/globals.css](./src/app/globals.css) keeps semantic colors in `:root` and `.dark`. A small `@theme inline` bridge exposes them as Tailwind utilities; the static palette, typography, radius, and layout tokens live in `@theme`. The light colors come from the PNGs in [docs/Style](./docs/Style), while the dark values are a practical extension because the references do not include a dark screen. Use Tailwind classes in components for page styling:
+[src/app/globals.css](./src/app/globals.css) defines semantic colors in `:root` and exposes them with Tailwind `@theme inline` tokens. The light palette and typography come from the PNGs in [docs/Style](./docs/Style). A `.dark` palette is sketched in comments for future work, but dark mode is currently disabled. Use Tailwind classes in components for page styling:
 
 - Colors: `bg-primary` (`#0043ff` in light mode), `bg-accent` (`#bcfc01`), `bg-surface`, `text-foreground`, `text-muted`, and the neutral/blue/lime scales. These semantic utilities change with the root theme.
 - Typography: `font-heading text-heading-l` for the main title, `text-heading-m/s/xs` for smaller headings, `text-body-l/m/s/xs` for copy, and `text-label-l/m/s/xs` for labels. Heading tokens include Poppins SemiBold; body and label tokens use Satoshi.
 - Layout: `max-w-site` is 1440px. With `px-30` at the `wide` breakpoint, content is 1200px wide with 120px side margins. `wide` starts at 1440px.
 
-Add the `dark` class to `<html>` to activate the dark values and Tailwind `dark:*` variants. The design reference is light only, so the app starts in light mode and has no theme switch yet.
+The design reference is light only. A future dark theme will need the commented `.dark` palette and `@custom-variant dark` enabled together, plus visual review.
 
 Example section and grid:
 
