@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import { FaCheck } from 'react-icons/fa6'
 
-import { creatorBenefits, featuredCourses, growthStats } from '@/constants/home'
+import { creatorBenefits, growthStats } from '@/constants/home'
+import { CourseCard } from '@/components/courses/CourseCard'
+import { courses } from '@/constants/courses'
 
-import { CourseCard, FloatingStudents, ProgressCard } from './HomeShared'
+import { FloatingStudents, ProgressCard } from './HomeShared'
 
 export function GrowthSection() {
   return (
@@ -33,7 +35,7 @@ export function GrowthSection() {
         </div>
         <div className="relative min-h-110 lg:min-h-130">
           <div className="absolute top-3.5 left-0 w-93 lg:-left-2.5 max-sm:w-72">
-            <CourseCard course={featuredCourses[0]} />
+            <CourseCard course={courses[0]} />
           </div>
           <Image
             className="absolute top-20 right-0 w-30 lg:-right-4 lg:w-40"

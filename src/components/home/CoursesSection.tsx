@@ -1,8 +1,9 @@
 import Link from 'next/link'
 
-import { courseTopicRows, featuredCourses } from '@/constants/home'
+import { courseTopicRows } from '@/constants/home'
+import { courses } from '@/constants/courses'
+import { CourseCard } from '@/components/courses/CourseCard'
 
-import { CourseCard } from './HomeShared'
 
 export function CoursesSection() {
   return (
@@ -45,7 +46,7 @@ export function CoursesSection() {
         ))}
       </div>
       <div className="mt-18 grid min-w-0 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-        {featuredCourses.map((course) => (
+        {courses.slice(0, 6).map((course) => (
           <CourseCard course={course} key={course.title} />
         ))}
       </div>

@@ -112,7 +112,7 @@ export function HeroSection() {
             placeholder="Course, topic, creator"
           />
           <button
-            className="h-11.5 shrink-0 rounded-full bg-lime-400 px-6 text-label-l text-neutral-950 transition-colors hover:bg-lime-300 max-sm:h-12"
+            className="h-13 shrink-0 rounded-full bg-lime-400 px-6 text-label-l text-neutral-950 transition-colors hover:bg-lime-300 max-sm:h-13"
             type="submit"
           >
             Search

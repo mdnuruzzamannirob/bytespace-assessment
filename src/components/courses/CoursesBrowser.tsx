@@ -1,7 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { FaChartSimple } from 'react-icons/fa6'
@@ -14,14 +12,12 @@ import {
 } from 'react-icons/fi'
 import { LuListFilter, LuShapes } from 'react-icons/lu'
 
-import {
-  gridPatternClassName,
-  StudentFaces,
-} from '@/components/home/HomeShared'
+import { gridPatternClassName } from '@/components/home/HomeShared'
+import { CourseCard } from '@/components/courses/CourseCard'
 import { SearchField } from '@/components/ui/search-field'
-import { categories, courses, type Course } from '@/constants/courses'
+import { categories, courses } from '@/constants/courses'
 
-const pageSize = 18
+const pageSize = 15
 const searchScopes = ['Courses', 'Categories', 'Creators'] as const
 const levels = ['All levels', 'Beginner', 'Intermediate'] as const
 const sortOptions = [
@@ -106,7 +102,7 @@ function ChoiceMenu({
                 onSelect(option)
                 setOpen(false)
               }}
-              className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-800' : 'text-neutral-700'}`}
+              className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-600' : 'text-neutral-700'}`}
             >
               <span>{option}</span>
               {value === option && <FiCheck aria-hidden="true" />}
@@ -115,70 +111,6 @@ function ChoiceMenu({
         </div>
       )}
     </div>
-  )
-}
-
-function CourseCard({ course }: { course: Course }) {
-  return (
-    <Link
-      href={`/courses/${course.id}`}
-      className="group block min-w-0 rounded-card border border-neutral-200 bg-white p-4 transition-all hover:-translate-y-1 hover:border-neutral-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
-      aria-label={`View ${course.title} course details`}
-    >
-      <div className="relative aspect-341/195 overflow-hidden rounded-xl bg-neutral-100">
-        <Image
-          src={course.image}
-          alt=""
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 341px"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <div className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5 text-[10px] text-neutral-700 sm:text-xs">
-          {[
-            `${course.lessons} Lessons`,
-            `${Math.floor(course.durationMinutes / 60)} hours ${course.durationMinutes % 60} mins`,
-            `${course.comments} Comments`,
-          ].map((detail) => (
-            <span
-              className="rounded-full bg-white/75 px-2 py-1 backdrop-blur-sm"
-              key={detail}
-            >
-              {detail}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="mt-4 flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <h2
-            className="truncate font-heading text-xl leading-6 text-black group-hover:text-lime-800"
-            title={course.title}
-          >
-            {course.title}
-          </h2>
-          <p className="text-xs text-neutral-700">
-            by <span className="text-blue-800">{course.creator}</span>
-          </p>
-        </div>
-        <span className="shrink-0 text-lg text-neutral-500">
-          {course.rating}{' '}
-          <span className="text-neutral-200" aria-label="out of 5 stars">
-            ★
-          </span>
-        </span>
-      </div>
-      <div className="mt-4 flex items-center gap-3">
-        <span className="inline-flex items-center gap-1 rounded-full bg-neutral-50 px-3 py-1.5 text-xs text-neutral-700">
-          <FaChartSimple aria-hidden="true" />
-          {course.level}
-        </span>
-        <StudentFaces compact />
-      </div>
-      <p className="mt-4 text-blue-800">
-        <strong className="font-heading text-xl">${course.price}</strong>
-        <span className="text-xs text-neutral-700">/lifetime</span>
-      </p>
-    </Link>
   )
 }
 
@@ -263,7 +195,8 @@ export function CoursesBrowser({
   }, [search, scope, category, level, sort, shortCourses])
 
   const pageCount = Math.ceil(filtered.length / pageSize)
-  const visibleCourses = filtered.slice((page - 1) * pageSize, page * pageSize)
+  const currentPage = Math.min(page, Math.max(pageCount, 1))
+  const visibleCourses = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
   const changeCategory = (value: string) => {
     setCategory(value)
     setPage(1)
@@ -381,7 +314,7 @@ export function CoursesBrowser({
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-sm font-medium text-lime-800 underline underline-offset-4"
+                className="text-sm font-medium text-lime-600 underline underline-offset-4"
               >
                 Clear all
               </button>
@@ -472,9 +405,9 @@ export function CoursesBrowser({
             <button
               type="button"
               aria-label="Previous page"
-              disabled={page === 1}
-              onClick={() => goToPage(page - 1)}
-              className="flex size-12 items-center justify-center rounded-full border border-neutral-200 hover:bg-neutral-50 disabled:opacity-40"
+              disabled={currentPage === 1}
+              onClick={() => goToPage(currentPage - 1)}
+              className="flex size-12 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <FiChevronLeft />
             </button>
@@ -483,9 +416,9 @@ export function CoursesBrowser({
                 type="button"
                 key={index}
                 aria-label={`Page ${index + 1}`}
-                aria-current={page === index + 1 ? 'page' : undefined}
+                aria-current={currentPage === index + 1 ? 'page' : undefined}
                 onClick={() => goToPage(index + 1)}
-                className={`font-heading text-xl ${page === index + 1 ? 'text-lime-800' : 'text-neutral-950'}`}
+                className={`min-w-5 text-center font-heading text-lg transition-colors hover:text-lime-600 ${currentPage === index + 1 ? 'font-semibold text-neutral-950' : 'text-neutral-600'}`}
               >
                 {index + 1}
               </button>
@@ -493,9 +426,9 @@ export function CoursesBrowser({
             <button
               type="button"
               aria-label="Next page"
-              disabled={page === pageCount}
-              onClick={() => goToPage(page + 1)}
-              className="flex size-12 items-center justify-center rounded-full border border-neutral-200 hover:bg-neutral-50 disabled:opacity-40"
+              disabled={currentPage === pageCount}
+              onClick={() => goToPage(currentPage + 1)}
+              className="flex size-12 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <FiChevronRight />
             </button>
