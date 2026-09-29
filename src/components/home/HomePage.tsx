@@ -25,19 +25,22 @@ const students = [
 
 function StudentFaces({ compact = false }: { compact?: boolean }) {
   return (
-    <span className="flex items-center -space-x-2" aria-hidden="true">
+    <span
+      className={`flex items-center ${compact ? "-space-x-2" : "-space-x-3.5"}`}
+      aria-hidden="true"
+    >
       {students.slice(0, compact ? 4 : 7).map((src) => (
         <Image
-          className={`${compact ? "size-6" : "size-8"} rounded-full border border-white object-cover`}
+          className={`${compact ? "size-6" : "size-10"} rounded-full border border-white object-cover`}
           src={`/assets/${src}`}
           alt=""
-          width={compact ? 24 : 32}
-          height={compact ? 24 : 32}
+          width={compact ? 24 : 40}
+          height={compact ? 24 : 40}
           key={src}
         />
       ))}
       <span
-        className={`${compact ? "size-6" : "size-8"} flex items-center justify-center rounded-full bg-lime-400 text-[8px] font-bold text-neutral-950`}
+        className={`${compact ? "size-6" : "size-10"} flex items-center justify-center rounded-full bg-lime-400 text-[8px] font-bold text-neutral-950`}
       >
         2K+
       </span>
@@ -50,7 +53,7 @@ function FloatingStudents({ className = "" }: { className?: string }) {
     <div
       className={`w-65 rounded-xl bg-white p-4 text-neutral-950 shadow-lg ${className}`}
     >
-      <p className="text-label-xs">Happy Students</p>
+      <p className="text-label-m">Happy Students</p>
       <p className="text-[10px]">
         4.5 <span className="text-blue-700">(240) ★</span>
       </p>
@@ -71,62 +74,6 @@ function ProgressCard({ className = "" }: { className?: string }) {
       <div className="mt-1 h-2 rounded-full bg-neutral-100">
         <div className="h-full w-[55%] rounded-full bg-lime-400" />
       </div>
-    </div>
-  );
-}
-
-function Decorations({ compact = false }: { compact?: boolean }) {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
-      <Image
-        className="absolute top-55 -left-15 w-40 sm:top-70 sm:w-66.5"
-        src="/assets/decorative-lime-tall-squiggle.png"
-        alt=""
-        width={266}
-        height={387}
-      />
-      <Image
-        className="absolute top-72 left-[14%] sm:top-120 hidden w-20 sm:block sm:w-30"
-        src="/assets/decorative-white-small-squiggle.png"
-        alt=""
-        width={176}
-        height={176}
-      />
-      <Image
-        className="absolute top-50 right-10 hidden w-35 sm:top-60 sm:block sm:w-53.25"
-        src="/assets/decorative-lime-curved-strip.png"
-        alt=""
-        width={213}
-        height={372}
-      />
-      <Image
-        className="absolute right-[10%] top-120 hidden w-20 sm:block sm:w-32"
-        src="/assets/decorative-white-triangle.png"
-        alt=""
-        width={189}
-        height={189}
-      />
-      {!compact && (
-        <>
-          <Image
-            className="absolute bottom-[10%] left-[2%] w-30 sm:w-75"
-            src="/assets/decorative-white-oval-ring.png"
-            alt=""
-            width={344}
-            height={343}
-          />
-          <Image
-            className="absolute right-0 bottom-[7%] w-35 sm:w-79.25"
-            src="/assets/decorative-white-large-squiggle.png"
-            alt=""
-            width={317}
-            height={332}
-          />
-        </>
-      )}
     </div>
   );
 }
@@ -190,62 +137,120 @@ function CtaDecorations() {
   );
 }
 
+function HeroSideDecorations() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
+      <Image
+        className="absolute top-55 -left-15 hidden w-66.5 lg:block"
+        src="/assets/decorative-lime-tall-squiggle.png"
+        alt=""
+        width={266}
+        height={387}
+      />
+      <Image
+        className="absolute top-54 right-0 hidden w-53.25 lg:block"
+        src="/assets/decorative-lime-curved-strip.png"
+        alt=""
+        width={213}
+        height={372}
+      />
+    </div>
+  );
+}
+
+function HeroArtwork() {
+  return (
+    <div className="@container pointer-events-none absolute inset-y-0 left-1/2 w-[calc(100%-2rem)] max-w-300 -translate-x-1/2">
+      <div className="absolute top-[56.84%] left-1/2 aspect-square w-[95.75%] -translate-x-1/2 rounded-full border-[26.67cqw] border-[#cbfc01] max-sm:top-auto max-sm:-bottom-50 max-sm:w-full" />
+      <Image
+        className="absolute top-[46.6%] left-[5.3%] hidden w-24 sm:block lg:w-44 [@media(max-height:900px)]:top-[58%]"
+        src="/assets/decorative-white-small-squiggle.png"
+        alt=""
+        width={176}
+        height={176}
+      />
+      <Image
+        className="absolute top-[45.2%] right-[3%] hidden w-28 sm:block lg:w-47.25"
+        src="/assets/decorative-white-triangle.png"
+        alt=""
+        width={189}
+        height={189}
+      />
+      <Image
+        className="absolute -bottom-20 -left-16 hidden w-40 sm:block lg:bottom-0 lg:w-86"
+        src="/assets/decorative-white-oval-ring.png"
+        alt=""
+        width={344}
+        height={343}
+      />
+      <Image
+        className="absolute -right-30 bottom-0 hidden w-40 sm:block lg:bottom-5 lg:w-79.25"
+        src="/assets/decorative-white-large-squiggle.png"
+        alt=""
+        width={317}
+        height={332}
+      />
+      <Image
+        className="absolute bottom-0 left-1/2 h-auto w-auto max-h-[calc(100svh-465px)] max-w-[60.2%] -translate-x-1/2 object-contain lg:left-[calc(50%-30px)] lg:max-h-none max-sm:max-h-none max-sm:max-w-[85%] [@media(max-height:700px)]:max-w-[68%]"
+        src="/assets/man-with-headset-and-laptop.png"
+        alt="Student learning with a laptop"
+        width={722}
+        height={515}
+        priority
+      />
+      <div className="absolute top-[62.5%] left-[23.7%] hidden w-52 origin-top-left scale-80 rounded-xl bg-white p-4 text-neutral-950 shadow-lg md:block lg:scale-100">
+        <p className="text-label-m">UI/UX Design</p>
+        <p className="text-body-xs text-neutral-500">
+          200 Courses · 1000+ Students
+        </p>
+      </div>
+      <ProgressCard className="absolute top-[62.5%] right-[20.7%] hidden origin-top-right scale-80 md:block lg:top-[63.5%] lg:scale-100" />
+      <FloatingStudents className="absolute bottom-16 left-[17.3%] hidden origin-bottom-left scale-80 md:block lg:bottom-18.5 lg:scale-100" />
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section
-      className={`relative min-h-190 overflow-hidden bg-blue-800 text-white lg:min-h-256 ${grid}`}
+      className={`relative isolate min-h-[max(840px,100svh)] overflow-hidden lg:min-h-[max(1024px,100svh)] [@media(max-height:700px)]:min-h-svh [@media(max-height:620px)]:min-h-175 bg-blue-800 text-white ${grid}`}
     >
-      <Decorations />
-      <div className="relative z-10 mx-auto flex max-w-300 flex-col items-center px-5 pt-38 text-center sm:pt-44 lg:pt-45">
-        <h1 className="max-w-250 font-heading text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.15] font-semibold tracking-tight">
+      <HeroSideDecorations />
+      <HeroArtwork />
+      <div className="relative z-10 mx-auto flex w-full max-w-300 flex-col items-center px-4 pt-38 text-center sm:pt-40 lg:pt-42.25 [@media(max-height:700px)]:pt-24">
+        <h1 className="max-w-233.75 font-heading text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.2] font-semibold tracking-[-0.01em] [@media(max-height:700px)]:text-4xl">
           <span className="block sm:whitespace-nowrap">
             Get Access to Hundreds
           </span>
           <span className="block">Courses Available</span>
         </h1>
-        <p className="mt-5 max-w-190 text-body-m">
+        <p className="mt-6 max-w-204.75 text-body-l text-neutral-100 lg:mt-8 [@media(max-height:700px)]:mt-4 [@media(max-height:700px)]:text-body-m">
           Unlock your creativity, gain valuable knowledge, and grow your
           business with our wide range of courses.
         </p>
         <form
           action="/courses"
-          className="mt-14 flex w-full max-w-145 flex-col gap-4 sm:flex-row"
+          className="mt-8 flex w-full max-w-145 flex-col items-stretch gap-4 sm:flex-row sm:items-center lg:mt-15 [@media(max-height:700px)]:mt-5 [@media(max-height:700px)]:gap-2"
         >
-          <label className="flex min-h-13 flex-1 items-center gap-3 rounded-full bg-white px-5 text-neutral-500">
-            <PiMagnifyingGlass className="size-5" aria-hidden="true" />
+          <label className="flex h-13 min-w-0 shrink-0 [@media(max-height:700px)]:h-11 items-center gap-3 rounded-full sm:flex-1 bg-white px-6 text-neutral-500">
+            <PiMagnifyingGlass className="size-5 shrink-0" aria-hidden="true" />
             <span className="sr-only">Search courses</span>
             <input
-              className="min-w-0 flex-1 bg-transparent text-body-s text-neutral-950 outline-none placeholder:text-neutral-400"
+              className="min-w-0 flex-1 bg-transparent text-body-l text-neutral-950 outline-none placeholder:text-neutral-400"
               name="q"
               placeholder="Course, topic, creator"
             />
           </label>
           <button
-            className="min-h-13 rounded-full bg-lime-400 px-8 text-label-m text-neutral-950 transition-colors hover:bg-lime-300"
+            className="h-11.5 shrink-0 rounded-full bg-lime-400 px-6 text-label-l text-neutral-950 transition-colors hover:bg-lime-300 max-sm:h-12 [@media(max-height:700px)]:h-11"
             type="submit"
           >
             Search
           </button>
         </form>
-      </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-100 max-w-260 sm:h-120">
-        <div className="absolute bottom-[-42rem] left-1/2 size-280 -translate-x-1/2 rounded-full bg-lime-400 max-sm:bottom-[-22.5rem] max-sm:size-130" />
-        <Image
-          className="absolute right-[14%] bottom-0 h-auto w-[70%] max-w-180 object-contain"
-          src="/assets/man-with-headset-and-laptop.png"
-          alt="Student learning with a laptop"
-          width={722}
-          height={515}
-          priority
-        />
-        <div className="absolute top-12 left-[20%] hidden rounded-xl bg-white p-4 text-neutral-950 shadow-lg sm:block">
-          <p className="text-label-s">UI/UX Design</p>
-          <p className="text-body-xs text-neutral-500">
-            200 Courses · 1000+ Students
-          </p>
-        </div>
-        <ProgressCard className="absolute top-8 right-[16%] hidden sm:block" />
-        <FloatingStudents className="absolute bottom-10 left-[13%] hidden sm:block" />
       </div>
     </section>
   );
@@ -392,8 +397,8 @@ function Categories() {
 
 function Growth() {
   return (
-    <section className="overflow-hidden bg-[radial-gradient(circle_at_27%_12%,#e9ff9e,transparent_28%),radial-gradient(circle_at_15%_75%,#c7d4ff,transparent_35%),radial-gradient(circle_at_85%_85%,#dbe4ff,transparent_40%)]">
-      <div className="mx-auto grid max-w-300 items-center gap-12 px-5 py-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
+    <section className="relative overflow-hidden bg-[radial-gradient(circle_at_27%_12%,#e9ff9e,transparent_28%),radial-gradient(circle_at_15%_75%,#c7d4ff,transparent_35%),radial-gradient(circle_at_85%_85%,#dbe4ff,transparent_40%)]">
+      <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 py-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
         <div>
           <h2 className="max-w-120 font-heading text-heading-m">
             Your Path to Professional Growth Starts Here!
@@ -420,7 +425,7 @@ function Growth() {
             ))}
           </div>
         </div>
-        <div className="relative min-h-110">
+        <div className="relative min-h-110 lg:min-h-130">
           <div className="absolute top-0 left-0 w-93 max-sm:w-72">
             <CourseCard course={featuredCourses[0]} />
           </div>
@@ -432,7 +437,7 @@ function Growth() {
             height={216}
           />
           <Image
-            className="absolute right-0 bottom-0 h-auto w-full max-w-140"
+            className="absolute right-0 bottom-0 h-auto w-full max-w-140 lg:max-w-160"
             src="/assets/man-with-headset-and-laptop.png"
             alt="Learner with laptop"
             width={722}
@@ -441,7 +446,7 @@ function Growth() {
           <ProgressCard className="absolute right-0 bottom-8" />
         </div>
       </div>
-      <div className="mx-auto grid max-w-300 items-center gap-12 px-5 pb-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
+      <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 pb-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
         <div className="relative min-h-120">
           <div className="absolute top-8 left-2 rounded-xl bg-blue-800 p-4 text-white shadow-xl">
             <p className="text-body-xs">Total Revenue</p>
@@ -525,8 +530,8 @@ function CreatorCta() {
 
 function Testimonials() {
   return (
-    <section className="bg-[radial-gradient(circle_at_50%_20%,#edffb7,transparent_42%),radial-gradient(circle_at_15%_100%,#c5d1ff,transparent_40%)]">
-      <div className="mx-auto min-h-196 max-w-300 px-5 py-25 lg:px-0">
+    <section className="relative bg-[radial-gradient(circle_at_50%_20%,#edffb7,transparent_42%),radial-gradient(circle_at_15%_100%,#c5d1ff,transparent_40%)]">
+      <div className="relative mx-auto min-h-196 max-w-300 px-5 py-25 lg:px-0">
         <div className="grid gap-8 md:grid-cols-2 md:gap-18">
           <h2 className="max-w-120 font-heading text-heading-m">
             Discover What Our Community Is Saying
