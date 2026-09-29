@@ -1,23 +1,6 @@
-export const courseTopics = [
-  "Featured",
-  "Music",
-  "Drawing & Painting",
-  "Marketing",
-  "Animation",
-  "Social Media",
-  "UI/UX Design",
-  "Creative Marketing",
-  "Digital Illustration",
-  "Film & Video",
-  "Crafts",
-  "Freelance & Entrepreneurship",
-  "Graphic Design",
-  "Photography",
-  "Productivity",
-  "Web Development",
-  "Data Science",
-  "Cooking",
-];
+import { categories as courseTopics } from './courses'
+
+export { courseTopics }
 
 export const courseTopicRows = [
   courseTopics.slice(0, 8),

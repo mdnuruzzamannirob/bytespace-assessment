@@ -17,7 +17,7 @@ function buttonClassName(variant: ButtonVariant, className: string) {
       ? 'border border-neutral-200 bg-transparent text-foreground hover:border-neutral-500'
       : 'bg-lime-400 text-neutral-950 hover:bg-lime-300 hover:text-neutral-950'
 
-  return `inline-flex min-h-12 items-center justify-center rounded-full px-6 text-label-l no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 disabled:cursor-not-allowed disabled:opacity-50 ${appearance} ${className}`
+  return `inline-flex h-13 min-h-13 items-center justify-center rounded-full px-6 text-label-l no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 disabled:cursor-not-allowed disabled:opacity-50 ${appearance} ${className}`
 }
 
 export function Button({
