@@ -77,7 +77,7 @@ export function GrowthSection() {
             height={216}
           />
           <Image
-            className="absolute right-0 bottom-0 h-auto w-full max-w-140 lg:-right-8 lg:w-144 lg:max-w-none lg:translate-y-42"
+            className="absolute right-0 bottom-0 h-auto w-full max-w-140 lg:-right-8 lg:w-xl lg:max-w-none lg:translate-y-42"
             src="/assets/woman-with-headset-and-tablet.png"
             alt="Creator holding a tablet"
             width={579}
