@@ -559,7 +559,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 aria-controls={`panel-${item.toLowerCase()}`}
                 onClick={() => setTab(item)}
                 key={item}
-                className={`cursor-pointer rounded-full px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${tab === item ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
+                className={`cursor-pointer rounded-full px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${tab === item ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
               >
                 {item}
               </button>

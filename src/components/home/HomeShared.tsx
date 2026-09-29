@@ -6,7 +6,7 @@ import { IoStarSharp } from 'react-icons/io5'
 import { featuredCourses, studentAvatars } from '@/constants/home'
 
 export const gridPatternClassName =
-  'bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-size-[120px_120px] max-md:bg-size-[80px_80px]'
+  'bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_2px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_2px,transparent_1px)] bg-size-[120px_120px] max-md:bg-size-[80px_80px]'
 
 export function StudentFaces({ compact = false }: { compact?: boolean }) {
   const size = compact ? 24 : 40

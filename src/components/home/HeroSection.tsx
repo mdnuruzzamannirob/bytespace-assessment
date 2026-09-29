@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { PiMagnifyingGlass } from 'react-icons/pi'
+
+import { SearchField } from '@/components/ui/search-field'
 
 import {
   FloatingStudents,
@@ -104,15 +105,12 @@ export function HeroSection() {
           action="/courses"
           className="mt-8 flex w-full max-w-145 flex-col items-stretch gap-4 sm:flex-row sm:items-center lg:mt-15"
         >
-          <label className="flex h-13 min-w-0 shrink-0 items-center gap-3 rounded-full bg-white px-6 text-neutral-500 sm:flex-1">
-            <PiMagnifyingGlass className="size-5 shrink-0" aria-hidden="true" />
-            <span className="sr-only">Search courses</span>
-            <input
-              className="min-w-0 flex-1 bg-transparent text-body-l text-neutral-950 outline-none placeholder:text-neutral-400"
-              name="q"
-              placeholder="Course, topic, creator"
-            />
-          </label>
+          <SearchField
+            containerClassName="shrink-0 sm:flex-1"
+            label="Search courses"
+            name="q"
+            placeholder="Course, topic, creator"
+          />
           <button
             className="h-11.5 shrink-0 rounded-full bg-lime-400 px-6 text-label-l text-neutral-950 transition-colors hover:bg-lime-300 max-sm:h-12"
             type="submit"

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { FaChartSimple } from 'react-icons/fa6'
 import {
@@ -10,7 +11,6 @@ import {
   FiChevronLeft,
   FiChevronRight,
   FiFilter,
-  FiSearch,
 } from 'react-icons/fi'
 import { LuListFilter, LuShapes } from 'react-icons/lu'
 
@@ -18,6 +18,7 @@ import {
   gridPatternClassName,
   StudentFaces,
 } from '@/components/home/HomeShared'
+import { SearchField } from '@/components/ui/search-field'
 import { categories, courses, type Course } from '@/constants/courses'
 
 const pageSize = 18
@@ -74,7 +75,7 @@ function ChoiceMenu({
         aria-expanded={open}
         aria-haspopup="menu"
         onClick={() => setOpen(!open)}
-        className={`inline-flex h-12 max-w-full items-center justify-center gap-2 rounded-full px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${accent ? 'border border-lime-400 bg-lime-400 px-6 text-neutral-950 hover:bg-lime-300' : 'border border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50'}`}
+        className={`inline-flex h-12 max-w-full items-center justify-center gap-2 rounded-full px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${accent ? 'border border-lime-400 bg-lime-400 px-6 text-neutral-950 hover:bg-lime-300' : 'border border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50'}`}
       >
         {icon}
         <span className="max-w-34 truncate">
@@ -105,7 +106,7 @@ function ChoiceMenu({
                 onSelect(option)
                 setOpen(false)
               }}
-              className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-blue-700' : 'text-neutral-700'}`}
+              className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-800' : 'text-neutral-700'}`}
             >
               <span>{option}</span>
               {value === option && <FiCheck aria-hidden="true" />}
@@ -121,7 +122,7 @@ function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="group block min-w-0 rounded-card border border-neutral-200 bg-white p-4 transition-all hover:-translate-y-1 hover:border-neutral-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+      className="group block min-w-0 rounded-card border border-neutral-200 bg-white p-4 transition-all hover:-translate-y-1 hover:border-neutral-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
       aria-label={`View ${course.title} course details`}
     >
       <div className="relative aspect-341/195 overflow-hidden rounded-xl bg-neutral-100">
@@ -150,7 +151,7 @@ function CourseCard({ course }: { course: Course }) {
       <div className="mt-4 flex items-start justify-between gap-2">
         <div className="min-w-0">
           <h2
-            className="truncate font-heading text-xl leading-6 text-black group-hover:text-blue-700"
+            className="truncate font-heading text-xl leading-6 text-black group-hover:text-lime-800"
             title={course.title}
           >
             {course.title}
@@ -183,21 +184,58 @@ function CourseCard({ course }: { course: Course }) {
 
 export function CoursesBrowser({
   initialCategory = 'Featured',
+  initialSearch = '',
+  initialScope = 'Courses',
+  initialLevel = 'All levels',
+  initialSort = 'Most relevant',
+  initialShortCourses = false,
+  initialPage = 1,
 }: {
   initialCategory?: string
+  initialSearch?: string
+  initialScope?: string
+  initialLevel?: string
+  initialSort?: string
+  initialShortCourses?: boolean
+  initialPage?: number
 }) {
-  const [search, setSearch] = useState('')
-  const [scope, setScope] = useState<string>('Courses')
+  const pathname = usePathname()
+  const router = useRouter()
+  const [search, setSearch] = useState(initialSearch)
+  const [scope, setScope] = useState<string>(initialScope)
   const [category, setCategory] = useState(
     categories.includes(initialCategory as (typeof categories)[number])
       ? initialCategory
       : 'Featured',
   )
-  const [level, setLevel] = useState('All levels')
-  const [sort, setSort] = useState('Most relevant')
-  const [shortCourses, setShortCourses] = useState(false)
-  const [page, setPage] = useState(1)
+  const [level, setLevel] = useState(initialLevel)
+  const [sort, setSort] = useState(initialSort)
+  const [shortCourses, setShortCourses] = useState(initialShortCourses)
+  const [page, setPage] = useState(initialPage)
   const [showFilters, setShowFilters] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (search) params.set('q', search)
+    if (scope !== 'Courses') params.set('scope', scope)
+    if (category !== 'Featured') params.set('category', category)
+    if (level !== 'All levels') params.set('level', level)
+    if (shortCourses) params.set('duration', 'short')
+    if (sort !== 'Most relevant') params.set('sort', sort)
+    if (page > 1) params.set('page', String(page))
+    const query = params.toString()
+    router.replace(query ? pathname + '?' + query : pathname, { scroll: false })
+  }, [
+    category,
+    level,
+    page,
+    pathname,
+    router,
+    scope,
+    search,
+    shortCourses,
+    sort,
+  ])
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase()
@@ -256,20 +294,17 @@ export function CoursesBrowser({
             Find Your Next Course
           </h1>
           <div className="mx-auto mt-8 flex max-w-156 flex-col gap-4 sm:flex-row">
-            <label className="flex h-13 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-6 text-neutral-400 ring-white/20 focus-within:ring-4">
-              <FiSearch className="size-5 shrink-0" aria-hidden="true" />
-              <span className="sr-only">Search {scope.toLowerCase()}</span>
-              <input
-                type="search"
-                className="w-full min-w-0 bg-transparent text-base text-neutral-950 outline-none placeholder:text-neutral-400"
-                placeholder={`Search ${scope.toLowerCase()}`}
-                value={search}
-                onChange={(event) => {
-                  setSearch(event.target.value)
-                  setPage(1)
-                }}
-              />
-            </label>
+            <SearchField
+              className="text-base"
+              containerClassName="flex-1"
+              label={'Search ' + scope.toLowerCase()}
+              onChange={(event) => {
+                setSearch(event.target.value)
+                setPage(1)
+              }}
+              placeholder={'Search ' + scope.toLowerCase()}
+              value={search}
+            />
             <ChoiceMenu
               label="Search by"
               value={scope}
@@ -296,7 +331,7 @@ export function CoursesBrowser({
               aria-expanded={showFilters}
               aria-controls="all-course-filters"
               onClick={() => setShowFilters(!showFilters)}
-              className={`inline-flex h-12 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${showFilters ? 'border-blue-700 bg-blue-50 text-blue-700' : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50'}`}
+              className={`inline-flex h-12 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${showFilters ? 'border-lime-400 bg-lime-100 text-neutral-950' : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50'}`}
             >
               <FiFilter aria-hidden="true" />
               Filter
@@ -346,7 +381,7 @@ export function CoursesBrowser({
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-sm font-medium text-blue-700 underline underline-offset-4"
+                className="text-sm font-medium text-lime-800 underline underline-offset-4"
               >
                 Clear all
               </button>
@@ -364,7 +399,7 @@ export function CoursesBrowser({
                         setLevel(value)
                         setPage(1)
                       }}
-                      className={`rounded-full px-4 py-2 text-sm ${level === value ? 'bg-blue-700 text-white' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
+                      className={`rounded-full px-4 py-2 text-sm ${level === value ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
                     >
                       {value}
                     </button>
@@ -381,7 +416,7 @@ export function CoursesBrowser({
                       setShortCourses(event.target.checked)
                       setPage(1)
                     }}
-                    className="size-4 accent-blue-700"
+                    className="size-4 accent-lime-500"
                   />
                   Under 3 hours
                 </label>
@@ -399,7 +434,7 @@ export function CoursesBrowser({
               type="button"
               aria-pressed={category === item}
               onClick={() => changeCategory(item)}
-              className={`shrink-0 rounded-full px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${category === item ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
+              className={`shrink-0 rounded-full px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${category === item ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
             >
               {item}
             </button>
@@ -450,7 +485,7 @@ export function CoursesBrowser({
                 aria-label={`Page ${index + 1}`}
                 aria-current={page === index + 1 ? 'page' : undefined}
                 onClick={() => goToPage(index + 1)}
-                className={`font-heading text-xl ${page === index + 1 ? 'text-blue-700' : 'text-neutral-950'}`}
+                className={`font-heading text-xl ${page === index + 1 ? 'text-lime-800' : 'text-neutral-950'}`}
               >
                 {index + 1}
               </button>
