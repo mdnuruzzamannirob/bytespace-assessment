@@ -19,6 +19,12 @@ export const courseTopics = [
   "Cooking",
 ];
 
+export const courseTopicRows = [
+  courseTopics.slice(0, 8),
+  courseTopics.slice(8, 14),
+  courseTopics.slice(14),
+];
+
 export const featuredCourses = [
   {
     title: "Learn Figma from Basic",
@@ -77,4 +83,35 @@ export const testimonials = [
     quote:
       "As a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It’s fulfilling to see my courses making a positive impact on learners globally.",
   },
+] as const;
+
+export const partnerLogos = [
+  "wave",
+  "sunburst",
+  "compass",
+  "flower",
+  "rings",
+] as const;
+
+export const studentAvatars = [
+  "student-at-table.png",
+  "learner-pink-background.png",
+  "student-pink-shirt.png",
+  "student-with-camera.png",
+  "student-with-hat.png",
+  "student-with-glasses.png",
+  "student-outdoors.png",
+] as const;
+
+export const growthStats = [
+  { value: "12K", label: "Students" },
+  { value: "70+", label: "Courses" },
+  { value: "16", label: "Creators" },
+] as const;
+
+export const creatorBenefits = [
+  "Share Your Expertise",
+  "Monetize Your Passion",
+  "Flexibility and Autonomy",
+  "Build a Community",
 ] as const;
