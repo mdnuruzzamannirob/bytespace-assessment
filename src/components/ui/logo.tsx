@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 type LogoProps = {
-  variant?: 'light' | 'dark'
+  variant?: 'light' | 'dark' | 'symbol'
   className?: string
 }
 
@@ -15,10 +15,10 @@ export function Logo({ variant = 'light', className = '' }: LogoProps) {
     >
       <Image
         alt="ByteSpace"
-        height={37}
-        priority={variant === 'light'}
-        src={`/assets/bytespace-logo-${variant}.png`}
-        width={171}
+        height={variant === 'symbol' ? 32 : 37}
+        priority={variant !== 'dark'}
+        src={variant === 'symbol' ? '/assets/bytespace-symbol-lime.png' : `/assets/bytespace-logo-${variant}.png`}
+        width={variant === 'symbol' ? 29 : 171}
       />
     </Link>
   )
