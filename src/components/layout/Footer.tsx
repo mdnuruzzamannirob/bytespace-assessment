@@ -1,37 +1,8 @@
 import Link from 'next/link'
 
 import { Logo } from '@/components/ui/logo'
-import { NewsletterForm } from './newsletter-form'
-
-const footerColumns = [
-  [
-    { label: 'Featured Courses', href: '/courses' },
-    { label: 'Featured Categories', href: '/courses' },
-    { label: 'Business', href: '/courses?category=business' },
-    { label: 'IT', href: '/courses?category=it' },
-    { label: 'Design', href: '/courses?category=design' },
-  ],
-  [
-    { label: 'Development', href: '/courses?category=development' },
-    { label: 'Marketing', href: '/courses?category=marketing' },
-    { label: 'Photography', href: '/courses?category=photography' },
-    { label: 'Finance', href: '/courses?category=finance' },
-    { label: 'Sport', href: '/courses?category=sport' },
-  ],
-  [
-    { label: 'Become a Creator', href: '/creators' },
-    { label: 'Affiliate Program', href: '/affiliate-program' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Help', href: '/help' },
-    { label: 'About', href: '/about' },
-  ],
-]
-
-const legalLinks = [
-  { label: 'Privacy Policy', href: '/privacy-policy' },
-  { label: 'Terms of Service', href: '/terms-of-service' },
-  { label: 'Cookies Settings', href: '/cookies-settings' },
-]
+import { footerColumns, legalLinks } from '@/constants/navigation'
+import { NewsletterForm } from './NewsletterForm'
 
 export function Footer() {
   return (
