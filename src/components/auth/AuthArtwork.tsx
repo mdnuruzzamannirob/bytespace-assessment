@@ -1,98 +1,108 @@
 import Image from 'next/image'
+import { FaChartSimple } from 'react-icons/fa6'
 
-const chartBars = [
-  36, 58, 77, 42, 89, 68, 100, 55, 72, 46, 81, 60, 93, 51, 74, 64,
+const courseLearners = [
+  'learner-pink-background.png',
+  'learner-curly-hair.png',
+  'learner-yellow-background.png',
+  'learner-blue-shirt.png',
 ]
 
-function StudentAvatars() {
+const happyStudents = [
+  'student-at-table.png',
+  courseLearners[0],
+  'student-pink-shirt.png',
+  'student-with-camera.png',
+  'student-with-hat.png',
+  'student-with-glasses.png',
+  'student-outdoors.png',
+]
+
+function StudentAvatars({
+  students,
+  count,
+}: {
+  students: string[]
+  count: string
+}) {
   return (
-    <span className="flex -space-x-2" aria-hidden="true">
-      {['JS', 'AD', 'KP', 'RM'].map((initials, index) => (
-        <span
-          className={`flex size-7 items-center justify-center rounded-full border-2 border-white text-[8px] font-bold text-white ${
-            index % 2 === 0 ? 'bg-blue-500' : 'bg-neutral-600'
-          }`}
-          key={initials}
-        >
-          {initials}
-        </span>
+    <span className="flex items-center -space-x-2">
+      {students.map((student) => (
+        <Image
+          alt=""
+          className="size-8 rounded-full border border-white object-cover"
+          height={32}
+          key={student}
+          src={`/assets/${student}`}
+          width={32}
+        />
       ))}
-      <span className="flex size-7 items-center justify-center rounded-full border-2 border-white bg-black text-[8px] font-bold text-white">
-        26+
+      <span className="flex size-8 items-center justify-center rounded-full bg-neutral-950 text-[11px] font-semibold text-white">
+        {count}
       </span>
     </span>
+  )
+}
+
+function CourseCard({
+  title,
+  image,
+  className,
+}: {
+  title: string
+  image: string
+  className: string
+}) {
+  return (
+    <div
+      className={`absolute h-96 w-93 rounded-3xl bg-white p-4 text-neutral-950 shadow-lg ${className}`}
+    >
+      <Image
+        alt=""
+        className="h-49 w-full rounded-xl object-cover"
+        height={196}
+        src={image}
+        width={341}
+      />
+      <div className="mt-5 flex items-start justify-between gap-3">
+        <p className="font-heading text-lg leading-tight font-semibold">
+          {title}
+        </p>
+        <span className="shrink-0 text-body-s">
+          4.5 <span className="text-lime-400">★</span>
+        </span>
+      </div>
+      <p className="mt-1 text-body-xs text-neutral-500">
+        by <span className="text-blue-700">purepearl studio</span>
+      </p>
+      <div className="mt-4 flex items-center gap-3">
+        <span className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-body-xs">
+          <FaChartSimple aria-hidden="true" />
+          Beginner
+        </span>
+        <StudentAvatars students={courseLearners} count="26+" />
+      </div>
+      <p className="mt-3 text-blue-700">
+        <strong className="text-lg">$25</strong>
+        <span className="text-body-xs text-neutral-500">/lifetime</span>
+      </p>
+    </div>
   )
 }
 
 export function AuthArtwork() {
   return (
     <div aria-hidden="true" className="relative h-143 w-125 select-none">
-      <div className="absolute top-22 left-0 h-96 w-93 overflow-hidden rounded-3xl bg-white p-4 text-neutral-950 shadow-xl">
-        <div className="h-52 rounded-xl bg-linear-to-br from-neutral-300 via-neutral-100 to-neutral-400" />
-        <div className="mt-5 flex items-start justify-between gap-3">
-          <p className="font-heading text-lg leading-tight font-semibold">
-            Build Digital Products
-          </p>
-          <span className="text-body-s">4.5 ★</span>
-        </div>
-        <p className="mt-1 text-body-xs text-neutral-500">
-          by <span className="text-blue-700">purepearl studio</span>
-        </p>
-        <div className="mt-4 flex items-center gap-3">
-          <span className="rounded-full bg-neutral-50 px-3 py-1 text-body-xs">
-            Beginner
-          </span>
-          <StudentAvatars />
-        </div>
-        <p className="mt-3 text-blue-700">
-          <strong className="text-lg">$25</strong>
-          <span className="text-body-xs text-neutral-500">/lifetime</span>
-        </p>
-      </div>
-
-      <div className="absolute top-0 left-28 z-10 h-96 w-93 overflow-hidden rounded-3xl border border-neutral-200 bg-white p-4 text-neutral-950 shadow-xl">
-        <div className="relative h-49 overflow-hidden rounded-xl bg-neutral-950 px-5 pt-4 text-white">
-          <p className="text-[9px] font-semibold tracking-wide">
-            USERS LAST 7 DAYS USING HEIDIAN
-          </p>
-          <div className="absolute inset-x-5 bottom-8 flex h-24 items-end gap-1 border-b border-neutral-500/50">
-            {chartBars.map((height, index) => (
-              <span
-                className={`flex-1 ${index % 3 === 0 ? 'bg-blue-500' : 'bg-cyan-400'}`}
-                key={index}
-                style={{ height: `${height}%` }}
-              />
-            ))}
-          </div>
-          <div className="absolute inset-x-5 bottom-2 flex justify-between text-[8px] text-neutral-300">
-            <span>17 Lessons</span>
-            <span>2 hours 16 mins</span>
-            <span>59 Comments</span>
-          </div>
-        </div>
-        <div className="mt-5 flex items-start justify-between gap-3">
-          <p className="font-heading text-lg leading-tight font-semibold">
-            the Power of Big Data
-          </p>
-          <span className="text-body-s">
-            4.5 <span className="text-lime-500">★</span>
-          </span>
-        </div>
-        <p className="mt-1 text-body-xs text-neutral-500">
-          by <span className="text-blue-700">purepearl studio</span>
-        </p>
-        <div className="mt-4 flex items-center gap-3">
-          <span className="rounded-full bg-neutral-50 px-3 py-1 text-body-xs">
-            Beginner
-          </span>
-          <StudentAvatars />
-        </div>
-        <p className="mt-3 text-blue-700">
-          <strong className="text-lg">$25</strong>
-          <span className="text-body-xs text-neutral-500">/lifetime</span>
-        </p>
-      </div>
-
+      <CourseCard
+        className="top-22 left-0"
+        image="/assets/course-digital-products-icons.png"
+        title="Build Digital Products"
+      />
+      <CourseCard
+        className="-top-1 left-28 z-10"
+        image="/assets/course-big-data-dashboard.png"
+        title="the Power of Big Data"
+      />
       <span className="absolute top-10 left-12 z-20 h-20 w-25 -rotate-32 rounded-[50%] border-20 border-lime-400 shadow-sm" />
       <Image
         alt=""
@@ -108,16 +118,13 @@ export function AuthArtwork() {
         src="/assets/decorative-lime-triangle.png"
         width={125}
       />
-      <div className="absolute right-3 bottom-1 z-30 w-65 rounded-2xl bg-lime-400 px-4 py-3 text-neutral-950 shadow-lg">
+      <div className="absolute right-3 bottom-5 z-30 w-65 rounded-2xl bg-lime-400 px-4 py-3 text-neutral-950 shadow-lg">
         <p className="text-body-m">Happy Students</p>
         <p className="text-body-xs">
           4.5 <span className="text-blue-700">(240) ★</span>
         </p>
-        <div className="mt-2 flex items-center justify-between">
-          <StudentAvatars />
-          <span className="rounded-full bg-neutral-950 px-2 py-1 text-body-xs text-white">
-            2K+
-          </span>
+        <div className="mt-2">
+          <StudentAvatars students={happyStudents} count="2K+" />
         </div>
       </div>
     </div>
