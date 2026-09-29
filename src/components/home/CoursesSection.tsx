@@ -1,0 +1,54 @@
+import Link from 'next/link'
+
+import { courseTopicRows, featuredCourses } from '@/constants/home'
+
+import { CourseCard } from './HomeShared'
+
+export function CoursesSection() {
+  return (
+    <section className="mx-auto max-w-300 px-5 pt-20 pb-16 sm:pt-24 lg:min-h-345 lg:px-0 lg:pt-19">
+      <div className="mx-auto max-w-190 text-center">
+        <h2 className="font-heading text-heading-m">
+          Discover Your Passion,
+          <br /> Build Your Skills
+        </h2>
+        <p className="mt-5 text-body-m text-neutral-500">
+          At Bytespace Courses, we bring you closer to life-changing knowledge.
+          Explore a variety of courses across different fields, from technology
+          to the arts, and make a difference in your career and life.
+        </p>
+      </div>
+      <div className="mx-auto mt-10 flex max-w-300 flex-wrap justify-center gap-3 lg:flex-col lg:items-center lg:gap-6">
+        {courseTopicRows.map((row, rowIndex) => (
+          <div
+            className="contents lg:flex lg:justify-center lg:gap-4"
+            key={rowIndex}
+          >
+            {row.map((topic) => (
+              <Link
+                key={topic}
+                href={`/courses?category=${encodeURIComponent(topic)}`}
+                className={`rounded-full px-4 py-2.5 text-body-s transition-colors hover:bg-lime-300 sm:px-6 ${topic === 'Featured' ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700'}`}
+              >
+                {topic}
+              </Link>
+            ))}
+            {rowIndex === courseTopicRows.length - 1 && (
+              <Link
+                href="/courses"
+                className="rounded-full px-4 py-2.5 text-body-s text-blue-700 hover:underline sm:px-6"
+              >
+                + More
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-18 grid min-w-0 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+        {featuredCourses.map((course) => (
+          <CourseCard course={course} key={course.title} />
+        ))}
+      </div>
+    </section>
+  )
+}
