@@ -1,10 +1,10 @@
 'use client'
 
-import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { LuListFilter } from 'react-icons/lu'
 
 import { SearchHero } from '@/components/catalog/SearchHero'
+import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
 import { CreatorStats } from '@/components/creators/CreatorStats'
 import { FollowButton } from '@/components/creators/FollowButton'
 import { ButtonLink } from '@/components/ui/button'
@@ -13,7 +13,7 @@ import { Select } from '@/components/ui/select'
 import { getCoursesByCreator } from '@/lib/catalog'
 import { creators } from '@/lib/demo-data/creators'
 
-const pageSize = 6
+const pageSize = 9
 const sortOptions = [
   'Most popular',
   'Name A–Z',
@@ -106,12 +106,10 @@ export function CreatorsBrowser() {
                   className="rounded-card border border-neutral-200 bg-white p-4"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <Image
+                    <CreatorAvatar
+                      name={creator.name}
                       src={creator.avatar}
-                      alt={`${creator.name} profile`}
-                      width={64}
-                      height={64}
-                      className="size-16 shrink-0 rounded-full border-3 border-blue-50 object-cover"
+                      size={64}
                     />
                     <FollowButton
                       followed={followed}

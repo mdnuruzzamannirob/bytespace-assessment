@@ -2,12 +2,12 @@
 
 import { CourseBrowseControls } from '@/components/courses/CourseBrowseControls'
 import { CourseCard } from '@/components/courses/CourseCard'
+import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
 import { CreatorStats } from '@/components/creators/CreatorStats'
 import { FollowButton } from '@/components/creators/FollowButton'
 import { gridPatternClassName } from '@/components/home/HomeShared'
 import { filterCourses, getCoursesByCreator } from '@/lib/catalog'
 import type { Creator } from '@/lib/demo-data/creators'
-import Image from 'next/image'
 import { useMemo, useState } from 'react'
 
 export function CreatorProfile({ creator }: { creator: Creator }) {
@@ -57,13 +57,11 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
         <div className="mx-auto max-w-300 px-5 xl:px-0">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
-              <Image
+              <CreatorAvatar
+                name={creator.name}
                 src={creator.avatar}
-                alt={`${creator.name} profile`}
-                width={96}
-                height={96}
-                priority
-                className="size-20 rounded-3xl object-cover sm:size-24"
+                size={96}
+                className="sm:size-24"
               />
               <div>
                 <div className="flex flex-wrap items-center gap-3">
