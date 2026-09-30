@@ -9,7 +9,7 @@ export function PartnersSection() {
         {partnerLogos.map((logo) => (
           <Image
             key={logo}
-            src={`/assets/logoipsum-${logo}-logo.png`}
+            src={`/assets/home/partners/logoipsum-${logo}.svg`}
             alt="Logoipsum"
             width={170}
             height={42}

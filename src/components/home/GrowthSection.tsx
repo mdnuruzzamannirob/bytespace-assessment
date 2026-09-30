@@ -34,19 +34,19 @@ export function GrowthSection() {
           </div>
         </div>
         <div className="relative min-h-110 lg:min-h-130">
-          <div className="absolute top-3.5 left-0 w-93 lg:-left-2.5 max-sm:w-72">
+          <div className="absolute top-3.5 left-0 w-93 lg:-left-2.5 max-sm:w-[68%]">
             <CourseCard course={courses[0]} />
           </div>
           <Image
             className="absolute top-20 right-0 w-30 lg:-right-4 lg:w-40"
-            src="/assets/decorative-lime-small-squiggle.png"
+            src="/assets/home/decorations/decorative-lime-small-squiggle.png"
             alt=""
             width={216}
             height={216}
           />
           <Image
-            className="absolute right-0 bottom-0 h-auto w-full max-w-140 lg:-right-36 lg:w-190 lg:max-w-none lg:translate-y-12"
-            src="/assets/man-with-headset-and-laptop.png"
+            className="absolute right-0 bottom-0 h-auto w-[85%] max-w-140 sm:w-full lg:-right-36 lg:w-190 lg:max-w-none lg:translate-y-12"
+            src="/assets/home/people/man-with-headset-and-laptop.png"
             alt="Learner with laptop"
             width={722}
             height={515}
@@ -73,14 +73,14 @@ export function GrowthSection() {
           </div>
           <Image
             className="absolute top-18 right-0 w-35"
-            src="/assets/decorative-lime-small-squiggle.png"
+            src="/assets/home/decorations/decorative-lime-small-squiggle.png"
             alt=""
             width={216}
             height={216}
           />
           <Image
-            className="absolute right-0 bottom-0 h-auto w-full max-w-140 lg:-right-8 lg:w-xl lg:max-w-none lg:translate-y-42"
-            src="/assets/woman-with-headset-and-tablet.png"
+            className="absolute right-0 bottom-0 h-auto w-[85%] max-w-140 sm:w-full lg:-right-8 lg:w-xl lg:max-w-none lg:translate-y-42"
+            src="/assets/home/people/woman-with-headset-and-tablet.png"
             alt="Creator holding a tablet"
             width={579}
             height={719}
