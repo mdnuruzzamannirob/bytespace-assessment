@@ -12,49 +12,49 @@ function CreatorCtaDecorations() {
     >
       <Image
         className="absolute -top-24 -left-12 w-66.5 max-sm:w-35"
-        src="/assets/decorative-lime-tall-squiggle.png"
+        src="/assets/home/decorations/decorative-lime-tall-squiggle.png"
         alt=""
         width={266}
         height={387}
       />
       <Image
         className="absolute top-7 left-[14%] hidden w-35 sm:block"
-        src="/assets/decorative-white-small-squiggle.png"
+        src="/assets/home/decorations/decorative-white-small-squiggle.png"
         alt=""
         width={176}
         height={176}
       />
       <Image
         className="absolute top-[44%] -left-10 w-47 max-sm:top-auto max-sm:bottom-0 max-sm:w-25"
-        src="/assets/decorative-white-triangle.png"
+        src="/assets/home/decorations/decorative-white-triangle.png"
         alt=""
         width={189}
         height={189}
       />
       <Image
         className="absolute bottom-4 left-[1.5%] hidden w-75 sm:block"
-        src="/assets/decorative-lime-arch.png"
+        src="/assets/home/decorations/decorative-lime-arch.png"
         alt=""
         width={344}
         height={190}
       />
       <Image
         className="absolute top-2 right-[13%] w-42 max-sm:w-20"
-        src="/assets/decorative-lime-triangle.png"
+        src="/assets/home/decorations/decorative-lime-triangle.png"
         alt=""
         width={189}
         height={189}
       />
       <Image
         className="absolute top-4 -right-22 w-66 max-sm:-top-10 max-sm:-right-6 max-sm:w-16"
-        src="/assets/decorative-white-rounded-wedge.png"
+        src="/assets/home/decorations/decorative-white-rounded-wedge.png"
         alt=""
         width={139}
         height={189}
       />
       <Image
         className="absolute -bottom-8 right-[3%] hidden w-54 sm:block"
-        src="/assets/decorative-lime-small-squiggle.png"
+        src="/assets/home/decorations/decorative-lime-small-squiggle.png"
         alt=""
         width={216}
         height={216}

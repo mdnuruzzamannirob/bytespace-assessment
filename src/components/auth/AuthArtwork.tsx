@@ -2,20 +2,20 @@ import Image from 'next/image'
 import { FaChartSimple } from 'react-icons/fa6'
 
 const courseLearners = [
-  'learner-pink-background.png',
-  'learner-curly-hair.png',
-  'learner-yellow-background.png',
-  'learner-blue-shirt.png',
+  'home/people/learner-pink-background.png',
+  'home/people/learner-curly-hair.png',
+  'home/people/learner-yellow-background.png',
+  'home/people/learner-blue-shirt.png',
 ]
 
 const happyStudents = [
-  'student-at-table.png',
+  'home/people/student-at-table.png',
   courseLearners[0],
-  'student-pink-shirt.png',
-  'student-with-camera.png',
-  'student-with-hat.png',
-  'student-with-glasses.png',
-  'student-outdoors.png',
+  'home/people/student-pink-shirt.png',
+  'home/people/student-with-camera.png',
+  'home/people/student-with-hat.png',
+  'home/people/student-with-glasses.png',
+  'home/people/student-outdoors.png',
 ]
 
 function StudentAvatars({
@@ -108,14 +108,14 @@ export function AuthArtwork() {
         alt=""
         className="absolute top-82 right-0 z-20"
         height={136}
-        src="/assets/decorative-white-small-squiggle.png"
+        src="/assets/home/decorations/decorative-white-small-squiggle.png"
         width={136}
       />
       <Image
         alt=""
         className="absolute bottom-1 left-0 z-20"
         height={125}
-        src="/assets/decorative-lime-triangle.png"
+        src="/assets/home/decorations/decorative-lime-triangle.png"
         width={125}
       />
       <div className="absolute right-3 bottom-5 z-30 w-65 rounded-2xl bg-lime-400 px-4 py-3 text-neutral-950 shadow-lg">
