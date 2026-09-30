@@ -107,11 +107,11 @@ export const courses = Array.from({ length: 75 }, (_, index) => {
     title: extra ?? template.title,
     category,
     level: index % 5 === 0 ? 'Intermediate' : 'Beginner',
-    durationMinutes: index % 4 === 0 ? 205 : 136,
-    lessons: index % 4 === 0 ? 22 : 17,
+    durationMinutes: [95, 136, 205][index % 3],
+    lessons: [10, 17, 22][index % 3],
     comments: 59,
     rating: index < 18 ? 4.5 : Number((4.5 + (index % 5) * 0.1).toFixed(1)),
-    price: 25,
+    price: [19, 25, 35, 49][index % 4],
     creator: 'purepearl studio',
   }
 })

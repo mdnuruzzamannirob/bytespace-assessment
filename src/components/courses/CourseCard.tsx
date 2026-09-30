@@ -17,7 +17,7 @@ export function CourseCard({ course, className = '' }: { course: Course; classNa
     >
       <div className="relative aspect-341/196 overflow-hidden rounded-xl bg-neutral-100">
         <Image
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover"
           src={course.image}
           alt=""
           fill
