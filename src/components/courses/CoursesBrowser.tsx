@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FaChartSimple } from 'react-icons/fa6'
 import {
   FiChevronLeft,
@@ -30,46 +30,6 @@ const sortOptions = [
 ] as const
 
 const categorySwiperModules = [A11y, FreeMode, Keyboard]
-function ChoiceMenu({
-  label,
-  value,
-  options,
-  onSelect,
-  icon,
-  accent = false,
-  align = 'left',
-  wrapperClassName = '',
-}: {
-  label: string
-  value: string
-  options: readonly string[]
-  onSelect: (value: string) => void
-  icon?: ReactNode
-  accent?: boolean
-  align?: 'left' | 'right'
-  wrapperClassName?: string
-}) {
-  return (
-    <Select
-      label={label}
-      value={value}
-      options={options}
-      onSelect={onSelect}
-      icon={icon}
-      triggerLabel={
-        value === 'All levels' ? 'Level' : value === 'Featured' ? 'Category' : value
-      }
-      align={align}
-      className={wrapperClassName}
-      buttonClassName={
-        accent
-          ? 'border-lime-400 bg-lime-400 px-6 text-neutral-950 hover:bg-lime-300'
-          : ''
-      }
-    />
-  )
-}
-
 export function CoursesBrowser({
   initialCategory = 'Featured',
   initialSearch = '',
@@ -197,7 +157,7 @@ export function CoursesBrowser({
               placeholder={'Search ' + scope.toLowerCase()}
               value={search}
             />
-            <ChoiceMenu
+            <Select
               label="Search by"
               value={scope}
               options={searchScopes}
@@ -205,8 +165,8 @@ export function CoursesBrowser({
                 setScope(value)
                 setPage(1)
               }}
-              accent
-              wrapperClassName="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+              buttonClassName="!border-lime-400 !bg-lime-400 px-6 !text-neutral-950 hover:!border-lime-300 hover:!bg-lime-300"
+              className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
             />
           </div>
         </div>
@@ -228,8 +188,9 @@ export function CoursesBrowser({
               <FiFilter aria-hidden="true" />
               Filter
             </button>
-            <ChoiceMenu
+            <Select
               label="Course level"
+              triggerLabel={level === 'All levels' ? 'Level' : level}
               value={level}
               options={levels}
               onSelect={(value) => {
@@ -237,17 +198,18 @@ export function CoursesBrowser({
                 setPage(1)
               }}
               icon={<FaChartSimple aria-hidden="true" />}
-              wrapperClassName="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+              className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
             />
-            <ChoiceMenu
+            <Select
               label="Course category"
+              triggerLabel={category === 'Featured' ? 'Category' : category}
               value={category}
               options={categories}
               onSelect={changeCategory}
               icon={<LuShapes aria-hidden="true" />}
-              wrapperClassName="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+              className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
             />
-          <ChoiceMenu
+          <Select
             label="Sort courses"
             value={sort}
             options={sortOptions}
@@ -257,7 +219,7 @@ export function CoursesBrowser({
             }}
             icon={<LuListFilter aria-hidden="true" />}
             align="right"
-            wrapperClassName="w-full [&>button]:w-full sm:ml-auto sm:w-auto sm:[&>button]:w-auto"
+            className="w-full [&>button]:w-full sm:ml-auto sm:w-auto sm:[&>button]:w-auto"
           />
         </div>
         {showFilters && (
@@ -302,8 +264,9 @@ export function CoursesBrowser({
               </fieldset>
               <fieldset>
                 <legend className="mb-3 text-sm font-medium">Category</legend>
-                <ChoiceMenu
+                <Select
                   label="Course category"
+                  triggerLabel={category === 'Featured' ? 'Category' : category}
                   value={category}
                   options={categories}
                   onSelect={changeCategory}

@@ -143,6 +143,30 @@
   --breakpoint-wide: 90rem;
 }
 
+.ui-select-menu {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-400) transparent;
+}
+
+.ui-select-menu::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.ui-select-menu::-webkit-scrollbar-track {
+  margin-block: 0.5rem;
+}
+
+.ui-select-menu::-webkit-scrollbar-thumb {
+  border: 0.125rem solid transparent;
+  border-radius: 9999px;
+  background-clip: padding-box;
+  background-color: var(--color-neutral-400);
+}
+
+.ui-select-menu::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-500);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

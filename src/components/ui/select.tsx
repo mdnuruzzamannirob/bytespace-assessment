@@ -38,7 +38,7 @@ type MenuPosition = {
 
 const VIEWPORT_GUTTER = 16
 const MENU_GAP = 8
-const MENU_MAX_HEIGHT = 384
+const MENU_MAX_HEIGHT = 520
 const CONTENT_MENU_WIDTH = 208
 
 /** A viewport-aware select menu portaled above page stacking contexts. */
@@ -73,7 +73,10 @@ export function Select({
     )
     const spaceBelow = viewportHeight - bounds.bottom - VIEWPORT_GUTTER
     const spaceAbove = bounds.top - VIEWPORT_GUTTER
-    const preferredHeight = Math.min(MENU_MAX_HEIGHT, viewportHeight * 0.6)
+    const preferredHeight = Math.min(
+      MENU_MAX_HEIGHT,
+      viewportHeight - VIEWPORT_GUTTER * 2,
+    )
     const openAbove = spaceBelow < preferredHeight && spaceAbove > spaceBelow
     const maxHeight = Math.max(
       0,
@@ -130,7 +133,7 @@ export function Select({
           id={menuId}
           role="menu"
           aria-label={label}
-          className={`fixed z-[2147483647] overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white p-2 text-left shadow-xl ${menuClassName}`}
+          className={`fixed z-[2147483647] overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white ui-select-menu p-2 text-left shadow-xl ${menuClassName}`}
           style={position}
         >
           {options.map((option) => (
