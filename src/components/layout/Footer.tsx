@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Logo } from '@/components/ui/logo'
-import { footerColumns, legalLinks } from '@/constants/navigation'
+import { footerColumns, legalLinks } from '@/lib/constants/navigation'
 import { NewsletterForm } from './NewsletterForm'
 
 export function Footer() {
@@ -12,12 +12,16 @@ export function Footer() {
           <div className="max-w-126">
             <Logo variant="dark" />
             <p className="mt-3 mb-11 text-body-s">
-              Stay Up to date with our latest features and releases by joining our newsletter.
+              Stay Up to date with our latest features and releases by joining
+              our newsletter.
             </p>
             <NewsletterForm />
           </div>
 
-          <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-10 lg:pt-11">
+          <nav
+            aria-label="Footer navigation"
+            className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-10 lg:pt-11"
+          >
             {footerColumns.map((column, index) => (
               <ul className="space-y-4" key={index}>
                 {column.map(({ label, href }) => (

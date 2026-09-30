@@ -85,12 +85,11 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
             </p>
 
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap gap-3">
-                <CreatorStats
-                  products={getCoursesByCreator(creator.slug).length}
-                  followers={creator.followers}
-                />
-              </div>
+              <CreatorStats
+                products={getCoursesByCreator(creator.slug).length}
+                followers={creator.followers}
+                variant="pills"
+              />
               <FollowButton
                 followed={followed}
                 onToggle={() => setFollowed((value) => !value)}

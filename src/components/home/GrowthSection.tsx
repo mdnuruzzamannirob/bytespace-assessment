@@ -2,8 +2,8 @@ import Image from 'next/image'
 import { FaCheck } from 'react-icons/fa6'
 
 import { CourseCard } from '@/components/courses/CourseCard'
-import { creatorBenefits, growthStats } from '@/constants/home'
 import { courses } from '@/lib/catalog'
+import { creatorBenefits, growthStats } from '@/lib/constants/home'
 
 import { FloatingStudents, ProgressCard } from './HomeShared'
 

@@ -8,7 +8,6 @@ export const headerAccountLinks = [
   { label: 'Sign In', href: '/login' },
   { label: 'Join Us', href: '/signup' },
 ] as const
-
 export const shoppingBagHref = '/cart'
 
 export const footerColumns = [

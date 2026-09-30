@@ -1,13 +1,17 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import { AiOutlineShopping } from 'react-icons/ai'
 import { PiList, PiX } from 'react-icons/pi'
 
 import { Logo } from '@/components/ui/logo'
-import { headerAccountLinks, headerNavigation, shoppingBagHref } from '@/constants/navigation'
+import {
+  headerAccountLinks,
+  headerNavigation,
+  shoppingBagHref,
+} from '@/lib/constants/navigation'
 
 export function Header() {
   const pathname = usePathname()
@@ -49,12 +53,16 @@ export function Header() {
   }, [menuOpen])
 
   const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
+    href === '/'
+      ? pathname === '/'
+      : pathname === href || pathname.startsWith(`${href}/`)
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-200 ${
-        scrolled || menuOpen ? 'bg-blue-800/95 shadow-sm backdrop-blur-md' : 'bg-transparent'
+        scrolled || menuOpen
+          ? 'bg-blue-800/95 shadow-sm backdrop-blur-md'
+          : 'bg-transparent'
       }`}
     >
       <div
@@ -64,7 +72,10 @@ export function Header() {
       >
         <Logo />
 
-        <nav aria-label="Main navigation" className="hidden justify-self-center md:block">
+        <nav
+          aria-label="Main navigation"
+          className="hidden justify-self-center md:block"
+        >
           <ul className="flex items-center gap-6">
             {headerNavigation.map(({ label, href }) => (
               <li key={label}>
@@ -106,7 +117,9 @@ export function Header() {
             <button
               aria-controls="mobile-navigation"
               aria-expanded={menuOpen}
-              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={
+                menuOpen ? 'Close navigation menu' : 'Open navigation menu'
+              }
               className="flex size-8 items-center justify-center focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
               onClick={() => setMenuOpen((open) => !open)}
               type="button"

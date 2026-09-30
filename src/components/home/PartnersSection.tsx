@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { partnerLogos } from '@/constants/home'
+import { partnerLogos } from '@/lib/constants/home'
 
 export function PartnersSection() {
   return (

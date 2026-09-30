@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { testimonials } from '@/constants/home'
+import { testimonials } from '@/lib/constants/home'
 
 export function TestimonialsSection() {
   return (
