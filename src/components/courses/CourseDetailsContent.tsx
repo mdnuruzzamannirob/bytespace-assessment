@@ -10,6 +10,7 @@ import { CourseReviews } from '@/components/courses/details/CourseReviews'
 import { DetailIcon } from '@/components/courses/details/DetailPrimitives'
 import { gridPatternClassName } from '@/components/home/HomeShared'
 import { ButtonLink } from '@/components/ui/button'
+import { useToast } from '@/components/ui/toast'
 import { getCreatorBySlug, type Course } from '@/lib/catalog'
 import { getCourseDetails, includedItems } from '@/lib/demo-data/course-details'
 
@@ -18,8 +19,8 @@ const assets = '/assets/course-details'
 
 export function CourseDetailsContent({ course }: { course: Course }) {
   const [tab, setTab] = useState<Tab>('About')
-  const [shareMessage, setShareMessage] = useState('')
   const [activeRating, setActiveRating] = useState<number | 'all'>('all')
+  const { showToast } = useToast()
   const creator = getCreatorBySlug(course.creatorSlug)
   const details = getCourseDetails(course)
   const title =
@@ -33,11 +34,11 @@ export function CourseDetailsContent({ course }: { course: Course }) {
       if (navigator.share) await navigator.share({ title, url })
       else {
         await navigator.clipboard.writeText(url)
-        setShareMessage('Link copied')
+        showToast('Course link copied.', 'success')
       }
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') return
-      setShareMessage('Unable to share this link')
+      showToast('Unable to share this link.', 'error')
     }
   }
 
@@ -97,9 +98,6 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 <DetailIcon name="share.svg" />
                 Share
               </button>
-              <span role="status" className="text-sm text-blue-50">
-                {shareMessage}
-              </span>
             </div>
           </div>
           <div className="mt-16 grid items-start gap-8 xl:grid-cols-[725px_412px] xl:gap-15.75">

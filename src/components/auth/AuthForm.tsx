@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, type FormEvent } from 'react'
+import { type FormEvent } from 'react'
 import { FaFacebook, FaGoogle } from 'react-icons/fa6'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/toast'
 import { DEMO_EMAIL, DEMO_PASSWORD } from '@/lib/auth-session'
 import { useAuth } from './AuthProvider'
 
@@ -47,10 +48,10 @@ function AuthField({
 }
 
 export function AuthForm({ mode }: AuthFormProps) {
-  const [message, setMessage] = useState('')
   const router = useRouter()
   const searchParams = useSearchParams()
   const { login, signup, socialLogin } = useAuth()
+  const { showToast } = useToast()
   const isLogin = mode === 'login'
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -63,16 +64,22 @@ export function AuthForm({ mode }: AuthFormProps) {
       ? login(email, password)
       : signup(name, email, password)
     if (!success) {
-      setMessage(
+      showToast(
         'That email and password do not match. Try the demo credentials below.',
+        'error',
       )
       return
     }
+    showToast(
+      isLogin ? 'Welcome back to ByteSpace.' : 'Your demo account is ready.',
+      'success',
+    )
     router.push(searchParams.get('next') || '/')
   }
 
   function handleSocialLogin(provider: 'google' | 'facebook') {
     socialLogin(provider)
+    showToast('Welcome back to ByteSpace.', 'success')
     router.push(searchParams.get('next') || '/')
   }
 
@@ -128,12 +135,6 @@ export function AuthForm({ mode }: AuthFormProps) {
             <strong>{DEMO_PASSWORD}</strong>
           </p>
         )}
-        {message && (
-          <p className="mt-4 text-body-s text-neutral-700" role="status">
-            {message}
-          </p>
-        )}
-
         {isLogin && (
           <div className="mt-18">
             <div className="flex items-center gap-3 text-body-l text-neutral-400">

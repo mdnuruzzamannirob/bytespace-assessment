@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google'
 import type { ReactNode } from 'react'
 
 import { AuthProvider } from '@/components/auth/AuthProvider'
+import { ToastProvider } from '@/components/ui/toast'
 import './globals.css'
 
 const poppins = Poppins({
@@ -38,7 +39,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className="min-h-screen">
-        <AuthProvider>{children}</AuthProvider>
+        <ToastProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   )
