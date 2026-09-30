@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 import { gridPatternClassName } from '@/components/home/HomeShared'
@@ -325,7 +326,6 @@ function ReviewsPanel({
 export function CourseDetailsContent({ course }: { course: Course }) {
   const [tab, setTab] = useState<Tab>('About')
   const [shareMessage, setShareMessage] = useState('')
-  const [showCreator, setShowCreator] = useState(false)
   const [activeRating, setActiveRating] = useState<number | 'all'>('all')
   const isReferenceCourse = course.id === 2
   const title = isReferenceCourse
@@ -518,21 +518,12 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                   Ready to Dive In? Enroll Now and Start Building Your Digital
                   Future!
                 </p>
-                <button
-                  type="button"
-                  aria-expanded={showCreator}
-                  onClick={() => setShowCreator(!showCreator)}
-                  className="mt-6 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-neutral-500"
+                <Link
+                  href="/creators/purepearl-studio"
+                  className="mt-6 inline-flex rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-500 hover:bg-neutral-50"
                 >
-                  {showCreator ? 'Hide Profile' : 'See Full Profile'}
-                </button>
-                {showCreator && (
-                  <p className="mt-4 rounded-xl bg-neutral-50 p-4 text-sm leading-relaxed text-neutral-700">
-                    PurePearl Studio creates practical courses for curious
-                    learners, with a focus on digital design and creative
-                    skills.
-                  </p>
-                )}
+                  See Full Profile
+                </Link>
               </div>
             </aside>
           </div>
