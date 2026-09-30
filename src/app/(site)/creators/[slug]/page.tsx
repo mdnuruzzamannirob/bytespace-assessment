@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { CreatorProfile } from '@/components/creators/CreatorProfile'
-import { creators } from '@/constants/creators'
+import { creators, getCreatorBySlug } from '@/lib/catalog'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -12,16 +12,18 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const creator = creators.find((item) => item.slug === slug)
+  const creator = getCreatorBySlug(slug)
   return {
-    title: creator ? `${creator.name} | ByteSpace` : 'Creator not found | ByteSpace',
+    title: creator
+      ? `${creator.name} | ByteSpace`
+      : 'Creator not found | ByteSpace',
     description: creator?.tagline,
   }
 }
 
 export default async function CreatorProfilePage({ params }: Props) {
   const { slug } = await params
-  const creator = creators.find((item) => item.slug === slug)
+  const creator = getCreatorBySlug(slug)
   if (!creator) notFound()
   return <CreatorProfile creator={creator} />
 }

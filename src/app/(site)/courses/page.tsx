@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { CoursesBrowser } from '@/components/courses/CoursesBrowser'
-import { categories } from '@/constants/courses'
+import { categories } from '@/lib/constants/catalog'
 
 export const metadata: Metadata = {
   title: 'Courses | ByteSpace',
@@ -56,7 +56,13 @@ export default async function CoursesPage({
         'Courses',
       )}
       initialSearch={valueOf(params.q)}
-      initialDuration={allowedValue(valueOf(params.duration), ["any", "under2", "twoToThree", "threePlus"], "any") as "any" | "under2" | "twoToThree" | "threePlus"}
+      initialDuration={
+        allowedValue(
+          valueOf(params.duration),
+          ['any', 'under2', 'twoToThree', 'threePlus'],
+          'any',
+        ) as 'any' | 'under2' | 'twoToThree' | 'threePlus'
+      }
       initialSort={allowedValue(
         valueOf(params.sort),
         ['Most relevant', 'Title A–Z', 'Title Z–A', 'Highest rated'],

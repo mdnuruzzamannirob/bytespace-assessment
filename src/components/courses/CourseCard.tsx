@@ -3,11 +3,18 @@ import Link from 'next/link'
 import { FaChartSimple } from 'react-icons/fa6'
 
 import { StudentFaces } from '@/components/home/HomeShared'
-import type { Course } from '@/constants/courses'
+import { getCreatorBySlug, type Course } from '@/lib/catalog'
 
-export function CourseCard({ course, className = '' }: { course: Course; className?: string }) {
+export function CourseCard({
+  course,
+  className = '',
+}: {
+  course: Course
+  className?: string
+}) {
   const hours = Math.floor(course.durationMinutes / 60)
   const minutes = course.durationMinutes % 60
+  const creator = getCreatorBySlug(course.creatorSlug)
 
   return (
     <Link
@@ -24,9 +31,15 @@ export function CourseCard({ course, className = '' }: { course: Course; classNa
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 341px"
         />
         <div className="absolute inset-x-2 bottom-2 flex flex-wrap justify-between gap-1 text-[10px] text-neutral-700 sm:text-xs">
-          <span className="rounded-full bg-white/80 px-2 py-1">{course.lessons} Lessons</span>
-          <span className="rounded-full bg-white/80 px-2 py-1">{hours} hours {minutes} mins</span>
-          <span className="rounded-full bg-white/80 px-2 py-1">{course.comments} Comments</span>
+          <span className="rounded-full bg-white/80 px-2 py-1">
+            {course.lessons} Lessons
+          </span>
+          <span className="rounded-full bg-white/80 px-2 py-1">
+            {hours} hours {minutes} mins
+          </span>
+          <span className="rounded-full bg-white/80 px-2 py-1">
+            {course.comments} Comments
+          </span>
         </div>
       </div>
       <div className="mt-4 flex items-start justify-between gap-3">
@@ -37,11 +50,17 @@ export function CourseCard({ course, className = '' }: { course: Course; classNa
           {course.title}
         </h2>
         <span className="shrink-0 text-body-xs text-neutral-500">
-          {course.rating} <span className="text-lime-500" aria-label="out of 5 stars">★</span>
+          {course.rating}{' '}
+          <span className="text-lime-500" aria-label="out of 5 stars">
+            ★
+          </span>
         </span>
       </div>
       <p className="text-body-xs text-neutral-500">
-        by <span className="text-blue-700">{course.creator}</span>
+        by{' '}
+        <span className="text-blue-700">
+          {creator?.name ?? 'ByteSpace Creator'}
+        </span>
       </p>
       <div className="mt-4 flex items-center gap-2">
         <span className="inline-flex items-center gap-1 rounded-full bg-neutral-50 px-3 py-1 text-body-xs">
