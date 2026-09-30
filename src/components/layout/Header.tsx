@@ -118,112 +118,83 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center justify-self-end gap-5 sm:gap-6">
-          {!loading && user ? (
-            <>
-              {shoppingBag}
-              <div className="hidden sm:block">
-                <Popover
-                  open={profileOpen}
-                  onOpenChange={setProfileOpen}
-                  label="Account menu"
-                  trigger={
-                    <span className="flex size-10 items-center justify-center rounded-full bg-lime-400 text-sm font-semibold text-neutral-950 transition-transform">
-                      {getInitials(user.name)}
-                    </span>
-                  }
-                >
-                  <div className="border-b border-neutral-100 px-2 pb-3">
-                    <p className="font-medium">{user.name}</p>
-                    <p className="mt-1 truncate text-xs text-neutral-500">
-                      {user.email}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="mt-2 flex w-full items-center rounded-xl px-2 py-2 text-left text-sm text-neutral-700 transition-colors hover:bg-neutral-50"
-                    onClick={() => {
-                      logout()
-                      setProfileOpen(false)
-                      showToast('You have been signed out.', 'success')
-                    }}
+        {!loading && (
+          <div className="flex items-center justify-self-end gap-5 sm:gap-6">
+            {user ? (
+              <>
+                {shoppingBag}
+                <div className="hidden sm:block">
+                  <Popover
+                    open={profileOpen}
+                    onOpenChange={setProfileOpen}
+                    label="Account menu"
+                    trigger={
+                      <span className="flex size-10 items-center justify-center rounded-full bg-lime-400 text-sm font-semibold text-neutral-950 transition-transform">
+                        {getInitials(user.name)}
+                      </span>
+                    }
                   >
-                    Sign out
-                  </button>
-                </Popover>
-              </div>
-            </>
-          ) : (
-            <>
-              {headerAccountLinks.map(({ label, href }) => (
-                <Link
-                  aria-current={isActive(href) ? 'page' : undefined}
-                  className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
-                  href={href}
-                  key={label}
-                >
-                  {label}
-                </Link>
-              ))}
-              {shoppingBag}
-            </>
-          )}
-          <div className="md:hidden" ref={menuRef}>
-            <button
-              aria-controls="mobile-navigation"
-              aria-expanded={menuOpen}
-              aria-label={
-                menuOpen ? 'Close navigation menu' : 'Open navigation menu'
-              }
-              className="flex size-8 items-center justify-center focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
-              onClick={() => setMenuOpen((open) => !open)}
-              type="button"
-            >
-              {menuOpen ? (
-                <PiX aria-hidden="true" className="size-6" />
-              ) : (
-                <PiList aria-hidden="true" className="size-6" />
-              )}
-            </button>
-            {menuOpen && (
-              <nav
-                aria-label="Mobile navigation"
-                className="absolute inset-x-0 top-full bg-blue-800 px-5 pb-6 shadow-lg md:hidden"
-                id="mobile-navigation"
+                    <div className="border-b border-neutral-100 px-2 pb-3">
+                      <p className="font-medium">{user.name}</p>
+                      <p className="mt-1 truncate text-xs text-neutral-500">
+                        {user.email}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="mt-2 flex w-full items-center rounded-xl px-2 py-2 text-left text-sm text-neutral-700 transition-colors hover:bg-neutral-50"
+                      onClick={() => {
+                        logout()
+                        setProfileOpen(false)
+                        showToast('You have been signed out.', 'success')
+                      }}
+                    >
+                      Sign out
+                    </button>
+                  </Popover>
+                </div>
+              </>
+            ) : (
+              <>
+                {headerAccountLinks.map(({ label, href }) => (
+                  <Link
+                    aria-current={isActive(href) ? 'page' : undefined}
+                    className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
+                    href={href}
+                    key={label}
+                  >
+                    {label}
+                  </Link>
+                ))}
+                {shoppingBag}
+              </>
+            )}
+            <div className="md:hidden" ref={menuRef}>
+              <button
+                aria-controls="mobile-navigation"
+                aria-expanded={menuOpen}
+                aria-label={
+                  menuOpen ? 'Close navigation menu' : 'Open navigation menu'
+                }
+                className="flex size-8 items-center justify-center focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
+                onClick={() => setMenuOpen((open) => !open)}
+                type="button"
               >
-                <ul className="mx-auto flex max-w-300 flex-col gap-4">
-                  {headerNavigation.map(({ label, href }) => (
-                    <li key={label}>
-                      <Link
-                        aria-current={isActive(href) ? 'page' : undefined}
-                        className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
-                        href={href}
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                  {!loading && user ? (
-                    <li className="sm:hidden">
-                      <button
-                        type="button"
-                        className="flex items-center gap-3 py-1 text-label-m font-normal hover:text-lime-400"
-                        onClick={() => {
-                          logout()
-                          setMenuOpen(false)
-                          showToast('You have been signed out.', 'success')
-                        }}
-                      >
-                        <span className="flex size-8 items-center justify-center rounded-full bg-lime-400 text-xs font-semibold text-neutral-950">
-                          {getInitials(user.name)}
-                        </span>
-                        Sign out ({user.name})
-                      </button>
-                    </li>
-                  ) : (
-                    headerAccountLinks.map(({ label, href }) => (
-                      <li className="sm:hidden" key={label}>
+                {menuOpen ? (
+                  <PiX aria-hidden="true" className="size-6" />
+                ) : (
+                  <PiList aria-hidden="true" className="size-6" />
+                )}
+              </button>
+              {menuOpen && (
+                <nav
+                  aria-label="Mobile navigation"
+                  className="absolute inset-x-0 top-full bg-blue-800 px-5 pb-6 shadow-lg md:hidden"
+                  id="mobile-navigation"
+                >
+                  <ul className="mx-auto flex max-w-300 flex-col gap-4">
+                    {headerNavigation.map(({ label, href }) => (
+                      <li key={label}>
                         <Link
                           aria-current={isActive(href) ? 'page' : undefined}
                           className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
@@ -233,13 +204,44 @@ export function Header() {
                           {label}
                         </Link>
                       </li>
-                    ))
-                  )}
-                </ul>
-              </nav>
-            )}
+                    ))}
+                    {!loading && user ? (
+                      <li className="sm:hidden">
+                        <button
+                          type="button"
+                          className="flex items-center gap-3 py-1 text-label-m font-normal hover:text-lime-400"
+                          onClick={() => {
+                            logout()
+                            setMenuOpen(false)
+                            showToast('You have been signed out.', 'success')
+                          }}
+                        >
+                          <span className="flex size-8 items-center justify-center rounded-full bg-lime-400 text-xs font-semibold text-neutral-950">
+                            {getInitials(user.name)}
+                          </span>
+                          Sign out ({user.name})
+                        </button>
+                      </li>
+                    ) : (
+                      headerAccountLinks.map(({ label, href }) => (
+                        <li className="sm:hidden" key={label}>
+                          <Link
+                            aria-current={isActive(href) ? 'page' : undefined}
+                            className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
+                            href={href}
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            {label}
+                          </Link>
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </nav>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   )
