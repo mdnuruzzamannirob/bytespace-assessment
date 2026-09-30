@@ -397,9 +397,12 @@ export function CourseDetailsContent({ course }: { course: Course }) {
               </p>
               <p className="mt-6 text-lg text-blue-50">
                 by{' '}
-                <span className="font-medium text-lime-400">
+                <Link
+                  href="/creators/purepearl-studio"
+                  className="font-medium text-lime-400 transition-colors hover:text-lime-200 hover:underline"
+                >
                   {course.creator}
-                </span>
+                </Link>
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 {[
@@ -508,7 +511,12 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                     className="rounded-full"
                   />
                   <div>
-                    <p className="text-lg font-medium">PurePearl Studio</p>
+                    <Link
+                      href="/creators/purepearl-studio"
+                      className="text-lg font-medium text-neutral-950 transition-colors hover:text-blue-700 hover:underline"
+                    >
+                      PurePearl Studio
+                    </Link>
                     <p className="text-base text-neutral-700">
                       Professional Creator
                     </p>
