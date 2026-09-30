@@ -7,7 +7,6 @@ export const creators = [
     avatar: '/assets/creators/purepearl-studio.png',
     productCount: 3,
     followers: 12,
-    specialty: 'UI/UX & Web design',
   },
   {
     slug: 'maya-khan',
@@ -17,7 +16,6 @@ export const creators = [
     avatar: '/assets/learner-pink-background.png',
     productCount: 8,
     followers: 124,
-    specialty: 'Product design',
   },
   {
     slug: 'arif-rahman',
@@ -27,7 +25,6 @@ export const creators = [
     avatar: '/assets/student-with-glasses.png',
     productCount: 6,
     followers: 98,
-    specialty: 'Data & analytics',
   },
   {
     slug: 'sara-johnson',
@@ -37,7 +34,6 @@ export const creators = [
     avatar: '/assets/learner-yellow-background.png',
     productCount: 11,
     followers: 216,
-    specialty: 'Marketing',
   },
   {
     slug: 'nabil-ahmed',
@@ -47,7 +43,6 @@ export const creators = [
     avatar: '/assets/student-with-hat.png',
     productCount: 9,
     followers: 173,
-    specialty: 'Development',
   },
   {
     slug: 'elena-rodriguez',
@@ -57,7 +52,6 @@ export const creators = [
     avatar: '/assets/student-pink-shirt.png',
     productCount: 7,
     followers: 147,
-    specialty: 'Business',
   },
   {
     slug: 'james-wilson',
@@ -67,7 +61,6 @@ export const creators = [
     avatar: '/assets/student-with-camera.png',
     productCount: 5,
     followers: 89,
-    specialty: 'Photography',
   },
   {
     slug: 'aisha-noor',
@@ -77,7 +70,6 @@ export const creators = [
     avatar: '/assets/learner-curly-hair.png',
     productCount: 10,
     followers: 191,
-    specialty: 'Creative careers',
   },
 ] as const
 
