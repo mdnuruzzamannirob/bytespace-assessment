@@ -1,13 +1,15 @@
 import Image from 'next/image'
 
-import { DetailIcon, assets } from './DetailPrimitives'
+import { DetailIcon } from './DetailPrimitives'
 
 export function CourseOverview({
   description,
   keyPoints,
+  previewImages,
 }: {
   description: string[]
   keyPoints: string[]
+  previewImages: string[]
 }) {
   return (
     <div role="tabpanel" id="panel-about" aria-labelledby="tab-about" className="mt-10">
@@ -18,14 +20,20 @@ export function CourseOverview({
         ))}
       </div>
       <h2 className="font-heading mt-8 text-xl">Sneak Peek</h2>
-      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {['sneak-1.jpg', 'sneak-2.jpg', 'sneak-3.jpg', 'sneak-4.jpg'].map((file, index) => (
+      <div
+        className={`mt-6 grid gap-4 ${previewImages.length > 1 ? 'grid-cols-2 sm:grid-cols-4' : 'max-w-100'}`}
+      >
+        {previewImages.map((file, index) => (
           <div className="relative aspect-video overflow-hidden rounded-2xl" key={file}>
             <Image
-              src={`${assets}/${file}`}
+              src={file}
               alt={`Course preview ${index + 1}`}
               fill
-              sizes="(max-width: 640px) 50vw, 167px"
+              sizes={
+                previewImages.length > 1
+                  ? '(max-width: 640px) 50vw, 167px'
+                  : '(max-width: 640px) 100vw, 400px'
+              }
               className="object-cover"
             />
           </div>

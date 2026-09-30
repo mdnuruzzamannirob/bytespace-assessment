@@ -11,7 +11,7 @@ export const creators = [
     slug: 'maya-khan',
     name: 'Maya Khan',
     tagline: 'Product designer & creative mentor',
-    bio: 'Maya turns complex product ideas into simple, thoughtful experiences. Her courses make design systems and product thinking feel practical.',
+    bio: 'Maya turns complex product ideas into simple, thoughtful experiences. Her courses make product thinking and mobile UX feel practical.',
     avatar: '/assets/creators/maya-khan.jpg',
     followers: 124,
   },

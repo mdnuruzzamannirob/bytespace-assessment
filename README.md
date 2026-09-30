@@ -7,7 +7,7 @@ ByteSpace is a responsive course marketplace demo built from the ByteSpace desig
 - [Figma design](https://www.figma.com/design/26TBgRjmpuxudcErJsHUfy/ByteSpace-New-Check-website?node-id=0-1)
 - [Public source repository](https://github.com/mdnuruzzamannirob/bytespace-assessment)
 - Start at `/` for the complete responsive landing page. `/login` and `/signup` are bonus pages; the course and creator views demonstrate reusable data-driven components.
-- Search, filtering, sorting, pagination, share/copy, and local follow controls are interactive. Course content, reviews, progress, testimonials, and marketplace figures are sample content. Enrollment, shopping bag, newsletter delivery, and legal/info pages are not connected to services.
+- Search, filtering, sorting, pagination, share/copy, and local follow controls are interactive. Course content, illustrative reviews, progress, testimonials, and marketplace figures are sample content. Enrollment, shopping bag, newsletter delivery, and legal/info pages are not connected to services.
 - Authentication is a browser-only demonstration. Signup credentials are stored in localStorage on that browser; use a unique test password. Google and Facebook controls create local demo sessions without contacting those providers. No server authorization is implemented.
 
 ## Tech Stack
@@ -63,7 +63,7 @@ src/
   components/           Feature sections and reusable UI primitives
   lib/
     constants/          Navigation, catalog, and homepage constants
-    demo-data/          Courses, creators, and course detail content
+    demo-data/          Courses, creators, lesson outlines, and sample reviews
     auth-session.ts     Client-side demo session helpers
     catalog.ts          Course and creator lookup/filter/sort helpers
 public/assets/          Local course, creator, and design assets
@@ -80,7 +80,7 @@ Courses reference creators through `creatorSlug`. Creator product counts are der
 - `filterCourses`
 - `sortCourses`
 
-Course detail content lives in [`src/lib/demo-data/course-details.ts`](./src/lib/demo-data/course-details.ts), while the UI is split into focused overview, lesson, and review components.
+The course catalog in [`src/lib/demo-data/courses.ts`](./src/lib/demo-data/courses.ts) is the source for course metadata, rating, review count, lesson count, duration, enrollments, and creator relationships. Course-specific topics live in [`src/lib/demo-data/course-outlines.ts`](./src/lib/demo-data/course-outlines.ts). [`src/lib/demo-data/course-details.ts`](./src/lib/demo-data/course-details.ts) builds the lesson modules from those topics so their counts and minutes match the catalog. [`src/lib/demo-data/course-reviews.ts`](./src/lib/demo-data/course-reviews.ts) supplies illustrative, course-specific review cards and rating distributions whose counts and rounded average match each course. These cards are demo examples, not verified customer reviews. Creator product counts and platform totals are derived from the catalog; follower counts start from creator demo data and reflect local follow changes. The three homepage testimonials remain design-specific sample content.
 
 ## Quality Checks
 
@@ -89,7 +89,7 @@ pnpm format       # Format source files and sort Tailwind classes
 pnpm format:check # Check formatting without changing files
 pnpm lint         # Run ESLint
 pnpm exec tsc --noEmit
-pnpm test         # Catalog and query-state regression checks
+pnpm test         # Catalog, query-state, and cross-page data consistency checks
 pnpm build        # Create the production build
 ```
 

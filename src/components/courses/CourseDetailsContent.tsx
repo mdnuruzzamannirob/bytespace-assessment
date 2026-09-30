@@ -28,7 +28,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
   const { showToast } = useToast()
   const creator = getCreatorBySlug(course.creatorSlug)
   const details = getCourseDetails(course)
-  const title = course.id === 2 ? 'Build Digital Asset: A Comprehensive Guide' : course.title
+  const title = course.title
 
   async function share() {
     const url = window.location.href
@@ -101,7 +101,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
           <div className="mt-16 grid items-start gap-8 xl:grid-cols-[725px_412px] xl:gap-15.75">
             <div className="rounded-card relative aspect-720/479 overflow-hidden bg-neutral-100">
               <Image
-                src={course.id === 2 ? `${assets}/preview.jpg` : course.image}
+                src={course.image}
                 alt={`${title} course preview`}
                 fill
                 priority
@@ -125,7 +125,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 {details.lessons} Lessons ({details.duration})
               </h2>
               <ol className="mt-6 space-y-3 text-sm">
-                {details.lessonsList.map((lesson, index) => (
+                {details.lessonsList.slice(0, 3).map((lesson, index) => (
                   <li
                     className="grid grid-cols-[24px_minmax(0,1fr)_auto] items-start gap-2"
                     key={lesson.title}
@@ -137,7 +137,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 ))}
               </ol>
               <p className="mt-3 text-sm text-neutral-700">
-                {Math.max(details.lessons - details.lessonsList.length, 0)} more videos
+                {Math.max(details.lessons - Math.min(details.lessonsList.length, 3), 0)} more videos
               </p>
               <p className="font-heading mt-6 text-4xl text-blue-800">
                 ${course.price}
@@ -171,7 +171,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                     >
                       {creator?.name}
                     </Link>
-                    <p className="text-base text-neutral-700">Professional Creator</p>
+                    <p className="text-base text-neutral-700">{creator?.tagline}</p>
                   </div>
                 </div>
                 <Link
@@ -234,7 +234,11 @@ export function CourseDetailsContent({ course }: { course: Course }) {
             ))}
           </div>
           {tab === 'About' && (
-            <CourseOverview description={details.description} keyPoints={details.keyPoints} />
+            <CourseOverview
+              description={details.description}
+              keyPoints={details.keyPoints}
+              previewImages={details.previewImages}
+            />
           )}
           {tab === 'Lessons' && <CourseLessons modules={details.modules} />}
           {tab === 'Reviews' && (

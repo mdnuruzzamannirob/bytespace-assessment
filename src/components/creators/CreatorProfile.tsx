@@ -7,7 +7,7 @@ import { CreatorStats } from '@/components/creators/CreatorStats'
 import { FollowButton } from '@/components/creators/FollowButton'
 import { useFollowedCreators } from '@/components/creators/FollowProvider'
 import { gridPatternClassName } from '@/components/home/HomeShared'
-import { filterCourses, getCoursesByCreator, sortCourses } from '@/lib/catalog'
+import { filterCourses, getCoursesByCreator, getCreatorStats, sortCourses } from '@/lib/catalog'
 import type { CourseCategory, CourseLevel, CourseSort } from '@/lib/constants/catalog'
 import type { Creator } from '@/lib/demo-data/creators'
 import { useCallback, useMemo, useState } from 'react'
@@ -23,6 +23,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
   const [priceMax, setPriceMax] = useState(0)
   const [duration, setDuration] = useState<'any' | 'under2' | 'twoToThree' | 'threePlus'>('any')
   const closeFilters = useCallback(() => setShowFilters(false), [])
+  const stats = getCreatorStats(creator, followedCreators)
   const creatorCourses = useMemo(() => {
     const matching = filterCourses(getCoursesByCreator(creator.slug), {
       category,
@@ -67,11 +68,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
             </p>
 
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <CreatorStats
-                products={getCoursesByCreator(creator.slug).length}
-                followers={creator.followers}
-                variant="pills"
-              />
+              <CreatorStats products={stats.products} followers={stats.followers} variant="pills" />
               <FollowButton
                 followed={followedCreators.includes(creator.slug)}
                 onToggle={() => toggleFollow(creator.slug)}
@@ -103,6 +100,9 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
           onPriceChange={setPriceMax}
           onToggleFilters={() => setShowFilters((value) => !value)}
           onClear={() => {
+            setCategory('Featured')
+            setLevel('All levels')
+            setSort('Most relevant')
             setRatingMin(0)
             setLessonsMin(0)
             setPriceMax(0)

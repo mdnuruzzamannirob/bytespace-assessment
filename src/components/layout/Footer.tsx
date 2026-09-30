@@ -39,7 +39,7 @@ export function Footer() {
         </div>
 
         <div className="text-body-xs mt-16 flex flex-col gap-4 border-t border-neutral-200 pt-4 pb-12 sm:flex-row sm:items-center sm:justify-between lg:mt-32">
-          <p>© 2023 ByteSpace. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} ByteSpace. All rights reserved.</p>
           <nav aria-label="Legal navigation">
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
               {legalLinks.map(({ label, href }) => (

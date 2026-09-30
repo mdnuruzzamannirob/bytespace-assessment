@@ -11,7 +11,7 @@ import { useFollowedCreators } from '@/components/creators/FollowProvider'
 import { ButtonLink } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Select } from '@/components/ui/select'
-import { getCoursesByCreator } from '@/lib/catalog'
+import { getCreatorStats } from '@/lib/catalog'
 import { creators } from '@/lib/demo-data/creators'
 
 const pageSize = 9
@@ -32,11 +32,13 @@ export function CreatorsBrowser() {
     if (sort === 'Name A–Z') return [...matching].sort((a, b) => a.name.localeCompare(b.name))
     if (sort === 'Name Z–A') return [...matching].sort((a, b) => b.name.localeCompare(a.name))
     if (sort === 'Most products')
-      return [...matching].sort(
-        (a, b) => getCoursesByCreator(b.slug).length - getCoursesByCreator(a.slug).length,
-      )
-    return [...matching].sort((a, b) => b.followers - a.followers)
-  }, [search, sort])
+      return [...matching].sort((a, b) => getCreatorStats(b).products - getCreatorStats(a).products)
+    return [...matching].sort(
+      (a, b) =>
+        getCreatorStats(b, followedCreators).followers -
+        getCreatorStats(a, followedCreators).followers,
+    )
+  }, [search, sort, followedCreators])
 
   const pageCount = Math.max(1, Math.ceil(visibleCreators.length / pageSize))
   const activePage = Math.min(page, pageCount)
@@ -97,8 +99,8 @@ export function CreatorsBrowser() {
                   </div>
                   <div className="mt-3">
                     <CreatorStats
-                      products={getCoursesByCreator(creator.slug).length}
-                      followers={creator.followers}
+                      products={getCreatorStats(creator, followedCreators).products}
+                      followers={getCreatorStats(creator, followedCreators).followers}
                     />
                   </div>
                   <ButtonLink

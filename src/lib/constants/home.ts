@@ -1,5 +1,4 @@
-import { courses } from '@/lib/demo-data/courses'
-import { creators } from '@/lib/demo-data/creators'
+import { platformStats } from '@/lib/catalog'
 import { categories as courseTopics } from './catalog'
 
 export { courseTopics }
@@ -39,6 +38,8 @@ export const testimonials = [
   },
 ] as const
 
+export const demoLearnerProgress = 55
+
 export const partnerLogos = ['wave', 'sunburst', 'compass', 'flower', 'rings'] as const
 export const studentAvatars = [
   'home/people/student-at-table.png',
@@ -50,9 +51,9 @@ export const studentAvatars = [
   'home/people/student-outdoors.png',
 ] as const
 export const growthStats = [
-  { value: '12K', label: 'Students' },
-  { value: String(courses.length), label: 'Courses' },
-  { value: String(creators.length), label: 'Creators' },
+  { value: platformStats.enrollments.toLocaleString(), label: 'Students' },
+  { value: String(platformStats.courses), label: 'Courses' },
+  { value: String(platformStats.creators), label: 'Creators' },
 ] as const
 export const creatorBenefits = [
   'Share Your Expertise',

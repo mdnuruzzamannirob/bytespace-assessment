@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { SearchField } from '@/components/ui/search-field'
+import { courses, platformStats } from '@/lib/catalog'
 
 import { FloatingStudents, gridPatternClassName, ProgressCard } from './HomeShared'
 
@@ -67,13 +68,20 @@ function HeroArtwork() {
       />
       <div className="absolute top-[25%] left-[23.7%] w-52 origin-top-left scale-35 rounded-xl bg-white p-4 text-neutral-950 shadow-lg max-[399px]:left-[20%] sm:scale-55 md:scale-65 lg:scale-85 xl:scale-100">
         <p className="text-label-m">UI/UX Design</p>
-        <p className="text-body-xs text-neutral-500">200 Courses · 1000+ Students</p>
+        <p className="text-body-xs text-neutral-500">
+          {designCourses.length} Courses · {designEnrollments.toLocaleString()} Students
+        </p>
       </div>
       <ProgressCard className="absolute top-[27%] right-[20.7%] origin-top-right scale-35 sm:scale-55 md:scale-65 lg:scale-85 xl:scale-100" />
       <FloatingStudents className="absolute bottom-[5.33cqw] left-[17.3%] origin-bottom-left scale-35 max-[399px]:left-[10%] sm:scale-55 md:scale-65 lg:scale-85 xl:scale-100" />
     </div>
   )
 }
+
+const designCourses = courses.filter(
+  (course) => course.category === 'UI/UX Design' || course.category === 'Design',
+)
+const designEnrollments = designCourses.reduce((total, course) => total + course.enrollments, 0)
 
 export function HeroSection() {
   return (
@@ -83,7 +91,9 @@ export function HeroSection() {
       <HeroSideDecorations />
       <div className="relative z-10 mx-auto flex w-full max-w-300 flex-col items-center px-5 pt-28 text-center sm:pt-32 lg:pt-36 xl:px-4 xl:pt-42.25">
         <h1 className="font-heading max-w-233.75 text-[clamp(2rem,5vw,4.5rem)] leading-[1.2] font-semibold tracking-[-0.01em] xl:text-[clamp(2.5rem,5vw,4.5rem)]">
-          <span className="block sm:whitespace-nowrap">Get Access to Hundreds</span>
+          <span className="block sm:whitespace-nowrap">
+            Explore {platformStats.courses} Inspiring
+          </span>
           <span className="block">Courses Available</span>
         </h1>
         <p className="text-body-l mt-5 max-w-204.75 text-neutral-100 sm:mt-6 lg:mt-8">

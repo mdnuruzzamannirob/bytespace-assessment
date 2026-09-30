@@ -3,8 +3,10 @@ import { FaCheck } from 'react-icons/fa6'
 import { IoStarSharp } from 'react-icons/io5'
 
 import { CourseCard } from '@/components/courses/CourseCard'
-import { courses } from '@/lib/catalog'
-import { creatorBenefits, growthStats } from '@/lib/constants/home'
+import { courses, platformStats } from '@/lib/catalog'
+import { creatorBenefits, demoLearnerProgress, growthStats } from '@/lib/constants/home'
+
+import { formatCompactNumber } from '@/lib/format'
 
 import { StudentFaces } from './HomeShared'
 
@@ -21,25 +23,24 @@ function GrowthArtwork() {
     <div className="@container relative isolate order-2 mx-auto aspect-541/596 w-full max-w-135.25 max-sm:max-w-87.5 lg:order-1 lg:mx-0">
       <div className={`${metricCardClassName} top-[7.38%] left-0 h-[19.97%] w-[max(42.88%,160px)]`}>
         <div>
-          <p className={metricLabelClassName}>Total Revenue</p>
-          <p className={metricDateClassName}>July 1-28</p>
+          <p className={metricLabelClassName}>Total Enrollments</p>
+          <p className={metricDateClassName}>Across all courses</p>
         </div>
-        <strong className={metricValueClassName}>$120.29</strong>
-        <div className="h-[clamp(5px,1.48cqw,8px)] w-full overflow-hidden rounded-full bg-white">
-          <span className="block h-full w-[55%] rounded-full bg-lime-400" />
-        </div>
+        <strong className={metricValueClassName}>
+          {formatCompactNumber(platformStats.enrollments)}
+        </strong>
       </div>
 
       <div
         className={`${metricCardClassName} top-[32.55%] left-0 h-[max(22.65%,91px)] w-[max(24.77%,120px)]`}
       >
         <div>
-          <p className={metricLabelClassName}>Year to Date</p>
-          <p className={metricDateClassName}>2023</p>
+          <p className={metricLabelClassName}>Published Courses</p>
+          <p className={metricDateClassName}>Current catalog</p>
         </div>
-        <strong className={metricValueClassName}>$1,200.38</strong>
+        <strong className={metricValueClassName}>{platformStats.courses}</strong>
         <span className="inline-flex min-h-6 min-w-9.5 items-center justify-center rounded-full bg-lime-500 px-1.5 py-0.5 text-[10px] leading-none font-medium text-neutral-950 max-[490px]:min-h-4.5 max-[490px]:text-[9px]">
-          +12%
+          {platformStats.creators} creators
         </span>
       </div>
 
@@ -66,7 +67,8 @@ function GrowthArtwork() {
             Happy Students
           </p>
           <p className="flex items-center gap-0.5 text-[10px] leading-[1.2]">
-            4.5 <span className="text-neutral-400">(240)</span>{' '}
+            {platformStats.averageRating.toFixed(1)}{' '}
+            <span className="text-neutral-400">({platformStats.reviews.toLocaleString()})</span>{' '}
             <IoStarSharp aria-hidden="true" className="size-4 text-lime-400" />
           </p>
         </div>
@@ -114,12 +116,15 @@ export function GrowthSection() {
             sizes="(max-width: 640px) 85vw, 577px"
           />
           <div className="absolute top-[38.59%] left-[55.56%] z-4 box-border flex h-[25%] w-[37.36%] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.58cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.14)]">
-            <p className="text-[clamp(10px,2.25cqw,14px)] leading-[1.4]">Learning Progress</p>
+            <p className="text-[clamp(10px,2.25cqw,14px)] leading-[1.4]">Example Progress</p>
             <strong className="font-heading text-[clamp(27px,7.73cqw,48px)] leading-[1.2] font-semibold tracking-[-0.01em]">
               55%
             </strong>
             <div className="h-[clamp(5px,1.29cqw,8px)] w-full rounded-full bg-neutral-100">
-              <div className="h-full w-[55%] rounded-full bg-lime-400" />
+              <div
+                className="h-full rounded-full bg-lime-400"
+                style={{ width: `${demoLearnerProgress}%` }}
+              />
             </div>
           </div>
           <Image

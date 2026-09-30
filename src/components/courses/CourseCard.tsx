@@ -4,10 +4,10 @@ import { FaChartSimple } from 'react-icons/fa6'
 
 import { StudentFaces } from '@/components/home/HomeShared'
 import { getCreatorBySlug, type Course } from '@/lib/catalog'
+import { formatDuration } from '@/lib/format'
+import { IoMdStar } from 'react-icons/io'
 
 export function CourseCard({ course, className = '' }: { course: Course; className?: string }) {
-  const hours = Math.floor(course.durationMinutes / 60)
-  const minutes = course.durationMinutes % 60
   const creator = getCreatorBySlug(course.creatorSlug)
 
   return (
@@ -27,9 +27,9 @@ export function CourseCard({ course, className = '' }: { course: Course; classNa
         <div className="absolute inset-x-2 bottom-2 flex flex-wrap justify-between gap-1 text-[10px] text-neutral-700 sm:text-xs">
           <span className="rounded-full bg-white/80 px-2 py-1">{course.lessons} Lessons</span>
           <span className="rounded-full bg-white/80 px-2 py-1">
-            {hours} hours {minutes} mins
+            {formatDuration(course.durationMinutes)}
           </span>
-          <span className="rounded-full bg-white/80 px-2 py-1">{course.comments} Comments</span>
+          <span className="rounded-full bg-white/80 px-2 py-1">{course.reviewCount} Reviews</span>
         </div>
       </div>
       <div className="mt-4 flex items-start justify-between gap-3">
@@ -39,10 +39,10 @@ export function CourseCard({ course, className = '' }: { course: Course; classNa
         >
           {course.title}
         </h2>
-        <span className="text-body-xs shrink-0 text-neutral-500">
-          {course.rating}{' '}
-          <span className="text-lime-500" aria-label="out of 5 stars">
-            ★
+        <span className="flex shrink-0 gap-1 text-neutral-500">
+          {course.rating.toFixed(1)}{' '}
+          <span className="text-lime-600" aria-label="out of 5 stars">
+            <IoMdStar size={20} />
           </span>
         </span>
       </div>
@@ -53,7 +53,7 @@ export function CourseCard({ course, className = '' }: { course: Course; classNa
         <span className="text-body-xs inline-flex items-center gap-1 rounded-full bg-neutral-50 px-3 py-1">
           <FaChartSimple aria-hidden="true" /> {course.level}
         </span>
-        <StudentFaces compact />
+        <StudentFaces compact count={course.enrollments} />
       </div>
       <p className="mt-4 text-blue-700">
         <strong className="text-label-l">${course.price}</strong>
