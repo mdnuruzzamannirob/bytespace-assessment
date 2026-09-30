@@ -25,15 +25,15 @@ export function NewsletterForm() {
           required
           type="email"
         />
-        <Button className="self-start" type="submit">
-          Search
+        <Button className="h-13 min-h-13 self-start" type="submit">
+          Subscribe
         </Button>
       </div>
       <p aria-live="polite" className="mt-6 text-body-xs text-neutral-700">
         {message || (
           <>
-            By subscribing, you agree to our Privacy Policy and consent to receive updates from
-            our company.
+            By subscribing, you agree to our Privacy Policy and consent to
+            receive updates from our company.
           </>
         )}
       </p>

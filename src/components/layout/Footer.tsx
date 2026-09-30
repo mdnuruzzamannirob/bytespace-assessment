@@ -6,7 +6,7 @@ import { NewsletterForm } from './NewsletterForm'
 
 export function Footer() {
   return (
-    <footer className="bg-background text-foreground">
+    <footer className="border-t border-neutral-200 bg-background text-foreground">
       <div className="mx-auto w-full max-w-300 px-5 pt-12 lg:pt-18 xl:px-0">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
           <div className="max-w-126">

@@ -52,7 +52,7 @@ export default async function CoursesPage({
       initialPriceMax={[25, 35, 50].includes(price) ? price : 0}
       initialScope={allowedValue(
         valueOf(params.scope),
-        ['Courses', 'Categories', 'Creators'],
+        ['Courses', 'Categories'],
         'Courses',
       )}
       initialSearch={valueOf(params.q)}

@@ -18,7 +18,7 @@ import { Select } from '@/components/ui/select'
 import { categories, courses } from '@/constants/courses'
 
 const pageSize = 15
-const searchScopes = ['Courses', 'Categories', 'Creators'] as const
+const searchScopes = ['Courses', 'Categories'] as const
 const levels = ['All levels', 'Beginner', 'Intermediate'] as const
 const sortOptions = [
   'Most relevant',
@@ -102,11 +102,7 @@ export function CoursesBrowser({
     const query = search.trim().toLowerCase()
     const matches = courses.filter((course) => {
       const searchable =
-        scope === 'Categories'
-          ? course.category
-          : scope === 'Creators'
-            ? course.creator
-            : course.title
+        scope === 'Categories' ? course.category : course.title
       return (
         (!query || searchable.toLowerCase().includes(query)) &&
         (category === 'Featured' || course.category === category) &&
