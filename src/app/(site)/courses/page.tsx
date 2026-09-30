@@ -34,6 +34,8 @@ export default async function CoursesPage({
   )
 
   const page = Number.parseInt(valueOf(params.page), 10)
+  const rating = Number(valueOf(params.rating))
+  const lessons = Number(valueOf(params.lessons))
 
   return (
     <CoursesBrowser
@@ -44,6 +46,8 @@ export default async function CoursesPage({
         'All levels',
       )}
       initialPage={Number.isFinite(page) && page > 0 ? page : 1}
+      initialRatingMin={[4.5, 4.7, 4.9].includes(rating) ? rating : 0}
+      initialLessonsMin={[17, 22].includes(lessons) ? lessons : 0}
       initialScope={allowedValue(
         valueOf(params.scope),
         ['Courses', 'Categories', 'Creators'],

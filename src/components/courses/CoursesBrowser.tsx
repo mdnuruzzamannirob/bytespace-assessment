@@ -3,17 +3,14 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { FaChartSimple } from 'react-icons/fa6'
-import {
-  FiChevronLeft,
-  FiChevronRight,
-  FiFilter,
-} from 'react-icons/fi'
+import { FiChevronLeft, FiChevronRight, FiFilter } from 'react-icons/fi'
 import { LuListFilter, LuShapes } from 'react-icons/lu'
 import 'swiper/css'
 import { A11y, FreeMode, Keyboard } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { CourseCard } from '@/components/courses/CourseCard'
+import { CourseFilters } from '@/components/courses/CourseFilters'
 import { gridPatternClassName } from '@/components/home/HomeShared'
 import { SearchField } from '@/components/ui/search-field'
 import { Select } from '@/components/ui/select'
@@ -37,6 +34,8 @@ export function CoursesBrowser({
   initialLevel = 'All levels',
   initialSort = 'Most relevant',
   initialShortCourses = false,
+  initialRatingMin = 0,
+  initialLessonsMin = 0,
   initialPage = 1,
 }: {
   initialCategory?: string
@@ -45,6 +44,8 @@ export function CoursesBrowser({
   initialLevel?: string
   initialSort?: string
   initialShortCourses?: boolean
+  initialRatingMin?: number
+  initialLessonsMin?: number
   initialPage?: number
 }) {
   const pathname = usePathname()
@@ -59,6 +60,8 @@ export function CoursesBrowser({
   const [level, setLevel] = useState(initialLevel)
   const [sort, setSort] = useState(initialSort)
   const [shortCourses, setShortCourses] = useState(initialShortCourses)
+  const [ratingMin, setRatingMin] = useState(initialRatingMin)
+  const [lessonsMin, setLessonsMin] = useState(initialLessonsMin)
   const [page, setPage] = useState(initialPage)
   const [showFilters, setShowFilters] = useState(false)
 
@@ -69,6 +72,8 @@ export function CoursesBrowser({
     if (category !== 'Featured') params.set('category', category)
     if (level !== 'All levels') params.set('level', level)
     if (shortCourses) params.set('duration', 'short')
+    if (ratingMin) params.set('rating', String(ratingMin))
+    if (lessonsMin) params.set('lessons', String(lessonsMin))
     if (sort !== 'Most relevant') params.set('sort', sort)
     if (page > 1) params.set('page', String(page))
     const query = params.toString()
@@ -78,6 +83,8 @@ export function CoursesBrowser({
     level,
     page,
     pathname,
+    ratingMin,
+    lessonsMin,
     router,
     scope,
     search,
@@ -98,7 +105,9 @@ export function CoursesBrowser({
         (!query || searchable.toLowerCase().includes(query)) &&
         (category === 'Featured' || course.category === category) &&
         (level === 'All levels' || course.level === level) &&
-        (!shortCourses || course.durationMinutes < 180)
+        (!shortCourses || course.durationMinutes < 180) &&
+        (!ratingMin || course.rating >= ratingMin) &&
+        (!lessonsMin || course.lessons >= lessonsMin)
       )
     })
     if (sort === 'Title A–Z')
@@ -108,7 +117,7 @@ export function CoursesBrowser({
     if (sort === 'Highest rated')
       return [...matches].sort((a, b) => b.rating - a.rating)
     return matches
-  }, [search, scope, category, level, sort, shortCourses])
+  }, [search, scope, category, level, sort, shortCourses, ratingMin, lessonsMin])
 
   const pageCount = Math.ceil(filtered.length / pageSize)
   const currentPage = Math.min(page, Math.max(pageCount, 1))
@@ -125,6 +134,8 @@ export function CoursesBrowser({
     setCategory('Featured')
     setLevel('All levels')
     setShortCourses(false)
+    setRatingMin(0)
+    setLessonsMin(0)
     setSort('Most relevant')
     setPage(1)
   }
@@ -178,37 +189,37 @@ export function CoursesBrowser({
         aria-label="Browse courses"
       >
         <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
-            <button
-              type="button"
-              aria-expanded={showFilters}
-              aria-controls="all-course-filters"
-              onClick={() => setShowFilters(!showFilters)}
-              className={`inline-flex h-12 w-full items-center justify-start gap-2 rounded-full border px-4 text-sm font-medium text-neutral-700 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 sm:w-auto ${showFilters ? 'border-neutral-400 bg-neutral-50' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50'}`}
-            >
-              <FiFilter aria-hidden="true" />
-              Filter
-            </button>
-            <Select
-              label="Course level"
-              triggerLabel={level === 'All levels' ? 'Level' : level}
-              value={level}
-              options={levels}
-              onSelect={(value) => {
-                setLevel(value)
-                setPage(1)
-              }}
-              icon={<FaChartSimple aria-hidden="true" />}
-              className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
-            />
-            <Select
-              label="Course category"
-              triggerLabel={category === 'Featured' ? 'Category' : category}
-              value={category}
-              options={categories}
-              onSelect={changeCategory}
-              icon={<LuShapes aria-hidden="true" />}
-              className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
-            />
+          <button
+            type="button"
+            aria-expanded={showFilters}
+            aria-controls="all-course-filters"
+            onClick={() => setShowFilters(!showFilters)}
+            className={`inline-flex h-12 w-full items-center justify-start gap-2 rounded-full border px-4 text-sm font-medium text-neutral-700 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 sm:w-auto ${showFilters ? 'border-neutral-400 bg-neutral-50' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50'}`}
+          >
+            <FiFilter aria-hidden="true" />
+            Filter
+          </button>
+          <Select
+            label="Course level"
+            triggerLabel={level === 'All levels' ? 'Level' : level}
+            value={level}
+            options={levels}
+            onSelect={(value) => {
+              setLevel(value)
+              setPage(1)
+            }}
+            icon={<FaChartSimple aria-hidden="true" />}
+            className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+          />
+          <Select
+            label="Course category"
+            triggerLabel={category === 'Featured' ? 'Category' : category}
+            value={category}
+            options={categories}
+            onSelect={changeCategory}
+            icon={<LuShapes aria-hidden="true" />}
+            className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+          />
           <Select
             label="Sort courses"
             value={sort}
@@ -222,75 +233,26 @@ export function CoursesBrowser({
             className="w-full [&>button]:w-full sm:ml-auto sm:w-auto sm:[&>button]:w-auto"
           />
         </div>
-        {showFilters && (
-          <div
-            id="all-course-filters"
-            className="mt-4 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm sm:p-6"
-          >
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 className="font-heading text-xl">Filter courses</h2>
-                <p className="mt-1 text-sm text-neutral-500">
-                  Find the right course for your next step.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="text-sm font-medium text-lime-600 underline underline-offset-4"
-              >
-                Clear all
-              </button>
-            </div>
-            <div className="mt-5 grid gap-5 border-t border-neutral-100 pt-5 sm:grid-cols-3">
-              <fieldset>
-                <legend className="mb-3 text-sm font-medium">Level</legend>
-                <div className="flex flex-wrap gap-2">
-                  {levels.map((value) => (
-                    <button
-                      type="button"
-                      key={value}
-                      aria-pressed={level === value}
-                      onClick={() => {
-                        setLevel(value)
-                        setPage(1)
-                      }}
-                      className={`rounded-full px-4 py-2 text-sm ${level === value ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
-                    >
-                      {value}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend className="mb-3 text-sm font-medium">Category</legend>
-                <Select
-                  label="Course category"
-                  triggerLabel={category === 'Featured' ? 'Category' : category}
-                  value={category}
-                  options={categories}
-                  onSelect={changeCategory}
-                  icon={<LuShapes aria-hidden="true" />}
-                />
-              </fieldset>
-              <fieldset>
-                <legend className="mb-3 text-sm font-medium">Duration</legend>
-                <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-neutral-700">
-                  <input
-                    type="checkbox"
-                    checked={shortCourses}
-                    onChange={(event) => {
-                      setShortCourses(event.target.checked)
-                      setPage(1)
-                    }}
-                    className="size-4 accent-lime-500"
-                  />
-                  Under 3 hours
-                </label>
-              </fieldset>
-            </div>
-          </div>
-        )}
+        <CourseFilters
+          open={showFilters}
+          ratingMin={ratingMin}
+          lessonsMin={lessonsMin}
+          shortCourses={shortCourses}
+          onRatingChange={(value) => {
+            setRatingMin(value)
+            setPage(1)
+          }}
+          onLessonsChange={(value) => {
+            setLessonsMin(value)
+            setPage(1)
+          }}
+          onShortCoursesChange={(value) => {
+            setShortCourses(value)
+            setPage(1)
+          }}
+          onClear={clearFilters}
+          onClose={() => setShowFilters(false)}
+        />
         <div className="mt-8 min-w-0">
           <Swiper
             modules={categorySwiperModules}
@@ -307,7 +269,7 @@ export function CoursesBrowser({
             className="w-full cursor-grab active:cursor-grabbing"
           >
             {categories.map((item) => (
-              <SwiperSlide className="!w-auto" key={item}>
+              <SwiperSlide className="w-auto!" key={item}>
                 <button
                   type="button"
                   aria-pressed={category === item}

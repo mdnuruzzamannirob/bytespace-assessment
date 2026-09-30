@@ -93,7 +93,12 @@ export function Select({
 
     setPosition(
       openAbove
-        ? { left, bottom: viewportHeight - bounds.top + MENU_GAP, maxHeight, width }
+        ? {
+            left,
+            bottom: viewportHeight - bounds.top + MENU_GAP,
+            maxHeight,
+            width,
+          }
         : { left, top: bounds.bottom + MENU_GAP, maxHeight, width },
     )
   }, [align, menuWidth])
@@ -103,7 +108,10 @@ export function Select({
 
     const closeOutside = (event: PointerEvent) => {
       const target = event.target as Node
-      if (!triggerRef.current?.contains(target) && !document.getElementById(menuId)?.contains(target)) {
+      if (
+        !triggerRef.current?.contains(target) &&
+        !document.getElementById(menuId)?.contains(target)
+      ) {
         setOpen(false)
       }
     }
@@ -127,35 +135,36 @@ export function Select({
     }
   }, [menuId, open, updatePosition])
 
-  const menu = open && position && typeof document !== 'undefined'
-    ? createPortal(
-        <div
-          id={menuId}
-          role="menu"
-          aria-label={label}
-          className={`fixed z-[2147483647] overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white ui-select-menu p-2 text-left shadow-xl ${menuClassName}`}
-          style={position}
-        >
-          {options.map((option) => (
-            <button
-              role="menuitemradio"
-              aria-checked={value === option}
-              type="button"
-              key={option}
-              onClick={() => {
-                onSelect(option)
-                setOpen(false)
-              }}
-              className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-600' : 'text-neutral-700'}`}
-            >
-              <span>{option}</span>
-              {value === option && <FiCheck aria-hidden="true" />}
-            </button>
-          ))}
-        </div>,
-        document.body,
-      )
-    : null
+  const menu =
+    open && position && typeof document !== 'undefined'
+      ? createPortal(
+          <div
+            id={menuId}
+            role="menu"
+            aria-label={label}
+            className={`fixed z-2147483647 overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white ui-select-menu p-2 text-left shadow-xl ${menuClassName}`}
+            style={position}
+          >
+            {options.map((option) => (
+              <button
+                role="menuitemradio"
+                aria-checked={value === option}
+                type="button"
+                key={option}
+                onClick={() => {
+                  onSelect(option)
+                  setOpen(false)
+                }}
+                className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-600' : 'text-neutral-700'}`}
+              >
+                <span>{option}</span>
+                {value === option && <FiCheck aria-hidden="true" />}
+              </button>
+            ))}
+          </div>,
+          document.body,
+        )
+      : null
 
   return (
     <div className={`min-w-0 ${className}`}>
@@ -170,8 +179,13 @@ export function Select({
         className={`inline-flex h-12 max-w-full items-center justify-start gap-2 rounded-full border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${buttonClassName}`}
       >
         {icon}
-        <span className="min-w-0 flex-1 truncate text-left">{triggerLabel}</span>
-        <FiChevronDown aria-hidden="true" className={`ml-auto size-4 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <span className="min-w-0 flex-1 truncate text-left">
+          {triggerLabel}
+        </span>
+        <FiChevronDown
+          aria-hidden="true"
+          className={`ml-auto size-4 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+        />
       </button>
       {menu}
     </div>
