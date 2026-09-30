@@ -68,11 +68,11 @@ export function CreatorCtaSection() {
       className={`relative isolate min-h-122 overflow-hidden bg-blue-800 text-white ${gridPatternClassName}`}
     >
       <CreatorCtaDecorations />
-      <div className="relative z-10 mx-auto flex w-full max-w-[1004px] flex-col items-center gap-10 px-5 py-25 text-center sm:max-w-[calc(100%-10rem)] sm:py-20 xl:max-w-[1004px] xl:min-h-122 xl:justify-center xl:py-0">
-        <h2 className="max-w-[710px] font-heading text-heading-m tracking-[-0.01em]">
+      <div className="relative z-10 mx-auto flex w-full max-w-251 flex-col items-center gap-10 px-5 py-25 text-center sm:max-w-[calc(100%-10rem)] sm:py-20 xl:max-w-251 xl:min-h-122 xl:justify-center xl:py-0">
+        <h2 className="max-w-177.5 font-heading text-heading-m tracking-[-0.01em]">
           Unlock Your Potential as a Creator with ByteSpace
         </h2>
-        <p className="max-w-[964px] text-body-l text-neutral-50">
+        <p className="max-w-241 text-body-l text-neutral-50">
           Experience the collaboration of numerous creators and an expanding
           selection of courses. Register now and become a part of a community
           comprising over 10,000 local and international creators. Utilize our
