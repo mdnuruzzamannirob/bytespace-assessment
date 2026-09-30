@@ -6,7 +6,7 @@ import { CourseCard } from '@/components/courses/CourseCard'
 import { courses } from '@/lib/catalog'
 import { creatorBenefits, growthStats } from '@/lib/constants/home'
 
-import { ProgressCard, StudentFaces } from './HomeShared'
+import { StudentFaces } from './HomeShared'
 
 const metricCardClassName =
   'absolute z-1 flex box-border flex-col items-start justify-between rounded-2xl bg-blue-800 p-[clamp(10px,2.96cqw,16px)] text-neutral-50 shadow-[0_12px_22px_rgba(0,0,0,0.12)]'
@@ -107,27 +107,36 @@ export function GrowthSection() {
             ))}
           </div>
         </div>
-        <div className="relative min-h-110 lg:min-h-130">
-          <div className="absolute top-3.5 left-0 w-93 lg:-left-2.5 max-sm:w-[68%]">
+        <div className="@container relative isolate mx-auto aspect-621/552 w-full max-w-155.25 max-sm:aspect-621/700 max-sm:max-w-87.5 lg:mx-0">
+          <div className="absolute top-0 left-0 z-1 w-[60.06%]">
             <CourseCard course={courses[0]} />
           </div>
           <Image
-            className="absolute top-20 right-0 w-30 lg:-right-4 lg:w-40"
-            src="/assets/home/decorations/decorative-lime-small-squiggle.png"
-            alt=""
-            width={216}
-            height={216}
-          />
-          <Image
-            className="absolute right-0 bottom-0 h-auto w-[85%] max-w-140 sm:w-full lg:-right-36 lg:w-190 lg:max-w-none lg:translate-y-12"
+            className="absolute top-[2.17%] left-[-5%] z-2 h-[97.83%] w-auto max-w-none drop-shadow-[24px_30px_28px_rgba(0,0,0,0.18)]"
             src="/assets/home/people/man-with-headset-and-laptop.png"
             alt="Learner with laptop"
             width={722}
             height={515}
+            sizes="(max-width: 640px) 85vw, 577px"
           />
-          <ProgressCard
-            expanded
-            className="absolute top-0 right-0 origin-top-right scale-70 sm:top-auto sm:bottom-8 sm:scale-100 lg:-right-4 lg:bottom-39"
+          <div className="absolute top-[38.59%] left-[55.56%] z-4 box-border flex h-[25%] w-[37.36%] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.58cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.14)]">
+            <p className="text-[clamp(10px,2.25cqw,14px)] leading-[1.4]">
+              Learning Progress
+            </p>
+            <strong className="font-heading text-[clamp(27px,7.73cqw,48px)] leading-[1.2] font-semibold tracking-[-0.01em]">
+              55%
+            </strong>
+            <div className="h-[clamp(5px,1.29cqw,8px)] w-full rounded-full bg-neutral-100">
+              <div className="h-full w-[56%] rounded-full bg-lime-400" />
+            </div>
+          </div>
+          <Image
+            className="absolute top-[12.14%] left-[65.38%] z-5 h-auto w-[34.62%]"
+            src="/assets/home/decorations/decorative-lime-small-squiggle.png"
+            alt=""
+            width={216}
+            height={216}
+            sizes="(max-width: 640px) 35vw, 215px"
           />
         </div>
       </div>
