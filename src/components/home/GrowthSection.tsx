@@ -84,7 +84,7 @@ function GrowthArtwork() {
 export function GrowthSection() {
   return (
     <section className="relative overflow-hidden bg-[#fafafa] bg-[radial-gradient(ellipse_650px_620px_at_100%_0%,#ecf0f8,transparent_100%),radial-gradient(circle_at_27%_7%,#e6fba0,transparent_28%),radial-gradient(circle_at_2%_51%,#d5def7,transparent_28%),radial-gradient(circle_at_0%_89%,#e7fa9f,transparent_23%),radial-gradient(ellipse_720px_650px_at_100%_100%,#cdd7f5,transparent_100%)]">
-      <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 py-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
+      <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 py-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 xl:px-0">
         <div className="lg:translate-y-6.5">
           <h2 className="max-w-140 font-heading text-heading-m">
             Your Path to Professional Growth Starts Here!
@@ -140,7 +140,7 @@ export function GrowthSection() {
           />
         </div>
       </div>
-      <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 pb-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
+      <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 pb-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 xl:px-0">
         <GrowthArtwork />
         <div className="order-1 lg:order-2 lg:-translate-x-7.5">
           <h2 className="max-w-120 font-heading text-heading-m">

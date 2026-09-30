@@ -34,7 +34,7 @@ function HeroSideDecorations() {
 
 function HeroArtwork() {
   return (
-    <div className="@container pointer-events-none relative mx-auto aspect-40/17 w-full max-w-300">
+    <div className="@container pointer-events-none relative mx-auto aspect-40/17 w-full max-w-300 lg:max-xl:w-[calc(100%-2.5rem)]">
       <div className="absolute top-[13.5%] left-1/2 aspect-square w-[95.75%] -translate-x-1/2 rounded-full border-[26.67cqw] border-[#cbfc01]" />
       <Image
         className="absolute top-0 left-[8%] w-[14.67cqw]"
