@@ -72,6 +72,16 @@ export function Header() {
       ? pathname === '/'
       : pathname === href || pathname.startsWith(`${href}/`)
 
+  const shoppingBag = (
+    <Link
+      aria-label="Shopping bag"
+      className="inline-flex size-7 items-center justify-center transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
+      href={shoppingBagHref}
+    >
+      <AiOutlineShopping aria-hidden="true" className="size-5" />
+    </Link>
+  )
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-200 ${
@@ -109,55 +119,54 @@ export function Header() {
         </nav>
 
         <div className="flex items-center justify-self-end gap-5 sm:gap-6">
-          <Link
-            aria-label="Shopping bag"
-            className="order-first inline-flex size-7 items-center justify-center transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
-            href={shoppingBagHref}
-          >
-            <AiOutlineShopping aria-hidden="true" className="size-5" />
-          </Link>
           {!loading && user ? (
-            <div className="hidden sm:block">
-              <Popover
-                open={profileOpen}
-                onOpenChange={setProfileOpen}
-                label="Account menu"
-                trigger={
-                  <span className="flex size-10 items-center justify-center rounded-full bg-lime-400 text-sm font-semibold text-neutral-950 transition-transform">
-                    {getInitials(user.name)}
-                  </span>
-                }
-              >
-                <div className="border-b border-neutral-100 px-2 pb-3">
-                  <p className="font-medium">{user.name}</p>
-                  <p className="mt-1 truncate text-xs text-neutral-500">
-                    {user.email}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="mt-2 flex w-full items-center rounded-xl px-2 py-2 text-left text-sm text-neutral-700 transition-colors hover:bg-neutral-50"
-                  onClick={() => {
-                    logout()
-                    setProfileOpen(false)
-                    showToast('You have been signed out.', 'success')
-                  }}
+            <>
+              {shoppingBag}
+              <div className="hidden sm:block">
+                <Popover
+                  open={profileOpen}
+                  onOpenChange={setProfileOpen}
+                  label="Account menu"
+                  trigger={
+                    <span className="flex size-10 items-center justify-center rounded-full bg-lime-400 text-sm font-semibold text-neutral-950 transition-transform">
+                      {getInitials(user.name)}
+                    </span>
+                  }
                 >
-                  Sign out
-                </button>
-              </Popover>
-            </div>
+                  <div className="border-b border-neutral-100 px-2 pb-3">
+                    <p className="font-medium">{user.name}</p>
+                    <p className="mt-1 truncate text-xs text-neutral-500">
+                      {user.email}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="mt-2 flex w-full items-center rounded-xl px-2 py-2 text-left text-sm text-neutral-700 transition-colors hover:bg-neutral-50"
+                    onClick={() => {
+                      logout()
+                      setProfileOpen(false)
+                      showToast('You have been signed out.', 'success')
+                    }}
+                  >
+                    Sign out
+                  </button>
+                </Popover>
+              </div>
+            </>
           ) : (
-            headerAccountLinks.map(({ label, href }) => (
-              <Link
-                aria-current={isActive(href) ? 'page' : undefined}
-                className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
-                href={href}
-                key={label}
-              >
-                {label}
-              </Link>
-            ))
+            <>
+              {headerAccountLinks.map(({ label, href }) => (
+                <Link
+                  aria-current={isActive(href) ? 'page' : undefined}
+                  className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
+                  href={href}
+                  key={label}
+                >
+                  {label}
+                </Link>
+              ))}
+              {shoppingBag}
+            </>
           )}
           <div className="md:hidden" ref={menuRef}>
             <button

@@ -1,5 +1,6 @@
 export const AUTH_SESSION_KEY = 'bytespace.demo.session'
 export const AUTH_USERS_KEY = 'bytespace.demo.users'
+export const PENDING_TOAST_KEY = 'bytespace.demo.pending-toast'
 export const DEMO_EMAIL = 'demo@bytespace.dev'
 export const DEMO_PASSWORD = 'demo12345'
 
@@ -8,6 +9,11 @@ export type DemoUser = {
   email: string
   password: string
   provider?: 'password' | 'google' | 'facebook'
+}
+
+export type PendingToast = {
+  message: string
+  tone: 'success' | 'info' | 'error'
 }
 
 const demoUser: DemoUser = {
@@ -67,4 +73,21 @@ export function findValidUser(email: string, password: string) {
       (user) => user.email === normalizedEmail && user.password === password,
     ) ?? null
   )
+}
+
+export function savePendingToast(toast: PendingToast) {
+  if (canUseStorage())
+    window.sessionStorage.setItem(PENDING_TOAST_KEY, JSON.stringify(toast))
+}
+
+export function consumePendingToast(): PendingToast | null {
+  if (!canUseStorage()) return null
+  const value = window.sessionStorage.getItem(PENDING_TOAST_KEY)
+  if (!value) return null
+  window.sessionStorage.removeItem(PENDING_TOAST_KEY)
+  try {
+    return JSON.parse(value) as PendingToast
+  } catch {
+    return null
+  }
 }

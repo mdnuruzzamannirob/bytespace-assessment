@@ -8,7 +8,7 @@ import { FaFacebook, FaGoogle } from 'react-icons/fa6'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/toast'
-import { DEMO_EMAIL, DEMO_PASSWORD } from '@/lib/auth-session'
+import { DEMO_EMAIL, DEMO_PASSWORD, savePendingToast } from '@/lib/auth-session'
 import { useAuth } from './AuthProvider'
 
 type AuthFormProps = {
@@ -70,16 +70,18 @@ export function AuthForm({ mode }: AuthFormProps) {
       )
       return
     }
-    showToast(
-      isLogin ? 'Welcome back to ByteSpace.' : 'Your demo account is ready.',
-      'success',
-    )
+    savePendingToast({
+      message: isLogin
+        ? 'Welcome back to ByteSpace.'
+        : 'Your demo account is ready.',
+      tone: 'success',
+    })
     router.push(searchParams.get('next') || '/')
   }
 
   function handleSocialLogin(provider: 'google' | 'facebook') {
     socialLogin(provider)
-    showToast('Welcome back to ByteSpace.', 'success')
+    savePendingToast({ message: 'Welcome back to ByteSpace.', tone: 'success' })
     router.push(searchParams.get('next') || '/')
   }
 
