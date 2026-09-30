@@ -3,8 +3,8 @@ import { Poppins } from 'next/font/google'
 import type { ReactNode } from 'react'
 
 import { AuthProvider } from '@/components/auth/AuthProvider'
-import { LearningProvider } from '@/components/learning/LearningProvider'
 import { FollowProvider } from '@/components/creators/FollowProvider'
+import { LearningProvider } from '@/components/learning/LearningProvider'
 import { ToastProvider } from '@/components/ui/toast'
 import './globals.css'
 
@@ -16,7 +16,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'ByteSpace — Learn without limits',
+  title: 'ByteSpace | Learn without limits',
   description: 'Discover creative courses, learn new skills, and grow with ByteSpace.',
 }
 
