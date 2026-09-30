@@ -23,6 +23,8 @@ type SelectProps = {
   triggerLabel?: string
   align?: SelectAlignment
   menuWidth?: SelectMenuWidth
+  mobileMenuWidth?: SelectMenuWidth
+  contentWidth?: number
   className?: string
   buttonClassName?: string
   menuClassName?: string
@@ -38,8 +40,9 @@ type MenuPosition = {
 
 const VIEWPORT_GUTTER = 16
 const MENU_GAP = 8
+const MINIMUM_BELOW_SPACE = 200
 const MENU_MAX_HEIGHT = 520
-const CONTENT_MENU_WIDTH = 208
+const DEFAULT_CONTENT_MENU_WIDTH = 208
 
 /** A viewport-aware select menu portaled above page stacking contexts. */
 export function Select({
@@ -51,6 +54,8 @@ export function Select({
   triggerLabel = value,
   align = 'left',
   menuWidth = 'content',
+  mobileMenuWidth = 'content',
+  contentWidth = DEFAULT_CONTENT_MENU_WIDTH,
   className = '',
   buttonClassName = '',
   menuClassName = '',
@@ -67,8 +72,9 @@ export function Select({
     const bounds = trigger.getBoundingClientRect()
     const viewportWidth = window.innerWidth
     const viewportHeight = window.innerHeight
+    const activeMenuWidth = viewportWidth < 640 ? mobileMenuWidth : menuWidth
     const width = Math.min(
-      menuWidth === 'trigger' ? bounds.width : CONTENT_MENU_WIDTH,
+      activeMenuWidth === 'trigger' ? bounds.width : contentWidth,
       viewportWidth - VIEWPORT_GUTTER * 2,
     )
     const spaceBelow = viewportHeight - bounds.bottom - VIEWPORT_GUTTER
@@ -77,7 +83,8 @@ export function Select({
       MENU_MAX_HEIGHT,
       viewportHeight - VIEWPORT_GUTTER * 2,
     )
-    const openAbove = spaceBelow < preferredHeight && spaceAbove > spaceBelow
+    const openAbove =
+      spaceBelow < MINIMUM_BELOW_SPACE && spaceAbove > spaceBelow
     const maxHeight = Math.max(
       0,
       Math.min(preferredHeight, openAbove ? spaceAbove : spaceBelow),
@@ -101,7 +108,7 @@ export function Select({
           }
         : { left, top: bounds.bottom + MENU_GAP, maxHeight, width },
     )
-  }, [align, menuWidth])
+  }, [align, contentWidth, menuWidth, mobileMenuWidth])
 
   useEffect(() => {
     if (!open) return
@@ -175,7 +182,14 @@ export function Select({
         aria-expanded={open}
         aria-haspopup="menu"
         ref={triggerRef}
-        onClick={() => setOpen((isOpen) => !isOpen)}
+        onClick={() => {
+          if (open) {
+            setOpen(false)
+            return
+          }
+          updatePosition()
+          setOpen(true)
+        }}
         className={`inline-flex h-12 max-w-full items-center justify-start gap-2 rounded-full border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${buttonClassName}`}
       >
         {icon}

@@ -188,6 +188,7 @@ export function CoursesBrowser({
                 setPage(1)
               }}
               buttonClassName="!border-lime-400 !bg-lime-400 px-6 !text-neutral-950 hover:!border-lime-300 hover:!bg-lime-300"
+              mobileMenuWidth="trigger"
               className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
             />
           </div>
@@ -224,6 +225,7 @@ export function CoursesBrowser({
           />
           <Select
             label="Course category"
+            contentWidth={256}
             triggerLabel={category === 'Featured' ? 'Category' : category}
             value={category}
             options={categories}
