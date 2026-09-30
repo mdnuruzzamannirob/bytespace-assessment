@@ -14,7 +14,7 @@ export function SearchField({
 }: SearchFieldProps) {
   return (
     <label
-      className={`flex h-13 min-w-0 items-center gap-3 rounded-full bg-white px-6 text-neutral-500 ${containerClassName}`}
+      className={`flex h-14 min-w-0 items-center gap-3 rounded-full bg-white px-6 text-neutral-500 sm:h-13 ${containerClassName}`}
     >
       <PiMagnifyingGlass aria-hidden="true" className="size-5 shrink-0" />
       <span className="sr-only">{label}</span>
