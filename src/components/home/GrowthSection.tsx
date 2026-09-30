@@ -1,11 +1,85 @@
 import Image from 'next/image'
 import { FaCheck } from 'react-icons/fa6'
+import { IoStarSharp } from 'react-icons/io5'
 
 import { CourseCard } from '@/components/courses/CourseCard'
 import { courses } from '@/lib/catalog'
 import { creatorBenefits, growthStats } from '@/lib/constants/home'
 
-import { FloatingStudents, ProgressCard } from './HomeShared'
+import { ProgressCard, StudentFaces } from './HomeShared'
+
+const metricCardClassName =
+  'absolute z-1 flex box-border flex-col items-start justify-between rounded-2xl bg-blue-800 p-[clamp(10px,2.96cqw,16px)] text-neutral-50 shadow-[0_12px_22px_rgba(0,0,0,0.12)]'
+const metricLabelClassName =
+  'whitespace-nowrap text-[clamp(11px,2.96cqw,16px)] leading-[1.2] font-medium'
+const metricDateClassName =
+  'mt-0.5 text-[clamp(9px,1.85cqw,10px)] leading-[1.2] text-white/80'
+const metricValueClassName =
+  'whitespace-nowrap font-heading text-[clamp(15px,4.44cqw,24px)] leading-[1.33] font-semibold tracking-[-0.01em]'
+
+function GrowthArtwork() {
+  return (
+    <div className="@container relative isolate order-2 mx-auto aspect-541/596 w-full max-w-135.25 max-sm:max-w-87.5 lg:order-1 lg:mx-0">
+      <div
+        className={`${metricCardClassName} top-[7.38%] left-0 h-[19.97%] w-[max(42.88%,160px)]`}
+      >
+        <div>
+          <p className={metricLabelClassName}>Total Revenue</p>
+          <p className={metricDateClassName}>July 1-28</p>
+        </div>
+        <strong className={metricValueClassName}>$120.29</strong>
+        <div className="h-[clamp(5px,1.48cqw,8px)] w-full overflow-hidden rounded-full bg-white">
+          <span className="block h-full w-[56%] rounded-full bg-lime-400" />
+        </div>
+      </div>
+
+      <div
+        className={`${metricCardClassName} top-[32.55%] left-0 h-[max(22.65%,91px)] w-[max(24.77%,120px)]`}
+      >
+        <div>
+          <p className={metricLabelClassName}>Year to Date</p>
+          <p className={metricDateClassName}>2023</p>
+        </div>
+        <strong className={metricValueClassName}>$1,200.38</strong>
+        <span className="inline-flex min-h-6 min-w-9.5 items-center justify-center rounded-full bg-lime-500 px-1.5 py-0.5 text-[10px] leading-none font-medium text-neutral-950 max-[490px]:min-h-4.5 max-[490px]:text-[9px]">
+          +12%
+        </span>
+      </div>
+
+      <Image
+        className="absolute top-0 left-[9.8%] z-2 h-full w-[80.4%] drop-shadow-[24px_30px_28px_rgba(0,0,0,0.18)]"
+        src="/assets/home/people/woman-with-headset-and-tablet.png"
+        alt="Creator holding a tablet"
+        width={579}
+        height={719}
+        sizes="(max-width: 640px) 75vw, 435px"
+      />
+      <Image
+        className="absolute top-[19.13%] left-[49.9%] z-3 h-auto w-[39.74%]"
+        src="/assets/home/decorations/decorative-lime-small-squiggle-rotated.png"
+        alt=""
+        width={216}
+        height={216}
+        sizes="(max-width: 640px) 40vw, 215px"
+      />
+
+      <div className="absolute top-[69.3%] right-0 z-4 flex box-border h-[max(20.64%,92px)] w-[max(47.7%,215px)] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.96cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.12)]">
+        <div>
+          <p className="text-[clamp(11px,2.96cqw,16px)] leading-normal font-medium">
+            Happy Students
+          </p>
+          <p className="flex items-center gap-0.5 text-[10px] leading-[1.2]">
+            4.5 <span className="text-neutral-400">(240)</span>{' '}
+            <IoStarSharp aria-hidden="true" className="size-4 text-lime-400" />
+          </p>
+        </div>
+        <div className="h-10 origin-top-left [&>span]:w-max max-[490px]:h-8.25 max-[490px]:scale-[0.82]">
+          <StudentFaces />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function GrowthSection() {
   return (
@@ -58,36 +132,8 @@ export function GrowthSection() {
         </div>
       </div>
       <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 pb-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 lg:px-0">
-        <div className="relative min-h-120">
-          <div className="absolute -top-4 left-0 rounded-xl bg-blue-800 px-6 py-5 text-white shadow-xl">
-            <p className="text-body-s">Total Revenue</p>
-            <p className="text-body-xs text-white/70">July 1-28</p>
-            <strong className="font-heading text-2xl">$120.29</strong>
-            <div className="mt-2 h-1 w-24 rounded-full bg-lime-400" />
-          </div>
-          <div className="absolute top-34 left-0 rounded-xl bg-blue-800 px-6 py-5 text-white shadow-xl">
-            <p className="text-body-s">Year to Date</p>
-            <p className="text-body-xs text-white/70">2023</p>
-            <strong className="font-heading text-2xl">$1,200.38</strong>
-            <p className="mt-2 text-body-xs text-lime-400">+12%</p>
-          </div>
-          <Image
-            className="absolute top-18 right-0 w-35"
-            src="/assets/home/decorations/decorative-lime-small-squiggle.png"
-            alt=""
-            width={216}
-            height={216}
-          />
-          <Image
-            className="absolute right-0 bottom-0 h-auto w-[85%] max-w-140 sm:w-full lg:-right-8 lg:w-xl lg:max-w-none lg:translate-y-42"
-            src="/assets/home/people/woman-with-headset-and-tablet.png"
-            alt="Creator holding a tablet"
-            width={579}
-            height={719}
-          />
-          <FloatingStudents className="absolute right-0 bottom-8 lg:bottom-3" />
-        </div>
-        <div className="lg:-translate-x-7.5">
+        <GrowthArtwork />
+        <div className="order-1 lg:order-2 lg:-translate-x-7.5">
           <h2 className="max-w-120 font-heading text-heading-m">
             Create &amp; Manage Courses Easily.
           </h2>
