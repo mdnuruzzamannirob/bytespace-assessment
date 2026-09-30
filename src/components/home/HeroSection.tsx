@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { SearchField } from '@/components/ui/search-field'
-import { courses, platformStats } from '@/lib/catalog'
+import { courses } from '@/lib/catalog'
 
 import { FloatingStudents, gridPatternClassName, ProgressCard } from './HomeShared'
 
@@ -91,9 +91,7 @@ export function HeroSection() {
       <HeroSideDecorations />
       <div className="relative z-10 mx-auto flex w-full max-w-300 flex-col items-center px-5 pt-28 text-center sm:pt-32 lg:pt-36 xl:px-4 xl:pt-42.25">
         <h1 className="font-heading max-w-233.75 text-[clamp(2rem,5vw,4.5rem)] leading-[1.2] font-semibold tracking-[-0.01em] xl:text-[clamp(2.5rem,5vw,4.5rem)]">
-          <span className="block sm:whitespace-nowrap">
-            Explore {platformStats.courses} Inspiring
-          </span>
+          <span className="block sm:whitespace-nowrap">Get Access to Hundreds</span>
           <span className="block">Courses Available</span>
         </h1>
         <p className="text-body-l mt-5 max-w-204.75 text-neutral-100 sm:mt-6 lg:mt-8">

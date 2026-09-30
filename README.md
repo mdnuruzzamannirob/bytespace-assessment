@@ -28,7 +28,7 @@ Course enrollment and follow state are stored in the current browser. To repeat 
 | Bonus      | Login and signup pages with client-side demo authentication                                                                                                     |
 | Additional | Course catalog, course details, lessons, reviews, creator directory and profiles, demo enrollment and progress, empty states, and a shared not-found experience |
 
-The supplied screens are available in [`docs/screens`](./docs/screens). Their implementation and the added behavior are mapped below.
+The `/creators` directory is an additional page I designed and built beyond the supplied Figma screens. The creator profile page follows its supplied reference. The supplied screens are available in [`docs/screens`](./docs/screens); their implementation and added behavior are mapped below.
 
 | Design reference                                                           | Implemented page and added behavior                                                                        |
 | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
