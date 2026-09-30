@@ -5,7 +5,7 @@ import { learningPaths } from '@/lib/constants/home'
 
 export function CategoriesSection() {
   return (
-    <section className="mx-auto max-w-300 px-5 pb-30 text-center lg:min-h-113.5 lg:px-0">
+    <section className="mx-auto max-w-300 px-5 pb-30 text-center lg:min-h-113.5 xl:px-0">
       <h2 className="font-heading text-heading-m">
         Explore Diverse Learning Paths at Bytespace
       </h2>

@@ -5,7 +5,7 @@ import { testimonials } from '@/lib/constants/home'
 export function TestimonialsSection() {
   return (
     <section className="relative bg-[#fafafa] bg-[radial-gradient(ellipse_460px_240px_at_50%_190px,#e1fb72,transparent_100%),radial-gradient(ellipse_420px_400px_at_100%_332px,#e6fb9b,transparent_100%),radial-gradient(circle_at_10%_100%,#c5d4f7,transparent_38%)]">
-      <div className="relative mx-auto min-h-196 max-w-300 px-5 pt-25 pb-16 lg:px-0 lg:pb-15.5">
+      <div className="relative mx-auto min-h-196 max-w-300 px-5 pt-25 pb-16 xl:px-0 lg:pb-15.5">
         <div className="grid gap-8 md:grid-cols-2 md:gap-18">
           <h2 className="max-w-120 font-heading text-heading-m lg:translate-y-4">
             Discover What Our Community Is Saying
