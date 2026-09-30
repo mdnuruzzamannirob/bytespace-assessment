@@ -43,6 +43,19 @@ The supplied screens are available in [`docs/screens`](./docs/screens). Their im
 
 Interactive controls and explicit demo states extend these static references. Course progress is calculated from completed lessons; the landing page's **Example Progress** artwork is illustrative.
 
+## Tech stack
+
+| Technology              | How it is used                                                       |
+| ----------------------- | -------------------------------------------------------------------- |
+| Next.js 16 App Router   | Routes, layouts, static course and creator pages, and page metadata  |
+| React 19 and TypeScript | Component-based UI, typed catalog data, and interactive client state |
+| Tailwind CSS 4          | Responsive styling and reusable visual patterns                      |
+| Swiper                  | Course category rail                                                 |
+| React Icons             | Interface icons                                                      |
+| Vitest                  | Catalog, URL-state, and data-consistency tests                       |
+| ESLint and Prettier     | Code checks, formatting, and Tailwind class ordering                 |
+| pnpm and Vercel         | Package management and public deployment                             |
+
 ## Run locally
 
 Requirements: Node.js 20+ and pnpm 11+.
@@ -122,4 +135,4 @@ pnpm test
 pnpm build
 ```
 
-`pnpm format` applies Prettier and sorts Tailwind classes. Vitest covers course/creator relationships, filters and URL queries, lesson totals and duration, review totals and weighted ratings, and sample progress. The project uses Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, Swiper, React Icons, ESLint, Prettier, and Vitest.
+`pnpm format` applies Prettier and sorts Tailwind classes. Vitest covers course/creator relationships, filters and URL queries, lesson totals and duration, review totals and weighted ratings, and sample progress.
