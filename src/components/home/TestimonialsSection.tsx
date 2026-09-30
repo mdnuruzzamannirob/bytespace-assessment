@@ -18,7 +18,7 @@ export function TestimonialsSection() {
             perspectives of enthusiastic learners and accomplished creators.
           </p>
         </div>
-        <div className="mt-20 grid gap-8 md:grid-cols-3 lg:mt-21">
+        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:mt-21">
           {testimonials.map(({ name, role, avatar, quote }) => (
             <article className="min-h-108 rounded-card bg-white p-6" key={name}>
               <Image
