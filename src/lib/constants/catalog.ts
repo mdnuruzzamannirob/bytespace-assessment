@@ -1,14 +1,18 @@
 export const categories = [
   'Featured',
+  'Music',
+  'Drawing & Painting',
+  'Marketing',
+  'Animation',
+  'Social Media',
+  'UI/UX Design',
+  'Creative Marketing',
+  'Cooking',
   'Design',
   'Development',
   'IT & Software',
   'Business',
-  'Marketing',
   'Photography',
-  'Music',
-  'Animation',
-  'Cooking',
 ] as const
 
 export const levels = ['All levels', 'Beginner', 'Intermediate'] as const

@@ -12,7 +12,7 @@ export const creators = [
     name: 'Maya Khan',
     tagline: 'Product designer & creative mentor',
     bio: 'Maya turns complex product ideas into simple, thoughtful experiences. Her courses make design systems and product thinking feel practical.',
-    avatar: '/assets/learner-pink-background.png',
+    avatar: '/assets/creators/maya-khan.jpg',
     followers: 124,
   },
   {
@@ -20,7 +20,7 @@ export const creators = [
     name: 'Arif Rahman',
     tagline: 'Data analyst & visual storyteller',
     bio: 'Arif helps learners turn raw data into clear decisions through approachable analytics, dashboards, and real-world case studies.',
-    avatar: '/assets/student-with-glasses.png',
+    avatar: '/assets/creators/arif-rahman.jpg',
     followers: 98,
   },
   {
@@ -28,7 +28,7 @@ export const creators = [
     name: 'Sara Johnson',
     tagline: 'Growth marketer & brand strategist',
     bio: 'Sara shares practical frameworks for building memorable brands, stronger campaigns, and sustainable audience growth.',
-    avatar: '/assets/learner-yellow-background.png',
+    avatar: '/assets/creators/sara-johnson.jpg',
     followers: 216,
   },
   {
@@ -36,7 +36,7 @@ export const creators = [
     name: 'Nabil Ahmed',
     tagline: 'Frontend engineer & educator',
     bio: 'Nabil teaches modern frontend development with a focus on accessible interfaces, clean code, and confident problem-solving.',
-    avatar: '/assets/student-with-hat.png',
+    avatar: '/assets/creators/nabil-ahmed.jpg',
     followers: 173,
   },
   {
@@ -44,7 +44,7 @@ export const creators = [
     name: 'Elena Rodriguez',
     tagline: 'Business coach & systems builder',
     bio: 'Elena creates practical learning paths for freelancers and teams who want to work with greater clarity and momentum.',
-    avatar: '/assets/student-pink-shirt.png',
+    avatar: '/assets/creators/elena-rodriguez.jpg',
     followers: 147,
   },
   {
@@ -52,7 +52,7 @@ export const creators = [
     name: 'James Wilson',
     tagline: 'Photography director & visual artist',
     bio: 'James helps creators develop a confident visual voice through lighting, composition, direction, and post-production.',
-    avatar: '/assets/student-with-camera.png',
+    avatar: '/assets/creators/james-wilson.jpg',
     followers: 89,
   },
   {
@@ -60,7 +60,7 @@ export const creators = [
     name: 'Aisha Noor',
     tagline: 'Creative entrepreneur & community lead',
     bio: 'Aisha gives emerging creators the tools to shape sustainable creative careers and build communities around their work.',
-    avatar: '/assets/learner-curly-hair.png',
+    avatar: '/assets/creators/aisha-noor.jpg',
     followers: 191,
   },
   {
@@ -68,7 +68,7 @@ export const creators = [
     name: 'Lina Park',
     tagline: 'Type designer & design educator',
     bio: 'Lina helps product teams use typography and critique to make digital experiences clearer, calmer, and more human.',
-    avatar: '/assets/learner-pink-background.png',
+    avatar: '/assets/creators/lina-park.jpg',
     followers: 138,
   },
   {
@@ -76,7 +76,7 @@ export const creators = [
     name: 'Omar Hassan',
     tagline: 'Software engineer & open-source mentor',
     bio: 'Omar teaches practical engineering habits, from TypeScript and testing to the collaboration practices that make codebases healthier.',
-    avatar: '/assets/student-with-hat.png',
+    avatar: '/assets/creators/omar-hassan.jpg',
     followers: 264,
   },
   {
@@ -84,7 +84,7 @@ export const creators = [
     name: 'Fatima Rahman',
     tagline: 'Cloud security specialist & teacher',
     bio: 'Fatima makes cloud infrastructure and security fundamentals approachable for curious builders and growing teams.',
-    avatar: '/assets/student-with-glasses.png',
+    avatar: '/assets/creators/fatima-rahman.jpg',
     followers: 187,
   },
   {
@@ -92,7 +92,7 @@ export const creators = [
     name: 'Daniel Cho',
     tagline: 'Operations leader & team coach',
     bio: 'Daniel shares grounded systems for leading teams, negotiating clearly, and turning ambitious plans into steady progress.',
-    avatar: '/assets/student-pink-shirt.png',
+    avatar: '/assets/creators/daniel-cho.jpg',
     followers: 154,
   },
   {
@@ -100,7 +100,7 @@ export const creators = [
     name: 'Mia Williams',
     tagline: 'Content strategist & growth advisor',
     bio: 'Mia helps small teams build focused content and marketing programs that are useful to audiences and measurable for businesses.',
-    avatar: '/assets/learner-yellow-background.png',
+    avatar: '/assets/creators/mia-williams.jpg',
     followers: 229,
   },
   {
@@ -108,7 +108,7 @@ export const creators = [
     name: 'Noor Ahmed',
     tagline: 'Documentary photographer & editor',
     bio: 'Noor teaches patient observation, intentional shooting, and thoughtful editing for photographers finding their visual voice.',
-    avatar: '/assets/student-with-camera.png',
+    avatar: '/assets/creators/noor-ahmed.jpg',
     followers: 116,
   },
   {
@@ -116,7 +116,7 @@ export const creators = [
     name: 'Leo Martin',
     tagline: 'Producer, songwriter & recording artist',
     bio: 'Leo breaks down the creative and technical decisions behind songwriting, home recording, and confident music production.',
-    avatar: '/assets/learner-curly-hair.png',
+    avatar: '/assets/creators/leo-martin.jpg',
     followers: 203,
   },
   {
@@ -124,7 +124,7 @@ export const creators = [
     name: 'Priya Shah',
     tagline: 'Animator & motion design director',
     bio: 'Priya teaches animation through clear exercises in timing, story, and movement that help ideas feel alive on screen.',
-    avatar: '/assets/learner-blue-shirt.png',
+    avatar: '/assets/creators/priya-shah.jpg',
     followers: 176,
   },
   {
@@ -132,7 +132,7 @@ export const creators = [
     name: 'Ethan Brooks',
     tagline: 'Character animator & storyboard artist',
     bio: 'Ethan helps emerging animators build expressive characters and plan visual stories with confidence.',
-    avatar: '/assets/student-with-camera.png',
+    avatar: '/assets/creators/ethan-brooks.jpg',
     followers: 142,
   },
   {
@@ -140,7 +140,7 @@ export const creators = [
     name: 'Grace Lee',
     tagline: 'Recipe developer & home cooking teacher',
     bio: 'Grace makes everyday cooking feel welcoming with flexible recipes, reliable techniques, and a little room for improvisation.',
-    avatar: '/assets/learner-yellow-background.png',
+    avatar: '/assets/creators/grace-lee.jpg',
     followers: 318,
   },
   {
@@ -148,8 +148,40 @@ export const creators = [
     name: 'Hana Kim',
     tagline: 'Chef and culinary fundamentals instructor',
     bio: 'Hana teaches the practical kitchen skills that make home cooking safer, faster, and more enjoyable.',
-    avatar: '/assets/learner-pink-background.png',
+    avatar: '/assets/creators/hana-kim.jpg',
     followers: 207,
+  },
+  {
+    slug: 'camila-rossi',
+    name: 'Camila Rossi',
+    tagline: 'Illustrator & visual arts teacher',
+    bio: 'Camila helps artists build confident drawing habits and turn observation into expressive digital work.',
+    avatar: '/assets/creators/camila-rossi.jpg',
+    followers: 154,
+  },
+  {
+    slug: 'tariq-ali',
+    name: 'Tariq Ali',
+    tagline: 'Painter & creative practice mentor',
+    bio: 'Tariq teaches color, composition, and the patient practice behind strong paintings and visual ideas.',
+    avatar: '/assets/creators/tariq-ali.jpg',
+    followers: 121,
+  },
+  {
+    slug: 'zoe-carter',
+    name: 'Zoe Carter',
+    tagline: 'Social media producer & community builder',
+    bio: 'Zoe shares practical systems for creating thoughtful social content and building communities that last.',
+    avatar: '/assets/creators/zoe-carter.jpg',
+    followers: 246,
+  },
+  {
+    slug: 'ben-ito',
+    name: 'Ben Ito',
+    tagline: 'Creative director & campaign strategist',
+    bio: 'Ben helps teams connect sharp creative direction with campaigns that people understand and remember.',
+    avatar: '/assets/creators/ben-ito.jpg',
+    followers: 198,
   },
 ] as const
 
