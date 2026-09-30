@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { IoStarSharp } from 'react-icons/io5'
 
-import { studentAvatars } from '@/constants/home'
+import { studentAvatars } from '@/lib/constants/home'
 
 export const gridPatternClassName =
   'bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_2px,transparent_2px)] bg-size-[120px_120px] max-md:bg-size-[80px_80px]'

@@ -51,7 +51,12 @@ export function Dialog({
 
   return createPortal(
     <div
-      className={["fixed inset-0 z-[2147483600] flex items-end bg-neutral-950/45 p-0 sm:items-center sm:justify-center sm:p-6", mobileOnly && "sm:hidden"].filter(Boolean).join(" ")}
+      className={[
+        'fixed inset-0 z-2147483600 flex items-end bg-neutral-950/45 p-0 sm:items-center sm:justify-center sm:p-6',
+        mobileOnly && 'sm:hidden',
+      ]
+        .filter(Boolean)
+        .join(' ')}
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose()
       }}
@@ -60,8 +65,16 @@ export function Dialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
-        className={["max-h-[calc(100dvh-1rem)] w-full overflow-y-auto rounded-t-3xl bg-white shadow-2xl sm:max-h-[min(46rem,calc(100dvh-3rem))] sm:max-w-5xl sm:rounded-3xl", dragOffset ? "transition-none" : "transition-transform duration-200", className].join(" ")}
-        style={closeOnDragDown && dragOffset ? { transform: "translateY(" + dragOffset + "px)" } : undefined}
+        className={[
+          'max-h-[calc(100dvh-1rem)] w-full overflow-y-auto rounded-t-3xl bg-white shadow-2xl sm:max-h-[min(46rem,calc(100dvh-3rem))] sm:max-w-5xl sm:rounded-3xl',
+          dragOffset ? 'transition-none' : 'transition-transform duration-200',
+          className,
+        ].join(' ')}
+        style={
+          closeOnDragDown && dragOffset
+            ? { transform: 'translateY(' + dragOffset + 'px)' }
+            : undefined
+        }
       >
         {closeOnDragDown && (
           <div
@@ -73,10 +86,15 @@ export function Dialog({
               event.currentTarget.setPointerCapture(event.pointerId)
             }}
             onPointerMove={(event) => {
-              if (dragStartY.current !== null) setDragOffset(Math.max(0, event.clientY - dragStartY.current))
+              if (dragStartY.current !== null)
+                setDragOffset(Math.max(0, event.clientY - dragStartY.current))
             }}
             onPointerUp={(event) => {
-              if (dragStartY.current !== null && event.clientY - dragStartY.current > 100) onClose()
+              if (
+                dragStartY.current !== null &&
+                event.clientY - dragStartY.current > 100
+              )
+                onClose()
               setDragOffset(0)
               dragStartY.current = null
             }}

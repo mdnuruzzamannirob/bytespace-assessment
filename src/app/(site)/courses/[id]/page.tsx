@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { CourseDetailsContent } from '@/components/courses/CourseDetailsContent'
-import { courses } from '@/constants/courses'
+import { courses, getCourseById } from '@/lib/catalog'
 
 type Props = { params: Promise<{ id: string }> }
 
@@ -12,16 +12,18 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const course = courses.find((item) => item.id === Number(id))
+  const course = getCourseById(Number(id))
   return {
-    title: course ? `${course.title} | ByteSpace` : 'Course not found | ByteSpace',
+    title: course
+      ? `${course.title} | ByteSpace`
+      : 'Course not found | ByteSpace',
     description: course?.description,
   }
 }
 
 export default async function CourseDetailsPage({ params }: Props) {
   const { id } = await params
-  const course = courses.find((item) => item.id === Number(id))
+  const course = getCourseById(Number(id))
   if (!course) notFound()
   return <CourseDetailsContent course={course} />
 }

@@ -1,9 +1,8 @@
 import Link from 'next/link'
 
-import { courseTopicRows } from '@/constants/home'
-import { courses } from '@/constants/courses'
 import { CourseCard } from '@/components/courses/CourseCard'
-
+import { courses } from '@/lib/catalog'
+import { courseTopicRows } from '@/lib/constants/home'
 
 export function CoursesSection() {
   return (

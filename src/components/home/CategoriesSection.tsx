@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { learningPaths } from '@/constants/home'
+import { learningPaths } from '@/lib/constants/home'
 
 export function CategoriesSection() {
   return (
