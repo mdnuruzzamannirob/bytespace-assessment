@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { FaChartSimple } from 'react-icons/fa6'
-import { FiChevronLeft, FiChevronRight, FiFilter } from 'react-icons/fi'
+import { FiFilter } from 'react-icons/fi'
 import { LuListFilter, LuShapes } from 'react-icons/lu'
 import 'swiper/css'
 import { A11y, FreeMode, Keyboard } from 'swiper/modules'
@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { CourseCard } from '@/components/courses/CourseCard'
 import { CourseFilters } from '@/components/courses/CourseFilters'
 import { gridPatternClassName } from '@/components/home/HomeShared'
+import { Pagination } from '@/components/ui/pagination'
 import { SearchField } from '@/components/ui/search-field'
 import { Select } from '@/components/ui/select'
 import { categories, courses } from '@/constants/courses'
@@ -318,41 +319,12 @@ export function CoursesBrowser({
           </div>
         )}
         {pageCount > 1 && (
-          <nav
-            className="mt-18 flex items-center justify-center gap-3 sm:gap-6"
-            aria-label="Course pages"
-          >
-            <button
-              type="button"
-              aria-label="Previous page"
-              disabled={currentPage === 1}
-              onClick={() => goToPage(currentPage - 1)}
-              className="flex size-12 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <FiChevronLeft />
-            </button>
-            {Array.from({ length: pageCount }, (_, index) => (
-              <button
-                type="button"
-                key={index}
-                aria-label={`Page ${index + 1}`}
-                aria-current={currentPage === index + 1 ? 'page' : undefined}
-                onClick={() => goToPage(index + 1)}
-                className={`min-w-5 text-center font-heading text-lg transition-colors hover:text-lime-600 ${currentPage === index + 1 ? 'font-semibold text-neutral-950' : 'text-neutral-600'}`}
-              >
-                {index + 1}
-              </button>
-            ))}
-            <button
-              type="button"
-              aria-label="Next page"
-              disabled={currentPage === pageCount}
-              onClick={() => goToPage(currentPage + 1)}
-              className="flex size-12 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <FiChevronRight />
-            </button>
-          </nav>
+          <Pagination
+            page={currentPage}
+            pageCount={pageCount}
+            onPageChange={goToPage}
+            className="mt-18"
+          />
         )}
       </section>
     </main>
