@@ -60,20 +60,13 @@ export function AuthForm({ mode }: AuthFormProps) {
     const name = String(formData.get('name') ?? '')
     const email = String(formData.get('email') ?? '')
     const password = String(formData.get('password') ?? '')
-    const success = isLogin
-      ? login(email, password)
-      : signup(name, email, password)
+    const success = isLogin ? login(email, password) : signup(name, email, password)
     if (!success) {
-      showToast(
-        'That email and password do not match. Try the demo credentials below.',
-        'error',
-      )
+      showToast('That email and password do not match. Try the demo credentials below.', 'error')
       return
     }
     savePendingToast({
-      message: isLogin
-        ? 'Welcome back to ByteSpace.'
-        : 'Your demo account is ready.',
+      message: isLogin ? 'Welcome back to ByteSpace.' : 'Your demo account is ready.',
       tone: 'success',
     })
     router.push(searchParams.get('next') || '/')
@@ -86,11 +79,9 @@ export function AuthForm({ mode }: AuthFormProps) {
   }
 
   return (
-    <section className="flex w-full max-w-145 self-start flex-col rounded-3xl bg-white px-6 pt-8 pb-9 text-neutral-950 shadow-sm sm:mx-auto sm:px-12 sm:pt-12 xl:mt-30 xl:min-h-196 xl:px-16 xl:pt-15 xl:pb-8">
+    <section className="flex w-full max-w-145 flex-col self-start rounded-3xl bg-white px-6 pt-8 pb-9 text-neutral-950 shadow-sm sm:mx-auto sm:px-12 sm:pt-12 xl:mt-30 xl:min-h-196 xl:px-16 xl:pt-15 xl:pb-8">
       <div>
-        <p className="text-body-l text-blue-800">
-          {isLogin ? 'Sign In' : 'Create an Account'}
-        </p>
+        <p className="text-body-l text-blue-800">{isLogin ? 'Sign In' : 'Create an Account'}</p>
         <h1 className="font-heading text-[clamp(2.25rem,4vw,2.75rem)] leading-[1.2] font-semibold tracking-[-0.01em] text-neutral-950">
           {isLogin ? (
             'Welcome Back'
@@ -133,13 +124,12 @@ export function AuthForm({ mode }: AuthFormProps) {
         </form>
         {isLogin && (
           <p className="mt-5 rounded-xl bg-blue-50 p-4 text-sm leading-relaxed text-blue-900">
-            Demo access: <strong>{DEMO_EMAIL}</strong> /{' '}
-            <strong>{DEMO_PASSWORD}</strong>
+            Demo access: <strong>{DEMO_EMAIL}</strong> / <strong>{DEMO_PASSWORD}</strong>
           </p>
         )}
         {isLogin && (
           <div className="mt-18">
-            <div className="flex items-center gap-3 text-body-l text-neutral-400">
+            <div className="text-body-l flex items-center gap-3 text-neutral-400">
               <span className="h-px flex-1 bg-neutral-200" />
               <span>or</span>
               <span className="h-px flex-1 bg-neutral-200" />
@@ -167,15 +157,12 @@ export function AuthForm({ mode }: AuthFormProps) {
       </div>
 
       <p
-        className={`mt-12 text-center text-body-m ${isLogin ? 'xl:mt-auto' : 'xl:mt-auto xl:pb-10'}`}
+        className={`text-body-m mt-12 text-center ${isLogin ? 'xl:mt-auto' : 'xl:mt-auto xl:pb-10'}`}
       >
         <span className={isLogin ? 'text-neutral-400' : 'text-neutral-700'}>
           {isLogin ? 'New user?' : 'Already have an account?'}
         </span>{' '}
-        <Link
-          className="text-blue-800 hover:underline"
-          href={isLogin ? '/signup' : '/login'}
-        >
+        <Link className="text-blue-800 hover:underline" href={isLogin ? '/signup' : '/login'}>
           {isLogin ? 'Create an account' : 'Login'}
         </Link>
       </p>

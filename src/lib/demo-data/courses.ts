@@ -2,8 +2,7 @@ const courseSeeds = [
   {
     title: 'Learn Figma from Basics',
     category: 'Design',
-    description:
-      'Turn rough ideas into polished interfaces with a practical Figma workflow.',
+    description: 'Turn rough ideas into polished interfaces with a practical Figma workflow.',
     image: '/assets/courses/figma-basics.jpg',
     level: 'Beginner',
     durationMinutes: 95,
@@ -16,8 +15,7 @@ const courseSeeds = [
   {
     title: 'Design Systems in Figma',
     category: 'Design',
-    description:
-      'Build scalable libraries, tokens, and components for growing product teams.',
+    description: 'Build scalable libraries, tokens, and components for growing product teams.',
     image: '/assets/courses/figma-basics.jpg',
     level: 'Intermediate',
     durationMinutes: 180,
@@ -30,8 +28,7 @@ const courseSeeds = [
   {
     title: 'Product Thinking Essentials',
     category: 'Design',
-    description:
-      'Turn ambiguous product problems into clear opportunities and useful experiences.',
+    description: 'Turn ambiguous product problems into clear opportunities and useful experiences.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Beginner',
     durationMinutes: 136,
@@ -58,8 +55,7 @@ const courseSeeds = [
   {
     title: 'Design Critique Workshop',
     category: 'Design',
-    description:
-      'Learn a clear critique process for giving and receiving useful design feedback.',
+    description: 'Learn a clear critique process for giving and receiving useful design feedback.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Intermediate',
     durationMinutes: 150,
@@ -72,8 +68,7 @@ const courseSeeds = [
   {
     title: 'Accessible React Interfaces',
     category: 'Development',
-    description:
-      'Build inclusive React interfaces with semantic HTML and keyboard support.',
+    description: 'Build inclusive React interfaces with semantic HTML and keyboard support.',
     image: '/assets/courses/figma-basics.jpg',
     level: 'Intermediate',
     durationMinutes: 205,
@@ -86,8 +81,7 @@ const courseSeeds = [
   {
     title: 'Modern CSS Layouts',
     category: 'Development',
-    description:
-      'Master responsive layout systems that stay elegant from phone to desktop.',
+    description: 'Master responsive layout systems that stay elegant from phone to desktop.',
     image: '/assets/courses/figma-basics.jpg',
     level: 'Beginner',
     durationMinutes: 136,
@@ -100,8 +94,7 @@ const courseSeeds = [
   {
     title: 'TypeScript for JavaScript Developers',
     category: 'Development',
-    description:
-      'Add reliable types to everyday JavaScript projects without slowing down.',
+    description: 'Add reliable types to everyday JavaScript projects without slowing down.',
     image: '/assets/courses/figma-basics.jpg',
     level: 'Intermediate',
     durationMinutes: 180,
@@ -114,8 +107,7 @@ const courseSeeds = [
   {
     title: 'Testing Frontend Applications',
     category: 'Development',
-    description:
-      'Create a practical testing strategy for components, flows, and regressions.',
+    description: 'Create a practical testing strategy for components, flows, and regressions.',
     image: '/assets/courses/figma-basics.jpg',
     level: 'Intermediate',
     durationMinutes: 165,
@@ -128,8 +120,7 @@ const courseSeeds = [
   {
     title: 'Git and GitHub in Practice',
     category: 'Development',
-    description:
-      'Use branches, pull requests, and collaboration habits that keep teams moving.',
+    description: 'Use branches, pull requests, and collaboration habits that keep teams moving.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 110,
@@ -142,8 +133,7 @@ const courseSeeds = [
   {
     title: 'Python for Data Work',
     category: 'IT & Software',
-    description:
-      'Use Python fundamentals to clean, explore, and explain everyday datasets.',
+    description: 'Use Python fundamentals to clean, explore, and explain everyday datasets.',
     image: '/assets/courses/big-data.jpg',
     level: 'Beginner',
     durationMinutes: 210,
@@ -156,8 +146,7 @@ const courseSeeds = [
   {
     title: 'SQL Queries for Analysts',
     category: 'IT & Software',
-    description:
-      'Write confident SQL queries for reporting, exploration, and business questions.',
+    description: 'Write confident SQL queries for reporting, exploration, and business questions.',
     image: '/assets/courses/big-data.jpg',
     level: 'Beginner',
     durationMinutes: 145,
@@ -170,8 +159,7 @@ const courseSeeds = [
   {
     title: 'Cloud Fundamentals',
     category: 'IT & Software',
-    description:
-      'Understand core cloud concepts, services, security, and deployment choices.',
+    description: 'Understand core cloud concepts, services, security, and deployment choices.',
     image: '/assets/courses/big-data.jpg',
     level: 'Beginner',
     durationMinutes: 170,
@@ -184,8 +172,7 @@ const courseSeeds = [
   {
     title: 'Cybersecurity Basics',
     category: 'IT & Software',
-    description:
-      'Build safer digital habits and understand the foundations of threat prevention.',
+    description: 'Build safer digital habits and understand the foundations of threat prevention.',
     image: '/assets/courses/big-data.jpg',
     level: 'Beginner',
     durationMinutes: 130,
@@ -198,8 +185,7 @@ const courseSeeds = [
   {
     title: 'Dashboard Storytelling',
     category: 'IT & Software',
-    description:
-      'Build dashboards that guide attention and help teams act on evidence.',
+    description: 'Build dashboards that guide attention and help teams act on evidence.',
     image: '/assets/courses/big-data.jpg',
     level: 'Intermediate',
     durationMinutes: 120,
@@ -212,8 +198,7 @@ const courseSeeds = [
   {
     title: 'Launch Your Creative Business',
     category: 'Business',
-    description:
-      'Shape a sustainable offer and find the people it is built to serve.',
+    description: 'Shape a sustainable offer and find the people it is built to serve.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 120,
@@ -226,8 +211,7 @@ const courseSeeds = [
   {
     title: 'Systems for Freelancers',
     category: 'Business',
-    description:
-      'Create simple systems for managing projects, clients, and creative energy.',
+    description: 'Create simple systems for managing projects, clients, and creative energy.',
     image: '/assets/courses/productivity.jpg',
     level: 'Intermediate',
     durationMinutes: 180,
@@ -240,8 +224,7 @@ const courseSeeds = [
   {
     title: 'Finance for Small Businesses',
     category: 'Business',
-    description:
-      'Read your numbers, plan cash flow, and make calmer business decisions.',
+    description: 'Read your numbers, plan cash flow, and make calmer business decisions.',
     image: '/assets/courses/money-management.jpg',
     level: 'Beginner',
     durationMinutes: 140,
@@ -254,8 +237,7 @@ const courseSeeds = [
   {
     title: 'Leading Remote Teams',
     category: 'Business',
-    description:
-      'Build clear rituals, trust, and accountability across distributed teams.',
+    description: 'Build clear rituals, trust, and accountability across distributed teams.',
     image: '/assets/courses/startup.jpg',
     level: 'Intermediate',
     durationMinutes: 155,
@@ -268,8 +250,7 @@ const courseSeeds = [
   {
     title: 'Negotiation for Creatives',
     category: 'Business',
-    description:
-      'Prepare for better client conversations, scope decisions, and agreements.',
+    description: 'Prepare for better client conversations, scope decisions, and agreements.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 100,
@@ -282,8 +263,7 @@ const courseSeeds = [
   {
     title: 'Build a Personal Brand',
     category: 'Marketing',
-    description:
-      'Clarify your point of view and build a consistent presence people remember.',
+    description: 'Clarify your point of view and build a consistent presence people remember.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 115,
@@ -296,8 +276,7 @@ const courseSeeds = [
   {
     title: 'Campaigns That Convert',
     category: 'Marketing',
-    description:
-      'Connect audience insight to focused campaigns and measurable outcomes.',
+    description: 'Connect audience insight to focused campaigns and measurable outcomes.',
     image: '/assets/courses/startup.jpg',
     level: 'Intermediate',
     durationMinutes: 180,
@@ -310,8 +289,7 @@ const courseSeeds = [
   {
     title: 'Content Strategy Fundamentals',
     category: 'Marketing',
-    description:
-      'Plan useful content that supports your audience and your business goals.',
+    description: 'Plan useful content that supports your audience and your business goals.',
     image: '/assets/courses/productivity.jpg',
     level: 'Beginner',
     durationMinutes: 130,
@@ -324,8 +302,7 @@ const courseSeeds = [
   {
     title: 'Email Marketing from Scratch',
     category: 'Marketing',
-    description:
-      'Create a practical email program with clear messages and healthy metrics.',
+    description: 'Create a practical email program with clear messages and healthy metrics.',
     image: '/assets/courses/productivity.jpg',
     level: 'Beginner',
     durationMinutes: 125,
@@ -338,8 +315,7 @@ const courseSeeds = [
   {
     title: 'Marketing Analytics Made Clear',
     category: 'Marketing',
-    description:
-      'Use simple measurement frameworks to understand what your marketing is doing.',
+    description: 'Use simple measurement frameworks to understand what your marketing is doing.',
     image: '/assets/courses/big-data.jpg',
     level: 'Intermediate',
     durationMinutes: 160,
@@ -366,8 +342,7 @@ const courseSeeds = [
   {
     title: 'Photography with Intent',
     category: 'Photography',
-    description:
-      'Develop a confident visual voice through light, composition, and direction.',
+    description: 'Develop a confident visual voice through light, composition, and direction.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Beginner',
     durationMinutes: 136,
@@ -380,8 +355,7 @@ const courseSeeds = [
   {
     title: 'Street Photography Stories',
     category: 'Photography',
-    description:
-      'Find honest visual stories in everyday places without overcomplicating the shot.',
+    description: 'Find honest visual stories in everyday places without overcomplicating the shot.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Beginner',
     durationMinutes: 145,
@@ -394,8 +368,7 @@ const courseSeeds = [
   {
     title: 'Editing Photos in Lightroom',
     category: 'Photography',
-    description:
-      'Develop a repeatable editing workflow for natural, consistent photographs.',
+    description: 'Develop a repeatable editing workflow for natural, consistent photographs.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Intermediate',
     durationMinutes: 175,
@@ -408,8 +381,7 @@ const courseSeeds = [
   {
     title: 'Music Production for Beginners',
     category: 'Music',
-    description:
-      'Learn the creative and technical basics of making your first track.',
+    description: 'Learn the creative and technical basics of making your first track.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 190,
@@ -422,8 +394,7 @@ const courseSeeds = [
   {
     title: 'Songwriting with Structure',
     category: 'Music',
-    description:
-      'Turn fragments of melody and lyric into songs with shape and momentum.',
+    description: 'Turn fragments of melody and lyric into songs with shape and momentum.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 125,
@@ -436,8 +407,7 @@ const courseSeeds = [
   {
     title: 'Mixing Vocals at Home',
     category: 'Music',
-    description:
-      'Record and mix clear, expressive vocals in a small home setup.',
+    description: 'Record and mix clear, expressive vocals in a small home setup.',
     image: '/assets/courses/big-data.jpg',
     level: 'Intermediate',
     durationMinutes: 165,
@@ -450,8 +420,7 @@ const courseSeeds = [
   {
     title: 'Music Theory for Producers',
     category: 'Music',
-    description:
-      'Use harmony, rhythm, and arrangement ideas to make stronger production choices.',
+    description: 'Use harmony, rhythm, and arrangement ideas to make stronger production choices.',
     image: '/assets/courses/big-data.jpg',
     level: 'Beginner',
     durationMinutes: 150,
@@ -464,8 +433,7 @@ const courseSeeds = [
   {
     title: '2D Animation Fundamentals',
     category: 'Animation',
-    description:
-      'Bring drawings to life with timing, spacing, and expressive movement.',
+    description: 'Bring drawings to life with timing, spacing, and expressive movement.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Beginner',
     durationMinutes: 210,
@@ -478,8 +446,7 @@ const courseSeeds = [
   {
     title: 'Motion Design for Social',
     category: 'Animation',
-    description:
-      'Create short, readable motion pieces designed for modern social feeds.',
+    description: 'Create short, readable motion pieces designed for modern social feeds.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Intermediate',
     durationMinutes: 175,
@@ -492,8 +459,7 @@ const courseSeeds = [
   {
     title: 'Storyboarding for Short Films',
     category: 'Animation',
-    description:
-      'Plan shots, pacing, and visual beats before production begins.',
+    description: 'Plan shots, pacing, and visual beats before production begins.',
     image: '/assets/courses/startup.jpg',
     level: 'Beginner',
     durationMinutes: 140,
@@ -506,8 +472,7 @@ const courseSeeds = [
   {
     title: 'Character Animation Practice',
     category: 'Animation',
-    description:
-      'Develop believable character movement through focused animation exercises.',
+    description: 'Develop believable character movement through focused animation exercises.',
     image: '/assets/courses/digital-assets.jpg',
     level: 'Intermediate',
     durationMinutes: 220,
@@ -520,8 +485,7 @@ const courseSeeds = [
   {
     title: 'Weeknight Cooking Foundations',
     category: 'Cooking',
-    description:
-      'Build a reliable kitchen routine with techniques for fast, balanced meals.',
+    description: 'Build a reliable kitchen routine with techniques for fast, balanced meals.',
     image: '/assets/courses/productivity.jpg',
     level: 'Beginner',
     durationMinutes: 110,
@@ -534,8 +498,7 @@ const courseSeeds = [
   {
     title: 'Bread Baking at Home',
     category: 'Cooking',
-    description:
-      'Understand dough, fermentation, and shaping for better homemade bread.',
+    description: 'Understand dough, fermentation, and shaping for better homemade bread.',
     image: '/assets/courses/productivity.jpg',
     level: 'Beginner',
     durationMinutes: 165,
@@ -548,8 +511,7 @@ const courseSeeds = [
   {
     title: 'Plant-Based Comfort Food',
     category: 'Cooking',
-    description:
-      'Cook deeply satisfying plant-based meals with flexible everyday methods.',
+    description: 'Cook deeply satisfying plant-based meals with flexible everyday methods.',
     image: '/assets/courses/productivity.jpg',
     level: 'Intermediate',
     durationMinutes: 145,
@@ -562,8 +524,7 @@ const courseSeeds = [
   {
     title: 'Knife Skills and Kitchen Safety',
     category: 'Cooking',
-    description:
-      'Prepare ingredients faster and more safely with essential knife techniques.',
+    description: 'Prepare ingredients faster and more safely with essential knife techniques.',
     image: '/assets/courses/money-management.jpg',
     level: 'Beginner',
     durationMinutes: 85,
@@ -604,8 +565,7 @@ const courseSeeds = [
   {
     title: 'From Sketchbook to Screen',
     category: 'Drawing & Painting',
-    description:
-      'Turn hand-drawn ideas into clean, expressive digital artwork ready to share.',
+    description: 'Turn hand-drawn ideas into clean, expressive digital artwork ready to share.',
     image: '/assets/courses/drawing-tools.jpg',
     level: 'Intermediate',
     durationMinutes: 175,
@@ -632,8 +592,7 @@ const courseSeeds = [
   {
     title: 'Social Content That Connects',
     category: 'Social Media',
-    description:
-      'Plan useful, human social content without chasing every passing trend.',
+    description: 'Plan useful, human social content without chasing every passing trend.',
     image: '/assets/courses/social-media.jpg',
     level: 'Beginner',
     durationMinutes: 110,
@@ -660,8 +619,7 @@ const courseSeeds = [
   {
     title: 'Community Management Basics',
     category: 'Social Media',
-    description:
-      'Build welcoming community rituals and respond to people with clarity and care.',
+    description: 'Build welcoming community rituals and respond to people with clarity and care.',
     image: '/assets/courses/social-media.jpg',
     level: 'Intermediate',
     durationMinutes: 125,
@@ -702,8 +660,7 @@ const courseSeeds = [
   {
     title: 'Mobile App UX Patterns',
     category: 'UI/UX Design',
-    description:
-      'Design mobile flows that feel focused, familiar, and easy to complete.',
+    description: 'Design mobile flows that feel focused, familiar, and easy to complete.',
     image: '/assets/courses/creative-marketing.jpg',
     level: 'Intermediate',
     durationMinutes: 155,
@@ -730,8 +687,7 @@ const courseSeeds = [
   {
     title: 'Creative Campaign Direction',
     category: 'Creative Marketing',
-    description:
-      'Connect a sharp creative idea to a campaign people can recognize and remember.',
+    description: 'Connect a sharp creative idea to a campaign people can recognize and remember.',
     image: '/assets/courses/creative-marketing.jpg',
     level: 'Intermediate',
     durationMinutes: 160,

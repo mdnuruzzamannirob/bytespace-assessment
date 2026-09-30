@@ -14,12 +14,7 @@ import { getCoursesByCreator } from '@/lib/catalog'
 import { creators } from '@/lib/demo-data/creators'
 
 const pageSize = 9
-const sortOptions = [
-  'Most popular',
-  'Name A–Z',
-  'Name Z–A',
-  'Most products',
-] as const
+const sortOptions = ['Most popular', 'Name A–Z', 'Name Z–A', 'Most products'] as const
 
 export function CreatorsBrowser() {
   const [search, setSearch] = useState('')
@@ -30,30 +25,21 @@ export function CreatorsBrowser() {
   const visibleCreators = useMemo(() => {
     const query = search.trim().toLowerCase()
     const matching = creators.filter(
-      (creator) =>
-        !query ||
-        `${creator.name} ${creator.tagline}`.toLowerCase().includes(query),
+      (creator) => !query || `${creator.name} ${creator.tagline}`.toLowerCase().includes(query),
     )
 
-    if (sort === 'Name A–Z')
-      return [...matching].sort((a, b) => a.name.localeCompare(b.name))
-    if (sort === 'Name Z–A')
-      return [...matching].sort((a, b) => b.name.localeCompare(a.name))
+    if (sort === 'Name A–Z') return [...matching].sort((a, b) => a.name.localeCompare(b.name))
+    if (sort === 'Name Z–A') return [...matching].sort((a, b) => b.name.localeCompare(a.name))
     if (sort === 'Most products')
       return [...matching].sort(
-        (a, b) =>
-          getCoursesByCreator(b.slug).length -
-          getCoursesByCreator(a.slug).length,
+        (a, b) => getCoursesByCreator(b.slug).length - getCoursesByCreator(a.slug).length,
       )
     return [...matching].sort((a, b) => b.followers - a.followers)
   }, [search, sort])
 
   const pageCount = Math.max(1, Math.ceil(visibleCreators.length / pageSize))
   const activePage = Math.min(page, pageCount)
-  const pageCreators = visibleCreators.slice(
-    (activePage - 1) * pageSize,
-    activePage * pageSize,
-  )
+  const pageCreators = visibleCreators.slice((activePage - 1) * pageSize, activePage * pageSize)
 
   function updateSearch(value: string) {
     setSearch(value)
@@ -62,19 +48,13 @@ export function CreatorsBrowser() {
 
   function toggleFollow(slug: string) {
     setFollowedCreators((current) =>
-      current.includes(slug)
-        ? current.filter((value) => value !== slug)
-        : [...current, slug],
+      current.includes(slug) ? current.filter((value) => value !== slug) : [...current, slug],
     )
   }
 
   return (
     <main>
-      <SearchHero
-        heading="Find Your Next Creator"
-        search={search}
-        onSearch={updateSearch}
-      />
+      <SearchHero heading="Find Your Next Creator" search={search} onSearch={updateSearch} />
 
       <section
         id="creator-results"
@@ -92,7 +72,7 @@ export function CreatorsBrowser() {
             }}
             icon={<LuListFilter aria-hidden="true" />}
             align="right"
-            className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+            className="w-full sm:w-auto [&>button]:w-full sm:[&>button]:w-auto"
           />
         </div>
 
@@ -106,19 +86,12 @@ export function CreatorsBrowser() {
                   className="rounded-card border border-neutral-200 bg-white p-4"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <CreatorAvatar
-                      name={creator.name}
-                      src={creator.avatar}
-                      size={64}
-                    />
-                    <FollowButton
-                      followed={followed}
-                      onToggle={() => toggleFollow(creator.slug)}
-                    />
+                    <CreatorAvatar name={creator.name} src={creator.avatar} size={64} />
+                    <FollowButton followed={followed} onToggle={() => toggleFollow(creator.slug)} />
                   </div>
                   <div className="mt-3">
                     <h2
-                      className="truncate font-heading text-heading-xs text-neutral-950"
+                      className="font-heading text-heading-xs truncate text-neutral-950"
                       title={creator.name}
                     >
                       {creator.name}
@@ -164,9 +137,7 @@ export function CreatorsBrowser() {
             className="mt-18"
             onPageChange={(nextPage) => {
               setPage(nextPage)
-              document
-                .getElementById('creator-results')
-                ?.scrollIntoView({ behavior: 'smooth' })
+              document.getElementById('creator-results')?.scrollIntoView({ behavior: 'smooth' })
             }}
           />
         )}

@@ -28,12 +28,8 @@ export function AuthScene({ mode, children }: AuthSceneProps) {
         <div className="xl:pt-9">
           <Logo variant="symbol" />
           <div className="mt-8 max-w-119 xl:mt-12">
-            <h2 className="font-heading text-heading-xs text-neutral-50">
-              {copy[mode].title}
-            </h2>
-            <p className="mt-4 text-body-l text-neutral-50">
-              {copy[mode].description}
-            </p>
+            <h2 className="font-heading text-heading-xs text-neutral-50">{copy[mode].title}</h2>
+            <p className="text-body-l mt-4 text-neutral-50">{copy[mode].description}</p>
           </div>
         </div>
         <div className="absolute top-76 left-0 hidden xl:block">

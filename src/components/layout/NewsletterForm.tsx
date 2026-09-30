@@ -30,9 +30,9 @@ export function NewsletterForm() {
           Subscribe
         </Button>
       </div>
-      <p className="mt-6 text-body-xs text-neutral-700">
-        By subscribing, you agree to our Privacy Policy and consent to receive
-        updates from our company.
+      <p className="text-body-xs mt-6 text-neutral-700">
+        By subscribing, you agree to our Privacy Policy and consent to receive updates from our
+        company.
       </p>
     </form>
   )

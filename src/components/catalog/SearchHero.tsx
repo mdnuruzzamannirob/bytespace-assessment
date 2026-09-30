@@ -41,17 +41,15 @@ export function SearchHero({
               onSelect={onScopeChange}
               buttonClassName="!border-lime-400 !bg-lime-400 px-6 !text-neutral-950 hover:!border-lime-300 hover:!bg-lime-300"
               mobileMenuWidth="trigger"
-              className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+              className="w-full sm:w-auto [&>button]:w-full sm:[&>button]:w-auto"
             />
           ) : (
             <button
               type="button"
               onClick={() =>
-                document
-                  .getElementById('creator-results')
-                  ?.scrollIntoView({ behavior: 'smooth' })
+                document.getElementById('creator-results')?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="h-12 min-h-12 shrink-0 rounded-full bg-lime-400 px-6 text-label-l text-neutral-950 hover:bg-lime-300"
+              className="text-label-l h-12 min-h-12 shrink-0 rounded-full bg-lime-400 px-6 text-neutral-950 hover:bg-lime-300"
             >
               Search
             </button>

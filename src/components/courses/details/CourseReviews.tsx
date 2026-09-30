@@ -12,20 +12,13 @@ export function CourseReviews({
   onRatingChange: (value: number | 'all') => void
 }) {
   const visibleReviews =
-    activeRating === 'all'
-      ? reviews
-      : reviews.filter((review) => review.rating === activeRating)
+    activeRating === 'all' ? reviews : reviews.filter((review) => review.rating === activeRating)
   return (
-    <div
-      role="tabpanel"
-      id="panel-reviews"
-      aria-labelledby="tab-reviews"
-      className="mt-10"
-    >
+    <div role="tabpanel" id="panel-reviews" aria-labelledby="tab-reviews" className="mt-10">
       <h2 className="font-heading text-xl">What Learners Are Saying</h2>
       <p className="mt-6 max-w-181 text-base leading-relaxed text-neutral-700">
-        Discover what learners have to say about their experience and read
-        ratings from people who have taken this course.
+        Discover what learners have to say about their experience and read ratings from people who
+        have taken this course.
       </p>
       <section
         className="mt-6 flex flex-col gap-6 rounded-2xl border border-neutral-200 bg-white p-5 sm:flex-row sm:items-center sm:p-10"
@@ -53,11 +46,8 @@ export function CourseReviews({
           ))}
         </div>
       </section>
-      <h3 className="mt-8 font-heading text-xl">Individual Reviews</h3>
-      <div
-        className="mt-6 flex flex-wrap gap-3"
-        aria-label="Filter reviews by rating"
-      >
+      <h3 className="font-heading mt-8 text-xl">Individual Reviews</h3>
+      <div className="mt-6 flex flex-wrap gap-3" aria-label="Filter reviews by rating">
         <button
           type="button"
           aria-pressed={activeRating === 'all'}
@@ -96,17 +86,13 @@ export function CourseReviews({
                     className="rounded-full"
                   />
                   <div>
-                    <h4 className="text-lg font-medium text-neutral-950">
-                      {review.name}
-                    </h4>
+                    <h4 className="text-lg font-medium text-neutral-950">{review.name}</h4>
                     <p className="text-base text-neutral-700">{review.role}</p>
                   </div>
                 </div>
                 <Stars count={review.rating} size={20} />
               </div>
-              <p className="mt-6 text-base leading-relaxed text-neutral-700">
-                {review.copy}
-              </p>
+              <p className="mt-6 text-base leading-relaxed text-neutral-700">{review.copy}</p>
             </article>
           ))
         ) : (

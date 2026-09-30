@@ -68,13 +68,7 @@ export const testimonials = [
   },
 ] as const
 
-export const partnerLogos = [
-  'wave',
-  'sunburst',
-  'compass',
-  'flower',
-  'rings',
-] as const
+export const partnerLogos = ['wave', 'sunburst', 'compass', 'flower', 'rings'] as const
 export const studentAvatars = [
   'home/people/student-at-table.png',
   'home/people/learner-pink-background.png',

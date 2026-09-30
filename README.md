@@ -24,9 +24,9 @@ The design reference is light only. A future dark theme will need the commented 
 Example section and grid:
 
 ```tsx
-<section className="mx-auto w-full max-w-site px-5 md:px-10 wide:px-30">
+<section className="max-w-site wide:px-30 mx-auto w-full px-5 md:px-10">
   <h2 className="font-heading text-heading-m">Discover your passion</h2>
-  <div className="grid grid-cols-4 gap-4 md:grid-cols-8 md:gap-6 wide:grid-cols-12 wide:gap-10">
+  <div className="wide:grid-cols-12 wide:gap-10 grid grid-cols-4 gap-4 md:grid-cols-8 md:gap-6">
     {/* Cards go here */}
   </div>
 </section>

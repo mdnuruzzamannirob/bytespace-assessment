@@ -19,9 +19,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
   const [ratingMin, setRatingMin] = useState(0)
   const [lessonsMin, setLessonsMin] = useState(0)
   const [priceMax, setPriceMax] = useState(0)
-  const [duration, setDuration] = useState<
-    'any' | 'under2' | 'twoToThree' | 'threePlus'
-  >('any')
+  const [duration, setDuration] = useState<'any' | 'under2' | 'twoToThree' | 'threePlus'>('any')
   const creatorCourses = useMemo(() => {
     const matching = filterCourses(getCoursesByCreator(creator.slug), {
       category,
@@ -31,23 +29,11 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
       priceMax,
       duration,
     })
-    if (sort === 'Title A–Z')
-      return [...matching].sort((a, b) => a.title.localeCompare(b.title))
-    if (sort === 'Title Z–A')
-      return [...matching].sort((a, b) => b.title.localeCompare(a.title))
-    if (sort === 'Highest rated')
-      return [...matching].sort((a, b) => b.rating - a.rating)
+    if (sort === 'Title A–Z') return [...matching].sort((a, b) => a.title.localeCompare(b.title))
+    if (sort === 'Title Z–A') return [...matching].sort((a, b) => b.title.localeCompare(a.title))
+    if (sort === 'Highest rated') return [...matching].sort((a, b) => b.rating - a.rating)
     return matching
-  }, [
-    category,
-    creator.slug,
-    duration,
-    lessonsMin,
-    level,
-    priceMax,
-    ratingMin,
-    sort,
-  ])
+  }, [category, creator.slug, duration, lessonsMin, level, priceMax, ratingMin, sort])
 
   return (
     <main>
@@ -72,9 +58,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
                     Creator
                   </span>
                 </div>
-                <p className="mt-2 text-base text-blue-50 sm:text-lg">
-                  {creator.tagline}
-                </p>
+                <p className="mt-2 text-base text-blue-50 sm:text-lg">{creator.tagline}</p>
               </div>
             </div>
 
@@ -88,10 +72,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
                 followers={creator.followers}
                 variant="pills"
               />
-              <FollowButton
-                followed={followed}
-                onToggle={() => setFollowed((value) => !value)}
-              />
+              <FollowButton followed={followed} onToggle={() => setFollowed((value) => !value)} />
             </div>
           </div>
         </div>
@@ -134,9 +115,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
             ))}
           </div>
         ) : (
-          <p className="py-20 text-center text-neutral-500">
-            No courses match these filters.
-          </p>
+          <p className="py-20 text-center text-neutral-500">No courses match these filters.</p>
         )}
       </section>
     </main>

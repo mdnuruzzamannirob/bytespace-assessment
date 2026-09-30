@@ -17,7 +17,11 @@ export function Logo({ variant = 'light', className = '' }: LogoProps) {
         alt="ByteSpace"
         height={variant === 'symbol' ? 32 : 37}
         priority={variant !== 'dark'}
-        src={variant === 'symbol' ? '/assets/bytespace-symbol-lime.png' : `/assets/bytespace-logo-${variant}.png`}
+        src={
+          variant === 'symbol'
+            ? '/assets/bytespace-symbol-lime.png'
+            : `/assets/bytespace-logo-${variant}.png`
+        }
         width={variant === 'symbol' ? 29 : 171}
       />
     </Link>

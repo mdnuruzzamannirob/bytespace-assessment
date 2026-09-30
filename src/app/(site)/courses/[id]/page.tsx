@@ -14,9 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const course = getCourseById(Number(id))
   return {
-    title: course
-      ? `${course.title} | ByteSpace`
-      : 'Course not found | ByteSpace',
+    title: course ? `${course.title} | ByteSpace` : 'Course not found | ByteSpace',
     description: course?.description,
   }
 }

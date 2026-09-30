@@ -40,8 +40,7 @@ export function getSession(): DemoUser | null {
 }
 
 export function saveSession(user: DemoUser) {
-  if (canUseStorage())
-    window.localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(user))
+  if (canUseStorage()) window.localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(user))
 }
 
 export function clearSession() {
@@ -68,16 +67,11 @@ export function saveCreatedUser(user: DemoUser) {
 export function findValidUser(email: string, password: string) {
   const normalizedEmail = email.trim().toLowerCase()
   const users = [demoUser, ...getCreatedUsers()]
-  return (
-    users.find(
-      (user) => user.email === normalizedEmail && user.password === password,
-    ) ?? null
-  )
+  return users.find((user) => user.email === normalizedEmail && user.password === password) ?? null
 }
 
 export function savePendingToast(toast: PendingToast) {
-  if (canUseStorage())
-    window.sessionStorage.setItem(PENDING_TOAST_KEY, JSON.stringify(toast))
+  if (canUseStorage()) window.sessionStorage.setItem(PENDING_TOAST_KEY, JSON.stringify(toast))
 }
 
 export function consumePendingToast(): PendingToast | null {

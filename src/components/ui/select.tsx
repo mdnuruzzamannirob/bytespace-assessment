@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { FiCheck, FiChevronDown } from 'react-icons/fi'
 
@@ -79,24 +72,14 @@ export function Select({
     )
     const spaceBelow = viewportHeight - bounds.bottom - VIEWPORT_GUTTER
     const spaceAbove = bounds.top - VIEWPORT_GUTTER
-    const preferredHeight = Math.min(
-      MENU_MAX_HEIGHT,
-      viewportHeight - VIEWPORT_GUTTER * 2,
-    )
-    const openAbove =
-      spaceBelow < MINIMUM_BELOW_SPACE && spaceAbove > spaceBelow
-    const maxHeight = Math.max(
-      0,
-      Math.min(preferredHeight, openAbove ? spaceAbove : spaceBelow),
-    )
+    const preferredHeight = Math.min(MENU_MAX_HEIGHT, viewportHeight - VIEWPORT_GUTTER * 2)
+    const openAbove = spaceBelow < MINIMUM_BELOW_SPACE && spaceAbove > spaceBelow
+    const maxHeight = Math.max(0, Math.min(preferredHeight, openAbove ? spaceAbove : spaceBelow))
 
     let left = bounds.left
     if (align === 'center') left = bounds.left + bounds.width / 2 - width / 2
     if (align === 'right') left = bounds.right - width
-    left = Math.min(
-      Math.max(VIEWPORT_GUTTER, left),
-      viewportWidth - width - VIEWPORT_GUTTER,
-    )
+    left = Math.min(Math.max(VIEWPORT_GUTTER, left), viewportWidth - width - VIEWPORT_GUTTER)
 
     setPosition(
       openAbove
@@ -149,7 +132,7 @@ export function Select({
             id={menuId}
             role="menu"
             aria-label={label}
-            className={`fixed z-2147483647 overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white ui-select-menu p-2 text-left shadow-xl ${menuClassName}`}
+            className={`ui-select-menu fixed z-2147483647 overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white p-2 text-left shadow-xl ${menuClassName}`}
             style={position}
           >
             {options.map((option) => (
@@ -193,9 +176,7 @@ export function Select({
         className={`inline-flex h-12 max-w-full items-center justify-start gap-2 rounded-full border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${buttonClassName}`}
       >
         {icon}
-        <span className="min-w-0 flex-1 truncate text-left">
-          {triggerLabel}
-        </span>
+        <span className="min-w-0 flex-1 truncate text-left">{triggerLabel}</span>
         <FiChevronDown
           aria-hidden="true"
           className={`ml-auto size-4 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}

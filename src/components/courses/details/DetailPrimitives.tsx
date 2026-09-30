@@ -2,13 +2,7 @@ import Image from 'next/image'
 
 const assets = '/assets/course-details'
 
-export function DetailIcon({
-  name,
-  size = 24,
-}: {
-  name: string
-  size?: number
-}) {
+export function DetailIcon({ name, size = 24 }: { name: string; size?: number }) {
   return (
     <Image
       src={`${assets}/${name}`}
@@ -21,13 +15,7 @@ export function DetailIcon({
   )
 }
 
-export function Stars({
-  count = 5,
-  size = 24,
-}: {
-  count?: number
-  size?: number
-}) {
+export function Stars({ count = 5, size = 24 }: { count?: number; size?: number }) {
   return (
     <span aria-label={`${count} out of 5 stars`} className="flex gap-1">
       {Array.from({ length: count }, (_, index) => (

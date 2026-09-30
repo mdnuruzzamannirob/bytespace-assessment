@@ -12,17 +12,14 @@ const metricCardClassName =
   'absolute z-1 flex box-border flex-col items-start justify-between rounded-2xl bg-blue-800 p-[clamp(10px,2.96cqw,16px)] text-neutral-50 shadow-[0_12px_22px_rgba(0,0,0,0.12)]'
 const metricLabelClassName =
   'whitespace-nowrap text-[clamp(11px,2.96cqw,16px)] leading-[1.2] font-medium'
-const metricDateClassName =
-  'mt-0.5 text-[clamp(9px,1.85cqw,10px)] leading-[1.2] text-white/80'
+const metricDateClassName = 'mt-0.5 text-[clamp(9px,1.85cqw,10px)] leading-[1.2] text-white/80'
 const metricValueClassName =
   'whitespace-nowrap font-heading text-[clamp(15px,4.44cqw,24px)] leading-[1.33] font-semibold tracking-[-0.01em]'
 
 function GrowthArtwork() {
   return (
     <div className="@container relative isolate order-2 mx-auto aspect-541/596 w-full max-w-135.25 max-sm:max-w-87.5 lg:order-1 lg:mx-0">
-      <div
-        className={`${metricCardClassName} top-[7.38%] left-0 h-[19.97%] w-[max(42.88%,160px)]`}
-      >
+      <div className={`${metricCardClassName} top-[7.38%] left-0 h-[19.97%] w-[max(42.88%,160px)]`}>
         <div>
           <p className={metricLabelClassName}>Total Revenue</p>
           <p className={metricDateClassName}>July 1-28</p>
@@ -63,7 +60,7 @@ function GrowthArtwork() {
         sizes="(max-width: 640px) 40vw, 215px"
       />
 
-      <div className="absolute top-[69.3%] right-0 z-4 flex box-border h-[max(20.64%,92px)] w-[max(47.7%,215px)] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.96cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.12)]">
+      <div className="absolute top-[69.3%] right-0 z-4 box-border flex h-[max(20.64%,92px)] w-[max(47.7%,215px)] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.96cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.12)]">
         <div>
           <p className="text-[clamp(11px,2.96cqw,16px)] leading-normal font-medium">
             Happy Students
@@ -73,7 +70,7 @@ function GrowthArtwork() {
             <IoStarSharp aria-hidden="true" className="size-4 text-lime-400" />
           </p>
         </div>
-        <div className="h-10 origin-top-left [&>span]:w-max max-[490px]:h-8.25 max-[490px]:scale-[0.82]">
+        <div className="h-10 origin-top-left max-[490px]:h-8.25 max-[490px]:scale-[0.82] [&>span]:w-max">
           <StudentFaces />
         </div>
       </div>
@@ -86,22 +83,19 @@ export function GrowthSection() {
     <section className="relative overflow-hidden bg-[#fafafa] bg-[radial-gradient(ellipse_650px_620px_at_100%_0%,#ecf0f8,transparent_100%),radial-gradient(circle_at_27%_7%,#e6fba0,transparent_28%),radial-gradient(circle_at_2%_51%,#d5def7,transparent_28%),radial-gradient(circle_at_0%_89%,#e7fa9f,transparent_23%),radial-gradient(ellipse_720px_650px_at_100%_100%,#cdd7f5,transparent_100%)]">
       <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 py-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 xl:px-0">
         <div className="lg:translate-y-6.5">
-          <h2 className="max-w-140 font-heading text-heading-m">
+          <h2 className="font-heading text-heading-m max-w-140">
             Your Path to Professional Growth Starts Here!
           </h2>
-          <p className="mt-12 max-w-113 text-body-m text-neutral-600">
-            Explore our curated selection of courses tailored to enhance your
-            capabilities and accelerate your career journey. Whether you are
-            looking to sharpen specific skills, gain industry expertise, or
-            embark on a new career path entirely, we have the resources you
+          <p className="text-body-m mt-12 max-w-113 text-neutral-600">
+            Explore our curated selection of courses tailored to enhance your capabilities and
+            accelerate your career journey. Whether you are looking to sharpen specific skills, gain
+            industry expertise, or embark on a new career path entirely, we have the resources you
             need.
           </p>
           <div className="mt-12 flex gap-12 lg:mt-13.5">
             {growthStats.map(({ value, label }) => (
               <div key={label}>
-                <strong className="font-heading text-heading-s text-blue-700">
-                  {value}
-                </strong>
+                <strong className="font-heading text-heading-s text-blue-700">{value}</strong>
                 <p className="text-body-s text-neutral-500">{label}</p>
               </div>
             ))}
@@ -120,9 +114,7 @@ export function GrowthSection() {
             sizes="(max-width: 640px) 85vw, 577px"
           />
           <div className="absolute top-[38.59%] left-[55.56%] z-4 box-border flex h-[25%] w-[37.36%] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.58cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.14)]">
-            <p className="text-[clamp(10px,2.25cqw,14px)] leading-[1.4]">
-              Learning Progress
-            </p>
+            <p className="text-[clamp(10px,2.25cqw,14px)] leading-[1.4]">Learning Progress</p>
             <strong className="font-heading text-[clamp(27px,7.73cqw,48px)] leading-[1.2] font-semibold tracking-[-0.01em]">
               55%
             </strong>
@@ -143,16 +135,16 @@ export function GrowthSection() {
       <div className="relative mx-auto grid max-w-300 items-center gap-12 px-5 pb-25 lg:min-h-182.5 lg:grid-cols-2 lg:gap-25 xl:px-0">
         <GrowthArtwork />
         <div className="order-1 lg:order-2 lg:-translate-x-7.5">
-          <h2 className="max-w-120 font-heading text-heading-m">
+          <h2 className="font-heading text-heading-m max-w-120">
             Create &amp; Manage Courses Easily.
           </h2>
-          <p className="mt-8 max-w-122 text-body-m text-neutral-600">
-            <strong>ByteSpace</strong> supports individuals or entities in the
-            creation, publication, and administration of educational courses.
+          <p className="text-body-m mt-8 max-w-122 text-neutral-600">
+            <strong>ByteSpace</strong> supports individuals or entities in the creation,
+            publication, and administration of educational courses.
           </p>
           <ul className="mt-10 space-y-4">
             {creatorBenefits.map((benefit) => (
-              <li className="flex items-center gap-3 text-body-m" key={benefit}>
+              <li className="text-body-m flex items-center gap-3" key={benefit}>
                 <span className="flex size-5 items-center justify-center rounded-full bg-blue-700 text-white">
                   <FaCheck className="size-3" />
                 </span>

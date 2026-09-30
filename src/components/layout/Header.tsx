@@ -10,18 +10,12 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { Logo } from '@/components/ui/logo'
 import { Popover } from '@/components/ui/popover'
 import { useToast } from '@/components/ui/toast'
-import {
-  headerAccountLinks,
-  headerNavigation,
-  shoppingBagHref,
-} from '@/lib/constants/navigation'
+import { headerAccountLinks, headerNavigation, shoppingBagHref } from '@/lib/constants/navigation'
 
 function getInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean)
   return (
-    parts.length > 1
-      ? parts[0][0] + parts.at(-1)?.[0]
-      : parts[0]?.slice(0, 2) || 'BS'
+    parts.length > 1 ? parts[0][0] + parts.at(-1)?.[0] : parts[0]?.slice(0, 2) || 'BS'
   ).toUpperCase()
 }
 
@@ -68,9 +62,7 @@ export function Header() {
   }, [menuOpen])
 
   const isActive = (href: string) =>
-    href === '/'
-      ? pathname === '/'
-      : pathname === href || pathname.startsWith(`${href}/`)
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
 
   const shoppingBag = (
     <Link
@@ -85,9 +77,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-200 ${
-        scrolled || menuOpen
-          ? 'bg-blue-800/95 shadow-sm backdrop-blur-md'
-          : 'bg-transparent'
+        scrolled || menuOpen ? 'bg-blue-800/95 shadow-sm backdrop-blur-md' : 'bg-transparent'
       }`}
     >
       <div
@@ -97,10 +87,7 @@ export function Header() {
       >
         <Logo />
 
-        <nav
-          aria-label="Main navigation"
-          className="hidden justify-self-center md:block"
-        >
+        <nav aria-label="Main navigation" className="hidden justify-self-center md:block">
           <ul className="flex items-center gap-6">
             {headerNavigation.map(({ label, href }) => (
               <li key={label}>
@@ -119,7 +106,7 @@ export function Header() {
         </nav>
 
         {!loading && (
-          <div className="flex items-center justify-self-end gap-5 sm:gap-6">
+          <div className="flex items-center gap-5 justify-self-end sm:gap-6">
             {user ? (
               <>
                 {shoppingBag}
@@ -136,9 +123,7 @@ export function Header() {
                   >
                     <div className="border-b border-neutral-100 px-2 pb-3">
                       <p className="font-medium">{user.name}</p>
-                      <p className="mt-1 truncate text-xs text-neutral-500">
-                        {user.email}
-                      </p>
+                      <p className="mt-1 truncate text-xs text-neutral-500">{user.email}</p>
                     </div>
                     <button
                       type="button"
@@ -159,7 +144,7 @@ export function Header() {
                 {headerAccountLinks.map(({ label, href }) => (
                   <Link
                     aria-current={isActive(href) ? 'page' : undefined}
-                    className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
+                    className={`text-label-m hidden font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
                     href={href}
                     key={label}
                   >
@@ -173,9 +158,7 @@ export function Header() {
               <button
                 aria-controls="mobile-navigation"
                 aria-expanded={menuOpen}
-                aria-label={
-                  menuOpen ? 'Close navigation menu' : 'Open navigation menu'
-                }
+                aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 className="flex size-8 items-center justify-center focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
                 onClick={() => setMenuOpen((open) => !open)}
                 type="button"
@@ -197,7 +180,7 @@ export function Header() {
                       <li key={label}>
                         <Link
                           aria-current={isActive(href) ? 'page' : undefined}
-                          className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
+                          className={`text-label-m block py-1 font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
                           href={href}
                           onClick={() => setMenuOpen(false)}
                         >
@@ -209,7 +192,7 @@ export function Header() {
                       <li className="sm:hidden">
                         <button
                           type="button"
-                          className="flex items-center gap-3 py-1 text-label-m font-normal hover:text-lime-400"
+                          className="text-label-m flex items-center gap-3 py-1 font-normal hover:text-lime-400"
                           onClick={() => {
                             logout()
                             setMenuOpen(false)
@@ -227,7 +210,7 @@ export function Header() {
                         <li className="sm:hidden" key={label}>
                           <Link
                             aria-current={isActive(href) ? 'page' : undefined}
-                            className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
+                            className={`text-label-m block py-1 font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
                             href={href}
                             onClick={() => setMenuOpen(false)}
                           >

@@ -18,19 +18,22 @@ function getPageItems(page: number, pageCount: number): PageItem[] {
 
   if (page <= 4) return [1, 2, 3, 4, 5, 'end-ellipsis', pageCount]
   if (page >= pageCount - 3) {
-    return [1, 'start-ellipsis', pageCount - 4, pageCount - 3, pageCount - 2, pageCount - 1, pageCount]
+    return [
+      1,
+      'start-ellipsis',
+      pageCount - 4,
+      pageCount - 3,
+      pageCount - 2,
+      pageCount - 1,
+      pageCount,
+    ]
   }
 
   return [1, 'start-ellipsis', page - 1, page, page + 1, 'end-ellipsis', pageCount]
 }
 
 /** Compact pagination that stays readable for any number of pages. */
-export function Pagination({
-  page,
-  pageCount,
-  onPageChange,
-  className = '',
-}: PaginationProps) {
+export function Pagination({ page, pageCount, onPageChange, className = '' }: PaginationProps) {
   const pageItems = getPageItems(page, pageCount)
 
   return (
@@ -43,7 +46,7 @@ export function Pagination({
         aria-label="Previous page"
         disabled={page === 1}
         onClick={() => onPageChange(page - 1)}
-        className="flex size-8 shrink-0 items-center justify-center rounded-full border sm:size-10 border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex size-8 shrink-0 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40 sm:size-10"
       >
         <FiChevronLeft aria-hidden="true" className="size-5" />
       </button>
@@ -57,7 +60,7 @@ export function Pagination({
               aria-label={`Page ${item}`}
               aria-current={page === item ? 'page' : undefined}
               onClick={() => onPageChange(item)}
-              className={`flex size-8 shrink-0 items-center justify-center rounded-full font-heading sm:size-10 text-base sm:text-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${page === item ? 'bg-lime-400 font-semibold text-neutral-950' : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-950'}`}
+              className={`font-heading flex size-8 shrink-0 items-center justify-center rounded-full text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 sm:size-10 sm:text-lg ${page === item ? 'bg-lime-400 font-semibold text-neutral-950' : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-950'}`}
             >
               {item}
             </button>
@@ -78,7 +81,7 @@ export function Pagination({
         aria-label="Next page"
         disabled={page === pageCount}
         onClick={() => onPageChange(page + 1)}
-        className="flex size-8 shrink-0 items-center justify-center rounded-full border sm:size-10 border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex size-8 shrink-0 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40 sm:size-10"
       >
         <FiChevronRight aria-hidden="true" className="size-5" />
       </button>
