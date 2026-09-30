@@ -1,14 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import { getInitials } from '@/lib/person'
 import { useState } from 'react'
-
-function getInitials(name: string) {
-  const parts = name.trim().split(/\s+/).filter(Boolean)
-  return (
-    parts.length > 1 ? parts[0][0] + parts.at(-1)?.[0] : parts[0]?.slice(0, 2) || 'BS'
-  ).toUpperCase()
-}
 
 export function CreatorAvatar({
   name,

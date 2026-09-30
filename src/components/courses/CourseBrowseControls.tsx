@@ -6,20 +6,28 @@ import { LuListFilter, LuShapes } from 'react-icons/lu'
 
 import { CourseFilters } from '@/components/courses/CourseFilters'
 import { Select } from '@/components/ui/select'
-import { categories, levels, sortOptions, type DurationFilter } from '@/lib/constants/catalog'
+import {
+  categories,
+  levels,
+  sortOptions,
+  type CourseCategory,
+  type CourseLevel,
+  type CourseSort,
+  type DurationFilter,
+} from '@/lib/constants/catalog'
 
 type Props = {
-  category: string
-  level: string
-  sort: string
+  category: CourseCategory
+  level: CourseLevel
+  sort: CourseSort
   duration: DurationFilter
   ratingMin: number
   lessonsMin: number
   priceMax: number
   showFilters: boolean
-  onCategoryChange: (value: string) => void
-  onLevelChange: (value: string) => void
-  onSortChange: (value: string) => void
+  onCategoryChange: (value: CourseCategory) => void
+  onLevelChange: (value: CourseLevel) => void
+  onSortChange: (value: CourseSort) => void
   onDurationChange: (value: DurationFilter) => void
   onRatingChange: (value: number) => void
   onLessonsChange: (value: number) => void
@@ -36,7 +44,6 @@ export function CourseBrowseControls(props: Props) {
         <button
           type="button"
           aria-expanded={props.showFilters}
-          aria-controls="all-course-filters"
           onClick={props.onToggleFilters}
           className={`inline-flex h-12 w-full items-center justify-start gap-2 rounded-full border px-4 text-sm font-medium text-neutral-700 sm:w-auto ${props.showFilters ? 'border-neutral-400 bg-neutral-50' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50'}`}
         >

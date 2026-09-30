@@ -7,11 +7,11 @@ import { FiCheck, FiChevronDown } from 'react-icons/fi'
 type SelectAlignment = 'left' | 'center' | 'right'
 type SelectMenuWidth = 'content' | 'trigger'
 
-type SelectProps = {
+type SelectProps<T extends string> = {
   label: string
-  value: string
-  options: readonly string[]
-  onSelect: (value: string) => void
+  value: T
+  options: readonly T[]
+  onSelect: (value: T) => void
   icon?: ReactNode
   triggerLabel?: string
   align?: SelectAlignment
@@ -38,7 +38,7 @@ const MENU_MAX_HEIGHT = 520
 const DEFAULT_CONTENT_MENU_WIDTH = 208
 
 /** A viewport-aware select menu portaled above page stacking contexts. */
-export function Select({
+export function Select<T extends string>({
   label,
   value,
   options,
@@ -52,7 +52,7 @@ export function Select({
   className = '',
   buttonClassName = '',
   menuClassName = '',
-}: SelectProps) {
+}: SelectProps<T>) {
   const [open, setOpen] = useState(false)
   const [position, setPosition] = useState<MenuPosition | null>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -113,6 +113,16 @@ export function Select({
     }
 
     updatePosition()
+    requestAnimationFrame(() => {
+      const buttons = document
+        .getElementById(menuId)
+        ?.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]')
+      ;(
+        Array.from(buttons ?? []).find(
+          (button) => button.getAttribute('aria-checked') === 'true',
+        ) ?? buttons?.[0]
+      )?.focus()
+    })
     document.addEventListener('pointerdown', closeOutside)
     document.addEventListener('keydown', closeEscape)
     window.addEventListener('resize', updatePosition)
@@ -132,6 +142,24 @@ export function Select({
             id={menuId}
             role="menu"
             aria-label={label}
+            onKeyDown={(event) => {
+              const buttons = Array.from(
+                event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]'),
+              )
+              const current = buttons.indexOf(document.activeElement as HTMLButtonElement)
+              let next = current
+              if (event.key === 'ArrowDown') next = (current + 1) % buttons.length
+              else if (event.key === 'ArrowUp')
+                next = (current - 1 + buttons.length) % buttons.length
+              else if (event.key === 'Home') next = 0
+              else if (event.key === 'End') next = buttons.length - 1
+              else if (event.key === 'Tab') {
+                setOpen(false)
+                return
+              } else return
+              event.preventDefault()
+              buttons[next]?.focus()
+            }}
             className={`ui-select-menu fixed z-2147483647 overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl border border-neutral-200 bg-white p-2 text-left shadow-xl ${menuClassName}`}
             style={position}
           >
@@ -144,8 +172,9 @@ export function Select({
                 onClick={() => {
                   onSelect(option)
                   setOpen(false)
+                  triggerRef.current?.focus()
                 }}
-                className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-600' : 'text-neutral-700'}`}
+                className={`flex w-full items-center justify-between gap-5 rounded-xl px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:outline-none ${value === option ? 'font-medium text-lime-800' : 'text-neutral-700'}`}
               >
                 <span>{option}</span>
                 {value === option && <FiCheck aria-hidden="true" />}

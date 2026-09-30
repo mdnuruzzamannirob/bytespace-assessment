@@ -1,3 +1,5 @@
+import { courses } from '@/lib/demo-data/courses'
+import { creators } from '@/lib/demo-data/creators'
 import { categories as courseTopics } from './catalog'
 
 export { courseTopics }
@@ -7,33 +9,6 @@ export const courseTopicRows = [
   courseTopics.slice(8, 14),
   courseTopics.slice(14),
 ]
-
-export const featuredCourses = [
-  {
-    title: 'Learn Figma from Basic',
-    image: '/assets/course-digital-products-icons.png',
-  },
-  {
-    title: 'Build Digital Asset',
-    image: '/assets/course-digital-products-icons.png',
-  },
-  {
-    title: 'the Power of Big Data',
-    image: '/assets/course-big-data-dashboard.png',
-  },
-  {
-    title: 'Balancing Productivity and Self-Care',
-    image: '/assets/course-big-data-dashboard.png',
-  },
-  {
-    title: 'Mastering Money Management',
-    image: '/assets/course-big-data-dashboard.png',
-  },
-  {
-    title: 'From Idea to Startup Success',
-    image: '/assets/course-digital-products-icons.png',
-  },
-] as const
 
 export const learningPaths = [
   { label: 'Design', icon: '/assets/home/categories/design-tools-icon.png' },
@@ -80,8 +55,8 @@ export const studentAvatars = [
 ] as const
 export const growthStats = [
   { value: '12K', label: 'Students' },
-  { value: '70+', label: 'Courses' },
-  { value: '16', label: 'Creators' },
+  { value: String(courses.length), label: 'Courses' },
+  { value: String(creators.length), label: 'Creators' },
 ] as const
 export const creatorBenefits = [
   'Share Your Expertise',

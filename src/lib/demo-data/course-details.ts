@@ -43,7 +43,7 @@ const digitalAssetDetails = {
   lessons: 22,
   duration: '3 hours 25 mins',
   students: '199 Students',
-  rating: '4.8 (172 reviews)',
+  rating: '4.8 (44 ratings)',
   description: [
     'Embark on an enlightening exploration into the world of digital creation with this comprehensive course. Build a practical understanding of the techniques behind impactful digital content.',
     'Start with foundational concepts, then explore design principles, visual communication, and hands-on exercises that make each lesson immediately useful.',
@@ -95,6 +95,7 @@ export function getCourseDetails(course: {
   lessons: number
   durationMinutes: number
   rating: number
+  comments: number
 }) {
   if (course.id === 2) return digitalAssetDetails
   return {
@@ -102,7 +103,7 @@ export function getCourseDetails(course: {
     lessons: course.lessons,
     duration: `${Math.floor(course.durationMinutes / 60)} hours ${course.durationMinutes % 60} mins`,
     students: '26+ Students',
-    rating: `${course.rating} (59 reviews)`,
+    rating: `${course.rating} (${course.comments} ratings)`,
     description: [
       course.description,
       'Start with the essential ideas, then apply each lesson through practical exercises. The course is designed to help you build confidence at your own pace.',
@@ -125,14 +126,6 @@ export function getCourseDetails(course: {
     ),
   }
 }
-
-export const ratingDistribution = [
-  { count: 720, percentage: 92.28 },
-  { count: 120, percentage: 15.38 },
-  { count: 21, percentage: 9.47 },
-  { count: 12, percentage: 3.51 },
-  { count: 16, percentage: 5.26 },
-]
 
 export const reviews: CourseReview[] = [
   {
@@ -164,3 +157,20 @@ export const reviews: CourseReview[] = [
     copy: 'The lessons on optimizing digital assets for various platforms were particularly insightful and kept me motivated throughout.',
   },
 ]
+
+// Only the featured digital assets course has written sample reviews.
+export function getCourseReviewData(course: { id: number }) {
+  const courseReviews = course.id === 2 ? reviews : []
+  const counts = [5, 4, 3, 2, 1].map((rating) => ({
+    rating,
+    count: courseReviews.filter((review) => review.rating === rating).length,
+  }))
+  const total = courseReviews.length
+  return {
+    reviews: courseReviews,
+    ratingDistribution: counts.map((item) => ({
+      ...item,
+      percentage: total ? (item.count / total) * 100 : 0,
+    })),
+  }
+}

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { CourseLessons } from '@/components/courses/details/CourseLessons'
 import { CourseOverview } from '@/components/courses/details/CourseOverview'
@@ -19,6 +19,11 @@ const assets = '/assets/course-details'
 
 export function CourseDetailsContent({ course }: { course: Course }) {
   const [tab, setTab] = useState<Tab>('About')
+  const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({
+    About: null,
+    Lessons: null,
+    Reviews: null,
+  })
   const [activeRating, setActiveRating] = useState<number | 'all'>('all')
   const { showToast } = useToast()
   const creator = getCreatorBySlug(course.creatorSlug)
@@ -197,6 +202,28 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 role="tab"
                 id={`tab-${item.toLowerCase()}`}
                 aria-selected={tab === item}
+                tabIndex={tab === item ? 0 : -1}
+                ref={(element) => {
+                  tabRefs.current[item] = element
+                }}
+                onKeyDown={(event) => {
+                  const tabs: Tab[] = ['About', 'Lessons', 'Reviews']
+                  const index = tabs.indexOf(item)
+                  const next =
+                    event.key === 'ArrowRight'
+                      ? tabs[(index + 1) % tabs.length]
+                      : event.key === 'ArrowLeft'
+                        ? tabs[(index + tabs.length - 1) % tabs.length]
+                        : event.key === 'Home'
+                          ? tabs[0]
+                          : event.key === 'End'
+                            ? tabs[tabs.length - 1]
+                            : null
+                  if (!next) return
+                  event.preventDefault()
+                  setTab(next)
+                  tabRefs.current[next]?.focus()
+                }}
                 aria-controls={`panel-${item.toLowerCase()}`}
                 onClick={() => setTab(item)}
                 key={item}
@@ -211,7 +238,11 @@ export function CourseDetailsContent({ course }: { course: Course }) {
           )}
           {tab === 'Lessons' && <CourseLessons modules={details.modules} />}
           {tab === 'Reviews' && (
-            <CourseReviews activeRating={activeRating} onRatingChange={setActiveRating} />
+            <CourseReviews
+              course={course}
+              activeRating={activeRating}
+              onRatingChange={setActiveRating}
+            />
           )}
         </div>
       </section>

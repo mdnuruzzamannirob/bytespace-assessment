@@ -36,7 +36,7 @@ export function CourseLessons({ modules }: { modules: CourseModule[] }) {
         <p className="text-sm font-medium">Learning Progress</p>
         <p className="font-heading text-heading-s mt-1">55%</p>
         <div className="mt-3 h-2 overflow-hidden rounded-full bg-neutral-100">
-          <div className="h-full w-[56%] rounded-full bg-lime-400" />
+          <div className="h-full w-[55%] rounded-full bg-lime-400" />
         </div>
       </section>
     </div>

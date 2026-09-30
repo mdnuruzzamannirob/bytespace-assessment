@@ -26,7 +26,7 @@ function GrowthArtwork() {
         </div>
         <strong className={metricValueClassName}>$120.29</strong>
         <div className="h-[clamp(5px,1.48cqw,8px)] w-full overflow-hidden rounded-full bg-white">
-          <span className="block h-full w-[56%] rounded-full bg-lime-400" />
+          <span className="block h-full w-[55%] rounded-full bg-lime-400" />
         </div>
       </div>
 
@@ -119,7 +119,7 @@ export function GrowthSection() {
               55%
             </strong>
             <div className="h-[clamp(5px,1.29cqw,8px)] w-full rounded-full bg-neutral-100">
-              <div className="h-full w-[56%] rounded-full bg-lime-400" />
+              <div className="h-full w-[55%] rounded-full bg-lime-400" />
             </div>
           </div>
           <Image

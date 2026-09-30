@@ -7,6 +7,7 @@ type PaginationProps = {
   pageCount: number
   onPageChange: (page: number) => void
   className?: string
+  label?: string
 }
 
 type PageItem = number | 'start-ellipsis' | 'end-ellipsis'
@@ -33,12 +34,18 @@ function getPageItems(page: number, pageCount: number): PageItem[] {
 }
 
 /** Compact pagination that stays readable for any number of pages. */
-export function Pagination({ page, pageCount, onPageChange, className = '' }: PaginationProps) {
+export function Pagination({
+  page,
+  pageCount,
+  onPageChange,
+  className = '',
+  label = 'Pages',
+}: PaginationProps) {
   const pageItems = getPageItems(page, pageCount)
 
   return (
     <nav
-      aria-label="Course pages"
+      aria-label={label}
       className={`flex max-w-full items-center justify-center gap-1 sm:gap-4 ${className}`}
     >
       <button

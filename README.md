@@ -2,6 +2,14 @@
 
 ByteSpace is a responsive course marketplace demo built from the ByteSpace design references in [`docs/`](./docs). It includes a course catalog, creator directory, course detail views, persistent demo authentication, responsive navigation, and reusable feedback UI.
 
+## Assessment review
+
+- [Figma design](https://www.figma.com/design/26TBgRjmpuxudcErJsHUfy/ByteSpace-New-Check-website?node-id=0-1)
+- [Public source repository](https://github.com/mdnuruzzamannirob/bytespace-assessment)
+- Start at `/` for the complete responsive landing page. `/login` and `/signup` are bonus pages; the course and creator views demonstrate reusable data-driven components.
+- Search, filtering, sorting, pagination, share/copy, and local follow controls are interactive. Course content, reviews, progress, testimonials, and marketplace figures are sample content. Enrollment, shopping bag, newsletter delivery, and legal/info pages are not connected to services.
+- Authentication is a browser-only demonstration. Signup credentials are stored in localStorage on that browser; use a unique test password. Google and Facebook controls create local demo sessions without contacting those providers. No server authorization is implemented.
+
 ## Tech Stack
 
 - Next.js 16 App Router
@@ -81,6 +89,7 @@ pnpm format       # Format source files and sort Tailwind classes
 pnpm format:check # Check formatting without changing files
 pnpm lint         # Run ESLint
 pnpm exec tsc --noEmit
+pnpm test         # Catalog and query-state regression checks
 pnpm build        # Create the production build
 ```
 

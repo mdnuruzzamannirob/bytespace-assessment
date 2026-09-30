@@ -7,6 +7,7 @@ import { SearchHero } from '@/components/catalog/SearchHero'
 import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
 import { CreatorStats } from '@/components/creators/CreatorStats'
 import { FollowButton } from '@/components/creators/FollowButton'
+import { useFollowedCreators } from '@/components/creators/FollowProvider'
 import { ButtonLink } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Select } from '@/components/ui/select'
@@ -20,7 +21,7 @@ export function CreatorsBrowser() {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<(typeof sortOptions)[number]>('Most popular')
   const [page, setPage] = useState(1)
-  const [followedCreators, setFollowedCreators] = useState<string[]>([])
+  const { followedCreators, toggleFollow } = useFollowedCreators()
 
   const visibleCreators = useMemo(() => {
     const query = search.trim().toLowerCase()
@@ -46,12 +47,6 @@ export function CreatorsBrowser() {
     setPage(1)
   }
 
-  function toggleFollow(slug: string) {
-    setFollowedCreators((current) =>
-      current.includes(slug) ? current.filter((value) => value !== slug) : [...current, slug],
-    )
-  }
-
   return (
     <main>
       <SearchHero heading="Find Your Next Creator" search={search} onSearch={updateSearch} />
@@ -67,7 +62,7 @@ export function CreatorsBrowser() {
             value={sort}
             options={sortOptions}
             onSelect={(value) => {
-              setSort(value as (typeof sortOptions)[number])
+              setSort(value)
               setPage(1)
             }}
             icon={<LuListFilter aria-hidden="true" />}
@@ -134,6 +129,7 @@ export function CreatorsBrowser() {
           <Pagination
             page={activePage}
             pageCount={pageCount}
+            label="Creator pages"
             className="mt-18"
             onPageChange={(nextPage) => {
               setPage(nextPage)

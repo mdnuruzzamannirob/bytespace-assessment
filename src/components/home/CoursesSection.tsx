@@ -43,7 +43,7 @@ export function CoursesSection() {
       </div>
       <div className="mt-18 grid min-w-0 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
         {courses.slice(0, 6).map((course) => (
-          <CourseCard course={course} key={course.title} />
+          <CourseCard course={course} key={course.id} />
         ))}
       </div>
     </section>

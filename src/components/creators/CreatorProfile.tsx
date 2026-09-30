@@ -5,21 +5,24 @@ import { CourseCard } from '@/components/courses/CourseCard'
 import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
 import { CreatorStats } from '@/components/creators/CreatorStats'
 import { FollowButton } from '@/components/creators/FollowButton'
+import { useFollowedCreators } from '@/components/creators/FollowProvider'
 import { gridPatternClassName } from '@/components/home/HomeShared'
-import { filterCourses, getCoursesByCreator } from '@/lib/catalog'
+import { filterCourses, getCoursesByCreator, sortCourses } from '@/lib/catalog'
+import type { CourseCategory, CourseLevel, CourseSort } from '@/lib/constants/catalog'
 import type { Creator } from '@/lib/demo-data/creators'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 export function CreatorProfile({ creator }: { creator: Creator }) {
-  const [category, setCategory] = useState('Featured')
-  const [level, setLevel] = useState('All levels')
-  const [sort, setSort] = useState('Most relevant')
-  const [followed, setFollowed] = useState(false)
+  const [category, setCategory] = useState<CourseCategory>('Featured')
+  const [level, setLevel] = useState<CourseLevel>('All levels')
+  const [sort, setSort] = useState<CourseSort>('Most relevant')
+  const { followedCreators, toggleFollow } = useFollowedCreators()
   const [showFilters, setShowFilters] = useState(false)
   const [ratingMin, setRatingMin] = useState(0)
   const [lessonsMin, setLessonsMin] = useState(0)
   const [priceMax, setPriceMax] = useState(0)
   const [duration, setDuration] = useState<'any' | 'under2' | 'twoToThree' | 'threePlus'>('any')
+  const closeFilters = useCallback(() => setShowFilters(false), [])
   const creatorCourses = useMemo(() => {
     const matching = filterCourses(getCoursesByCreator(creator.slug), {
       category,
@@ -29,10 +32,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
       priceMax,
       duration,
     })
-    if (sort === 'Title A–Z') return [...matching].sort((a, b) => a.title.localeCompare(b.title))
-    if (sort === 'Title Z–A') return [...matching].sort((a, b) => b.title.localeCompare(a.title))
-    if (sort === 'Highest rated') return [...matching].sort((a, b) => b.rating - a.rating)
-    return matching
+    return sortCourses(matching, sort)
   }, [category, creator.slug, duration, lessonsMin, level, priceMax, ratingMin, sort])
 
   return (
@@ -72,7 +72,10 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
                 followers={creator.followers}
                 variant="pills"
               />
-              <FollowButton followed={followed} onToggle={() => setFollowed((value) => !value)} />
+              <FollowButton
+                followed={followedCreators.includes(creator.slug)}
+                onToggle={() => toggleFollow(creator.slug)}
+              />
             </div>
           </div>
         </div>
@@ -105,7 +108,7 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
             setPriceMax(0)
             setDuration('any')
           }}
-          onClose={() => setShowFilters(false)}
+          onClose={closeFilters}
         />
 
         {creatorCourses.length ? (

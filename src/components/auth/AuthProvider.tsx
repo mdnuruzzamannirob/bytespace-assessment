@@ -13,6 +13,7 @@ import {
   clearSession,
   findValidUser,
   getSession,
+  getCreatedUsers,
   saveCreatedUser,
   saveSession,
   type DemoUser,
@@ -49,9 +50,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   function signup(name: string, email: string, password: string) {
+    const normalizedEmail = email.trim().toLowerCase()
+    if (
+      normalizedEmail === 'demo@bytespace.dev' ||
+      getCreatedUsers().some((user) => user.email === normalizedEmail)
+    )
+      return false
     const nextUser = {
       name: name.trim(),
-      email: email.trim().toLowerCase(),
+      email: normalizedEmail,
       password,
       provider: 'password' as const,
     }
