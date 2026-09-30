@@ -36,6 +36,7 @@ export default async function CoursesPage({
   const page = Number.parseInt(valueOf(params.page), 10)
   const rating = Number(valueOf(params.rating))
   const lessons = Number(valueOf(params.lessons))
+  const price = Number(valueOf(params.price))
 
   return (
     <CoursesBrowser
@@ -46,15 +47,16 @@ export default async function CoursesPage({
         'All levels',
       )}
       initialPage={Number.isFinite(page) && page > 0 ? page : 1}
-      initialRatingMin={[4.5, 4.7, 4.9].includes(rating) ? rating : 0}
-      initialLessonsMin={[17, 22].includes(lessons) ? lessons : 0}
+      initialRatingMin={[1, 2, 3, 4].includes(rating) ? rating : 0}
+      initialLessonsMin={[10, 17, 22].includes(lessons) ? lessons : 0}
+      initialPriceMax={[25, 35, 50].includes(price) ? price : 0}
       initialScope={allowedValue(
         valueOf(params.scope),
         ['Courses', 'Categories', 'Creators'],
         'Courses',
       )}
       initialSearch={valueOf(params.q)}
-      initialShortCourses={valueOf(params.duration) === 'short'}
+      initialDuration={allowedValue(valueOf(params.duration), ["any", "under2", "twoToThree", "threePlus"], "any") as "any" | "under2" | "twoToThree" | "threePlus"}
       initialSort={allowedValue(
         valueOf(params.sort),
         ['Most relevant', 'Title A–Z', 'Title Z–A', 'Highest rated'],

@@ -33,9 +33,10 @@ export function CoursesBrowser({
   initialScope = 'Courses',
   initialLevel = 'All levels',
   initialSort = 'Most relevant',
-  initialShortCourses = false,
+  initialDuration = "any",
   initialRatingMin = 0,
   initialLessonsMin = 0,
+  initialPriceMax = 0,
   initialPage = 1,
 }: {
   initialCategory?: string
@@ -43,9 +44,10 @@ export function CoursesBrowser({
   initialScope?: string
   initialLevel?: string
   initialSort?: string
-  initialShortCourses?: boolean
+  initialDuration?: "any" | "under2" | "twoToThree" | "threePlus"
   initialRatingMin?: number
   initialLessonsMin?: number
+  initialPriceMax?: number
   initialPage?: number
 }) {
   const pathname = usePathname()
@@ -59,9 +61,10 @@ export function CoursesBrowser({
   )
   const [level, setLevel] = useState(initialLevel)
   const [sort, setSort] = useState(initialSort)
-  const [shortCourses, setShortCourses] = useState(initialShortCourses)
+  const [duration, setDuration] = useState(initialDuration)
   const [ratingMin, setRatingMin] = useState(initialRatingMin)
   const [lessonsMin, setLessonsMin] = useState(initialLessonsMin)
+  const [priceMax, setPriceMax] = useState(initialPriceMax)
   const [page, setPage] = useState(initialPage)
   const [showFilters, setShowFilters] = useState(false)
 
@@ -71,9 +74,10 @@ export function CoursesBrowser({
     if (scope !== 'Courses') params.set('scope', scope)
     if (category !== 'Featured') params.set('category', category)
     if (level !== 'All levels') params.set('level', level)
-    if (shortCourses) params.set('duration', 'short')
+    if (duration !== "any") params.set("duration", duration)
     if (ratingMin) params.set('rating', String(ratingMin))
     if (lessonsMin) params.set('lessons', String(lessonsMin))
+    if (priceMax) params.set('price', String(priceMax))
     if (sort !== 'Most relevant') params.set('sort', sort)
     if (page > 1) params.set('page', String(page))
     const query = params.toString()
@@ -85,10 +89,11 @@ export function CoursesBrowser({
     pathname,
     ratingMin,
     lessonsMin,
+    priceMax,
     router,
     scope,
     search,
-    shortCourses,
+    duration,
     sort,
   ])
 
@@ -105,9 +110,13 @@ export function CoursesBrowser({
         (!query || searchable.toLowerCase().includes(query)) &&
         (category === 'Featured' || course.category === category) &&
         (level === 'All levels' || course.level === level) &&
-        (!shortCourses || course.durationMinutes < 180) &&
+        (duration === "any" ||
+          (duration === "under2" && course.durationMinutes < 120) ||
+          (duration === "twoToThree" && course.durationMinutes >= 120 && course.durationMinutes < 180) ||
+          (duration === "threePlus" && course.durationMinutes >= 180)) &&
         (!ratingMin || course.rating >= ratingMin) &&
-        (!lessonsMin || course.lessons >= lessonsMin)
+        (!lessonsMin || course.lessons >= lessonsMin) &&
+        (!priceMax || course.price <= priceMax)
       )
     })
     if (sort === 'Title A–Z')
@@ -117,7 +126,7 @@ export function CoursesBrowser({
     if (sort === 'Highest rated')
       return [...matches].sort((a, b) => b.rating - a.rating)
     return matches
-  }, [search, scope, category, level, sort, shortCourses, ratingMin, lessonsMin])
+  }, [search, scope, category, level, sort, duration, ratingMin, lessonsMin, priceMax])
 
   const pageCount = Math.ceil(filtered.length / pageSize)
   const currentPage = Math.min(page, Math.max(pageCount, 1))
@@ -133,9 +142,10 @@ export function CoursesBrowser({
     setSearch('')
     setCategory('Featured')
     setLevel('All levels')
-    setShortCourses(false)
+    setDuration("any")
     setRatingMin(0)
     setLessonsMin(0)
+    setPriceMax(0)
     setSort('Most relevant')
     setPage(1)
   }
@@ -237,7 +247,8 @@ export function CoursesBrowser({
           open={showFilters}
           ratingMin={ratingMin}
           lessonsMin={lessonsMin}
-          shortCourses={shortCourses}
+          priceMax={priceMax}
+          duration={duration}
           onRatingChange={(value) => {
             setRatingMin(value)
             setPage(1)
@@ -246,8 +257,12 @@ export function CoursesBrowser({
             setLessonsMin(value)
             setPage(1)
           }}
-          onShortCoursesChange={(value) => {
-            setShortCourses(value)
+          onPriceChange={(value) => {
+            setPriceMax(value)
+            setPage(1)
+          }}
+          onDurationChange={(value) => {
+            setDuration(value)
             setPage(1)
           }}
           onClear={clearFilters}

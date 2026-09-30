@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 type DialogProps = {
@@ -24,6 +24,7 @@ export function Dialog({
   closeOnDragDown = false,
 }: DialogProps) {
   const dragStartY = useRef<number | null>(null)
+  const [dragOffset, setDragOffset] = useState(0)
 
   useEffect(() => {
     if (
@@ -59,7 +60,8 @@ export function Dialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
-        className={`max-h-[calc(100dvh-1rem)] w-full overflow-y-auto rounded-t-3xl bg-white shadow-2xl sm:max-h-[min(46rem,calc(100dvh-3rem))] sm:max-w-5xl sm:rounded-3xl ${className}`}
+        className={["max-h-[calc(100dvh-1rem)] w-full overflow-y-auto rounded-t-3xl bg-white shadow-2xl sm:max-h-[min(46rem,calc(100dvh-3rem))] sm:max-w-5xl sm:rounded-3xl", dragOffset ? "transition-none" : "transition-transform duration-200", className].join(" ")}
+        style={closeOnDragDown && dragOffset ? { transform: "translateY(" + dragOffset + "px)" } : undefined}
       >
         {closeOnDragDown && (
           <div
@@ -67,13 +69,19 @@ export function Dialog({
             className="mx-auto mt-3 h-1 w-10 touch-pan-y rounded-full bg-neutral-200 sm:hidden"
             onPointerDown={(event) => {
               dragStartY.current = event.clientY
+              setDragOffset(0)
               event.currentTarget.setPointerCapture(event.pointerId)
             }}
+            onPointerMove={(event) => {
+              if (dragStartY.current !== null) setDragOffset(Math.max(0, event.clientY - dragStartY.current))
+            }}
             onPointerUp={(event) => {
-              if (dragStartY.current !== null && event.clientY - dragStartY.current > 80) onClose()
+              if (dragStartY.current !== null && event.clientY - dragStartY.current > 100) onClose()
+              setDragOffset(0)
               dragStartY.current = null
             }}
             onPointerCancel={() => {
+              setDragOffset(0)
               dragStartY.current = null
             }}
           />
