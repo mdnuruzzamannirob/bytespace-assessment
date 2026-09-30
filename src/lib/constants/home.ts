@@ -4,11 +4,7 @@ import { categories as courseTopics } from './catalog'
 
 export { courseTopics }
 
-export const courseTopicRows = [
-  courseTopics.slice(0, 8),
-  courseTopics.slice(8, 14),
-  courseTopics.slice(14),
-]
+export const courseTopicRows = [courseTopics.slice(0, 8), courseTopics.slice(8)]
 
 export const learningPaths = [
   { label: 'Design', icon: '/assets/home/categories/design-tools-icon.png' },

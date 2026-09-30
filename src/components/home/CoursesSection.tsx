@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import { CourseCard } from '@/components/courses/CourseCard'
-import { courses } from '@/lib/catalog'
-import { courseTopicRows } from '@/lib/constants/home'
+import { CourseCard } from '@/components/courses/CourseCard';
+import { courses } from '@/lib/catalog';
+import { courseTopicRows } from '@/lib/constants/home';
 
 export function CoursesSection() {
   return (
@@ -25,7 +25,7 @@ export function CoursesSection() {
               <Link
                 key={topic}
                 href={`/courses?category=${encodeURIComponent(topic)}`}
-                className={`text-body-s shrink-0 rounded-full px-4 py-2.5 whitespace-nowrap transition-colors hover:bg-lime-300 sm:px-6 ${topic === 'Featured' ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700'}`}
+                className={`text-body-s shrink-0 rounded-full px-4 py-3 whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 sm:px-6 ${topic === 'Featured' ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
               >
                 {topic}
               </Link>
@@ -33,7 +33,7 @@ export function CoursesSection() {
             {rowIndex === courseTopicRows.length - 1 && (
               <Link
                 href="/courses"
-                className="text-body-s shrink-0 rounded-full px-4 py-2.5 whitespace-nowrap text-blue-700 hover:underline sm:px-6"
+                className="text-body-s shrink-0 rounded-full bg-neutral-50 px-4 py-3 whitespace-nowrap text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 sm:px-6"
               >
                 + More
               </Link>
