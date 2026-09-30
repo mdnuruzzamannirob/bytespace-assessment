@@ -1,43 +1,134 @@
+import { FaCheck, FaCircle } from 'react-icons/fa6'
+
 import type { CourseModule } from '@/lib/demo-data/course-details'
+import { getProgressPercent } from '@/lib/demo-data/learning'
+import { formatDuration } from '@/lib/format'
 
 import { DetailIcon } from './DetailPrimitives'
 
-export function CourseLessons({ modules }: { modules: CourseModule[] }) {
+export function CourseLessons({
+  modules,
+  completedLessons,
+  onMarkLessonComplete,
+}: {
+  modules: CourseModule[]
+  completedLessons?: number
+  onMarkLessonComplete: (index: number) => void
+}) {
+  const totalLessons = modules.reduce((total, module) => total + module.lessons.length, 0)
+  const progress = getProgressPercent(completedLessons ?? 0, totalLessons)
   return (
     <div role="tabpanel" id="panel-lessons" aria-labelledby="tab-lessons" className="mt-10">
       <h2 className="font-heading text-xl">Explore the Modules</h2>
       <p className="mt-6 max-w-181 text-base leading-relaxed text-neutral-700">
-        Immerse yourself in course content through practical insights and hands-on experiences.
+        Browse the full lesson outline and time commitment for this course.
       </p>
       <ol className="mt-6 space-y-5">
-        {modules.map((module) => (
-          <li className="flex items-start gap-3" key={module.title}>
-            <span className="rounded-card flex size-18 shrink-0 items-center justify-center bg-lime-400">
-              <DetailIcon name="module-video.svg" size={40} />
-            </span>
-            <div className="pt-1">
-              <h3 className="font-medium text-neutral-950">{module.title}</h3>
-              <p className="mt-1 text-base leading-relaxed text-neutral-700">
-                {module.description}
-              </p>
-            </div>
-          </li>
-        ))}
+        {modules.map((module, moduleIndex) => {
+          const previousLessons = modules
+            .slice(0, moduleIndex)
+            .reduce((sum, item) => sum + item.lessons.length, 0)
+          return (
+            <li className="rounded-2xl border border-neutral-200 p-4 sm:p-5" key={module.title}>
+              <div className="flex items-start gap-3">
+                <span className="rounded-card flex size-18 shrink-0 items-center justify-center bg-lime-400">
+                  <DetailIcon name="module-video.svg" size={40} />
+                </span>
+                <div className="min-w-0 pt-1">
+                  <h3 className="font-medium text-neutral-950">{module.title}</h3>
+                  <p className="mt-1 text-base leading-relaxed text-neutral-700">
+                    {module.description}
+                  </p>
+                  <p className="mt-2 text-sm text-neutral-500">
+                    {module.lessons.length} lessons · {formatDuration(module.durationMinutes)}
+                  </p>
+                </div>
+              </div>
+              <details className="mt-4 border-t border-neutral-100 pt-4">
+                <summary className="cursor-pointer text-sm font-medium text-blue-700">
+                  View lessons
+                </summary>
+                <ol className="mt-3 space-y-2">
+                  {module.lessons.map((lesson, lessonIndex) => {
+                    const enrolled = completedLessons !== undefined
+                    const completed = enrolled && previousLessons + lessonIndex < completedLessons
+                    return (
+                      <li
+                        className={`flex items-start justify-between gap-4 text-sm ${completed ? 'font-medium text-lime-800' : enrolled ? 'text-neutral-500' : 'text-neutral-700'}`}
+                        key={`${lesson.title}-${lessonIndex}`}
+                      >
+                        <button
+                          type="button"
+                          disabled={!enrolled || completed}
+                          onClick={() => onMarkLessonComplete(previousLessons + lessonIndex)}
+                          aria-label={
+                            enrolled
+                              ? `${completed ? 'Completed' : 'Mark complete'}: ${lesson.title}`
+                              : undefined
+                          }
+                          className="flex items-start gap-2 text-left disabled:cursor-default"
+                        >
+                          {enrolled &&
+                            (completed ? (
+                              <FaCheck aria-hidden="true" className="mt-1 shrink-0 text-lime-700" />
+                            ) : (
+                              <FaCircle
+                                aria-hidden="true"
+                                className="mt-1 shrink-0 text-[8px] text-neutral-300"
+                              />
+                            ))}
+                          <span>
+                            {lesson.title}
+                            {enrolled && (
+                              <span className="sr-only">
+                                {completed ? ' completed' : ' not completed'}
+                              </span>
+                            )}
+                          </span>
+                        </button>
+                        <span className="shrink-0">{lesson.duration}</span>
+                      </li>
+                    )
+                  })}
+                </ol>
+              </details>
+            </li>
+          )
+        })}
       </ol>
-      <h3 className="font-heading mt-7 text-xl">Lesson Progress Tracking</h3>
-      <p className="mt-6 text-base leading-relaxed text-neutral-700">
-        Witness your growth as you complete lessons, with progress tracking guiding you through your
-        learning journey.
-      </p>
-      <section
-        className="mt-6 rounded-2xl border border-neutral-200 bg-white p-4"
-        aria-label="Learning progress"
-      >
-        <p className="text-sm font-medium">Learning Progress</p>
-        <p className="font-heading text-heading-s mt-1">55%</p>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-neutral-100">
-          <div className="h-full w-[56%] rounded-full bg-lime-400" />
-        </div>
+      <section className="mt-9" aria-labelledby="lesson-progress-heading">
+        <h3 id="lesson-progress-heading" className="font-heading text-xl">
+          Lesson Progress Tracking
+        </h3>
+        <p className="mt-6 max-w-181 text-base leading-relaxed text-neutral-700">
+          Witness your growth as you complete lessons, with progress tracking guiding you through
+          your learning journey.
+        </p>
+        {completedLessons === undefined ? (
+          <p className="mt-6 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-sm text-neutral-600">
+            Enroll in this course to see your learning progress.
+          </p>
+        ) : (
+          <div>
+            <div className="mt-6 rounded-2xl border border-neutral-300 bg-white p-4">
+              <p className="text-sm font-medium">Learning Progress</p>
+              <strong className="font-heading mt-1 block text-4xl">{progress}%</strong>
+              <div
+                className="mt-4 h-2 overflow-hidden rounded-full bg-neutral-200"
+                role="progressbar"
+                aria-label="Course progress"
+                aria-valuenow={progress}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
+                <div
+                  className="h-full rounded-full bg-lime-400"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   )

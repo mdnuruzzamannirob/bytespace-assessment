@@ -23,6 +23,8 @@ export function Dialog({
   mobileOnly = false,
   closeOnDragDown = false,
 }: DialogProps) {
+  const dialogRef = useRef<HTMLElement>(null)
+  const restoreFocusRef = useRef<HTMLElement | null>(null)
   const dragStartY = useRef<number | null>(null)
   const [dragOffset, setDragOffset] = useState(0)
 
@@ -31,16 +33,46 @@ export function Dialog({
       return
     }
 
+    restoreFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null
     const previousOverflow = document.body.style.overflow
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
     }
 
+    const keepFocusInside = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )
+      if (!focusable?.length) {
+        event.preventDefault()
+        dialogRef.current?.focus()
+        return
+      }
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
     document.body.style.overflow = 'hidden'
     document.addEventListener('keydown', closeOnEscape)
+    document.addEventListener('keydown', keepFocusInside)
+    requestAnimationFrame(() => {
+      dialogRef.current
+        ?.querySelector<HTMLElement>('button, [href], input, [tabindex="0"]')
+        ?.focus()
+    })
     return () => {
       document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', closeOnEscape)
+      document.removeEventListener('keydown', keepFocusInside)
+      restoreFocusRef.current?.focus()
     }
   }, [mobileOnly, onClose, open])
 
@@ -59,6 +91,8 @@ export function Dialog({
       }}
     >
       <section
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}

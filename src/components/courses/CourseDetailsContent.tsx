@@ -2,14 +2,14 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { CourseLessons } from '@/components/courses/details/CourseLessons'
 import { CourseOverview } from '@/components/courses/details/CourseOverview'
 import { CourseReviews } from '@/components/courses/details/CourseReviews'
 import { DetailIcon } from '@/components/courses/details/DetailPrimitives'
 import { gridPatternClassName } from '@/components/home/HomeShared'
-import { ButtonLink } from '@/components/ui/button'
+import { useLearning } from '@/components/learning/LearningProvider'
 import { useToast } from '@/components/ui/toast'
 import { getCreatorBySlug, type Course } from '@/lib/catalog'
 import { getCourseDetails, includedItems } from '@/lib/demo-data/course-details'
@@ -19,11 +19,18 @@ const assets = '/assets/course-details'
 
 export function CourseDetailsContent({ course }: { course: Course }) {
   const [tab, setTab] = useState<Tab>('About')
+  const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({
+    About: null,
+    Lessons: null,
+    Reviews: null,
+  })
   const [activeRating, setActiveRating] = useState<number | 'all'>('all')
   const { showToast } = useToast()
+  const { enrollments, enroll, markLessonComplete } = useLearning()
+  const enrollment = enrollments.find((item) => item.courseId === course.id)
   const creator = getCreatorBySlug(course.creatorSlug)
   const details = getCourseDetails(course)
-  const title = course.id === 2 ? 'Build Digital Asset: A Comprehensive Guide' : course.title
+  const title = course.title
 
   async function share() {
     const url = window.location.href
@@ -96,7 +103,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
           <div className="mt-16 grid items-start gap-8 xl:grid-cols-[725px_412px] xl:gap-15.75">
             <div className="rounded-card relative aspect-720/479 overflow-hidden bg-neutral-100">
               <Image
-                src={course.id === 2 ? `${assets}/preview.jpg` : course.image}
+                src={course.image}
                 alt={`${title} course preview`}
                 fill
                 priority
@@ -120,7 +127,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 {details.lessons} Lessons ({details.duration})
               </h2>
               <ol className="mt-6 space-y-3 text-sm">
-                {details.lessonsList.map((lesson, index) => (
+                {details.lessonsList.slice(0, 3).map((lesson, index) => (
                   <li
                     className="grid grid-cols-[24px_minmax(0,1fr)_auto] items-start gap-2"
                     key={lesson.title}
@@ -132,15 +139,32 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 ))}
               </ol>
               <p className="mt-3 text-sm text-neutral-700">
-                {Math.max(details.lessons - details.lessonsList.length, 0)} more videos
+                {Math.max(details.lessons - Math.min(details.lessonsList.length, 3), 0)} more videos
               </p>
               <p className="font-heading mt-6 text-4xl text-blue-800">
                 ${course.price}
                 <span className="font-sans text-base font-normal text-neutral-700">/lifetime</span>
               </p>
-              <ButtonLink href="/signup" className="mt-5 w-full">
-                Enroll Now
-              </ButtonLink>
+              {enrollment ? (
+                <button
+                  type="button"
+                  disabled
+                  className="mt-5 min-h-12 w-full cursor-not-allowed rounded-full bg-neutral-200 px-5 font-medium text-neutral-600"
+                >
+                  Already Enrolled
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    enroll(course.id)
+                    showToast('Enrolled in this demo course.', 'success')
+                  }}
+                  className="mt-5 min-h-12 w-full rounded-full bg-lime-400 px-5 font-medium text-neutral-950 hover:bg-lime-300"
+                >
+                  Enroll Now
+                </button>
+              )}
               <h3 className="font-heading mt-7 text-xl">This course includes</h3>
               <ul className="mt-5 space-y-3 text-base text-neutral-700">
                 {includedItems.map((item) => (
@@ -166,7 +190,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                     >
                       {creator?.name}
                     </Link>
-                    <p className="text-base text-neutral-700">Professional Creator</p>
+                    <p className="text-base text-neutral-700">{creator?.tagline}</p>
                   </div>
                 </div>
                 <Link
@@ -197,6 +221,28 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 role="tab"
                 id={`tab-${item.toLowerCase()}`}
                 aria-selected={tab === item}
+                tabIndex={tab === item ? 0 : -1}
+                ref={(element) => {
+                  tabRefs.current[item] = element
+                }}
+                onKeyDown={(event) => {
+                  const tabs: Tab[] = ['About', 'Lessons', 'Reviews']
+                  const index = tabs.indexOf(item)
+                  const next =
+                    event.key === 'ArrowRight'
+                      ? tabs[(index + 1) % tabs.length]
+                      : event.key === 'ArrowLeft'
+                        ? tabs[(index + tabs.length - 1) % tabs.length]
+                        : event.key === 'Home'
+                          ? tabs[0]
+                          : event.key === 'End'
+                            ? tabs[tabs.length - 1]
+                            : null
+                  if (!next) return
+                  event.preventDefault()
+                  setTab(next)
+                  tabRefs.current[next]?.focus()
+                }}
                 aria-controls={`panel-${item.toLowerCase()}`}
                 onClick={() => setTab(item)}
                 key={item}
@@ -207,11 +253,25 @@ export function CourseDetailsContent({ course }: { course: Course }) {
             ))}
           </div>
           {tab === 'About' && (
-            <CourseOverview description={details.description} keyPoints={details.keyPoints} />
+            <CourseOverview
+              description={details.description}
+              keyPoints={details.keyPoints}
+              previewImages={details.previewImages}
+            />
           )}
-          {tab === 'Lessons' && <CourseLessons modules={details.modules} />}
+          {tab === 'Lessons' && (
+            <CourseLessons
+              modules={details.modules}
+              completedLessons={enrollment?.completedLessons}
+              onMarkLessonComplete={(index) => markLessonComplete(course.id, index)}
+            />
+          )}
           {tab === 'Reviews' && (
-            <CourseReviews activeRating={activeRating} onRatingChange={setActiveRating} />
+            <CourseReviews
+              course={course}
+              activeRating={activeRating}
+              onRatingChange={setActiveRating}
+            />
           )}
         </div>
       </section>

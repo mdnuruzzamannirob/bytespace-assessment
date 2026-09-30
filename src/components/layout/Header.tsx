@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { getInitials } from '@/lib/person'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineShopping } from 'react-icons/ai'
@@ -11,13 +12,6 @@ import { Logo } from '@/components/ui/logo'
 import { Popover } from '@/components/ui/popover'
 import { useToast } from '@/components/ui/toast'
 import { headerAccountLinks, headerNavigation, shoppingBagHref } from '@/lib/constants/navigation'
-
-function getInitials(name: string) {
-  const parts = name.trim().split(/\s+/).filter(Boolean)
-  return (
-    parts.length > 1 ? parts[0][0] + parts.at(-1)?.[0] : parts[0]?.slice(0, 2) || 'BS'
-  ).toUpperCase()
-}
 
 export function Header() {
   const pathname = usePathname()

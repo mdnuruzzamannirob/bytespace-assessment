@@ -1,7 +1,7 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import 'swiper/css'
 import { A11y, FreeMode, Keyboard } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,85 +11,102 @@ import { CourseBrowseControls } from '@/components/courses/CourseBrowseControls'
 import { CourseCard } from '@/components/courses/CourseCard'
 import { Pagination } from '@/components/ui/pagination'
 import { courses, filterCourses, sortCourses } from '@/lib/catalog'
-import { categories } from '@/lib/constants/catalog'
+import { categories, type CourseCategory } from '@/lib/constants/catalog'
+import { parseCourseQuery, serializeCourseQuery, type CourseQuery } from '@/lib/course-query'
 
 const pageSize = 15
 const categorySwiperModules = [A11y, FreeMode, Keyboard]
-export function CoursesBrowser({
-  initialCategory = 'Featured',
-  initialSearch = '',
-  initialScope = 'Courses',
-  initialLevel = 'All levels',
-  initialSort = 'Most relevant',
-  initialDuration = 'any',
-  initialRatingMin = 0,
-  initialLessonsMin = 0,
-  initialPriceMax = 0,
-  initialPage = 1,
-}: {
-  initialCategory?: string
-  initialSearch?: string
-  initialScope?: string
-  initialLevel?: string
-  initialSort?: string
-  initialDuration?: 'any' | 'under2' | 'twoToThree' | 'threePlus'
-  initialRatingMin?: number
-  initialLessonsMin?: number
-  initialPriceMax?: number
-  initialPage?: number
-}) {
+export function CoursesBrowser({ initialQuery }: { initialQuery: CourseQuery }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [search, setSearch] = useState(initialSearch)
-  const [scope, setScope] = useState<string>(initialScope)
-  const [category, setCategory] = useState(
-    categories.includes(initialCategory as (typeof categories)[number])
-      ? initialCategory
-      : 'Featured',
-  )
-  const [level, setLevel] = useState(initialLevel)
-  const [sort, setSort] = useState(initialSort)
-  const [duration, setDuration] = useState(initialDuration)
-  const [ratingMin, setRatingMin] = useState(initialRatingMin)
-  const [lessonsMin, setLessonsMin] = useState(initialLessonsMin)
-  const [priceMax, setPriceMax] = useState(initialPriceMax)
-  const [page, setPage] = useState(initialPage)
+  const searchParams = useSearchParams()
+  const skipWrite = useRef(false)
+  const [search, setSearch] = useState(initialQuery.search)
+  const [scope, setScope] = useState(initialQuery.scope)
+  const [category, setCategory] = useState(initialQuery.category)
+  const [level, setLevel] = useState(initialQuery.level)
+  const [sort, setSort] = useState(initialQuery.sort)
+  const [duration, setDuration] = useState(initialQuery.duration)
+  const [ratingMin, setRatingMin] = useState(initialQuery.ratingMin)
+  const [lessonsMin, setLessonsMin] = useState(initialQuery.lessonsMin)
+  const [priceMax, setPriceMax] = useState(initialQuery.priceMax)
+  const [page, setPage] = useState(initialQuery.page)
   const [showFilters, setShowFilters] = useState(false)
-
-  useEffect(() => {
-    const params = new URLSearchParams()
-    if (search) params.set('q', search)
-    if (scope !== 'Courses') params.set('scope', scope)
-    if (category !== 'Featured') params.set('category', category)
-    if (level !== 'All levels') params.set('level', level)
-    if (duration !== 'any') params.set('duration', duration)
-    if (ratingMin) params.set('rating', String(ratingMin))
-    if (lessonsMin) params.set('lessons', String(lessonsMin))
-    if (priceMax) params.set('price', String(priceMax))
-    if (sort !== 'Most relevant') params.set('sort', sort)
-    if (page > 1) params.set('page', String(page))
-    const query = params.toString()
-    router.replace(query ? pathname + '?' + query : pathname, { scroll: false })
-  }, [
+  const currentQuery: CourseQuery = {
+    search,
+    scope,
     category,
     level,
-    page,
-    pathname,
+    sort,
+    duration,
     ratingMin,
     lessonsMin,
     priceMax,
-    router,
-    scope,
+    page,
+  }
+  const currentQueryRef = useRef(currentQuery)
+  useEffect(() => {
+    currentQueryRef.current = currentQuery
+  })
+
+  // Keep controls in sync when a user navigates to another query or uses Back/Forward.
+  useEffect(() => {
+    const incoming = searchParams.toString()
+    if (incoming === serializeCourseQuery(currentQueryRef.current)) return
+    const query = parseCourseQuery(searchParams)
+    skipWrite.current = true
+    setSearch(query.search)
+    setScope(query.scope)
+    setCategory(query.category)
+    setLevel(query.level)
+    setSort(query.sort)
+    setDuration(query.duration)
+    setRatingMin(query.ratingMin)
+    setLessonsMin(query.lessonsMin)
+    setPriceMax(query.priceMax)
+    setPage(query.page)
+  }, [searchParams])
+
+  useEffect(() => {
+    if (skipWrite.current) {
+      skipWrite.current = false
+      return
+    }
+    const query = serializeCourseQuery({
+      search,
+      scope,
+      category,
+      level,
+      sort,
+      duration,
+      ratingMin,
+      lessonsMin,
+      priceMax,
+      page,
+    })
+    if (query === searchParams.toString()) return
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
+  }, [
     search,
-    duration,
+    scope,
+    category,
+    level,
     sort,
+    duration,
+    ratingMin,
+    lessonsMin,
+    priceMax,
+    page,
+    pathname,
+    router,
+    searchParams,
   ])
 
   const filtered = useMemo(() => {
     return sortCourses(
       filterCourses(courses, {
         query: search,
-        scope: scope as 'Courses' | 'Categories',
+        scope,
         category,
         level,
         duration,
@@ -104,7 +121,7 @@ export function CoursesBrowser({
   const pageCount = Math.ceil(filtered.length / pageSize)
   const currentPage = Math.min(page, Math.max(pageCount, 1))
   const visibleCourses = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
-  const changeCategory = (value: string) => {
+  const changeCategory = (value: CourseCategory) => {
     setCategory(value)
     setPage(1)
   }
@@ -119,6 +136,7 @@ export function CoursesBrowser({
     setSort('Most relevant')
     setPage(1)
   }
+  const closeFilters = useCallback(() => setShowFilters(false), [])
   const goToPage = (value: number) => {
     setPage(value)
     document.getElementById('course-results')?.scrollIntoView({ behavior: 'smooth' })
@@ -181,7 +199,7 @@ export function CoursesBrowser({
           }}
           onToggleFilters={() => setShowFilters((value) => !value)}
           onClear={clearFilters}
-          onClose={() => setShowFilters(false)}
+          onClose={closeFilters}
         />
         <div className="mt-8 min-w-0">
           <Swiper
@@ -234,6 +252,7 @@ export function CoursesBrowser({
           <Pagination
             page={currentPage}
             pageCount={pageCount}
+            label="Course pages"
             onPageChange={goToPage}
             className="mt-18"
           />

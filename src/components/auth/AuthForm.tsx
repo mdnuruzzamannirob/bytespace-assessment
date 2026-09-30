@@ -62,20 +62,27 @@ export function AuthForm({ mode }: AuthFormProps) {
     const password = String(formData.get('password') ?? '')
     const success = isLogin ? login(email, password) : signup(name, email, password)
     if (!success) {
-      showToast('That email and password do not match. Try the demo credentials below.', 'error')
+      showToast(
+        isLogin
+          ? 'That email and password do not match. Try the demo credentials below.'
+          : 'That email already has a demo account. Please sign in.',
+        'error',
+      )
       return
     }
     savePendingToast({
       message: isLogin ? 'Welcome back to ByteSpace.' : 'Your demo account is ready.',
       tone: 'success',
     })
-    router.push(searchParams.get('next') || '/')
+    const next = searchParams.get('next')
+    router.push(next?.startsWith('/') && !next.startsWith('//') ? next : '/')
   }
 
   function handleSocialLogin(provider: 'google' | 'facebook') {
     socialLogin(provider)
     savePendingToast({ message: 'Welcome back to ByteSpace.', tone: 'success' })
-    router.push(searchParams.get('next') || '/')
+    const next = searchParams.get('next')
+    router.push(next?.startsWith('/') && !next.startsWith('//') ? next : '/')
   }
 
   return (
@@ -122,6 +129,11 @@ export function AuthForm({ mode }: AuthFormProps) {
             {isLogin ? 'Sign In' : 'Continue'}
           </Button>
         </form>
+        {!isLogin && (
+          <p className="mt-5 text-sm text-neutral-600">
+            Demo account only. Use a unique test password; account data stays in this browser.
+          </p>
+        )}
         {isLogin && (
           <p className="mt-5 rounded-xl bg-blue-50 p-4 text-sm leading-relaxed text-blue-900">
             Demo access: <strong>{DEMO_EMAIL}</strong> / <strong>{DEMO_PASSWORD}</strong>
@@ -136,7 +148,7 @@ export function AuthForm({ mode }: AuthFormProps) {
             </div>
             <div className="mt-10 flex justify-center gap-4">
               <button
-                aria-label="Sign in with Facebook"
+                aria-label="Continue with Facebook demo"
                 className="flex size-18 items-center justify-center rounded-3xl border border-neutral-200 text-black transition-colors hover:bg-neutral-50 focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:outline-none"
                 onClick={() => handleSocialLogin('facebook')}
                 type="button"
@@ -144,7 +156,7 @@ export function AuthForm({ mode }: AuthFormProps) {
                 <FaFacebook aria-hidden="true" className="size-10" />
               </button>
               <button
-                aria-label="Sign in with Google"
+                aria-label="Continue with Google demo"
                 className="flex size-18 items-center justify-center rounded-3xl border border-neutral-200 text-black transition-colors hover:bg-neutral-50 focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:outline-none"
                 onClick={() => handleSocialLogin('google')}
                 type="button"

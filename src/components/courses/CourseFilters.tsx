@@ -1,6 +1,7 @@
 'use client'
 
 import { FiX } from 'react-icons/fi'
+import { useId } from 'react'
 
 import { Dialog } from '@/components/ui/dialog'
 
@@ -51,12 +52,13 @@ function FilterControls({
   onClear,
   onClose,
   mobile = false,
-}: Omit<CourseFiltersProps, 'open'> & { mobile?: boolean }) {
+  headingId,
+}: Omit<CourseFiltersProps, 'open'> & { mobile?: boolean; headingId: string }) {
   return (
     <>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h2 id="course-filter-heading" className="font-heading text-xl">
+          <h2 id={headingId} className="font-heading text-xl">
             Filters
           </h2>
         </div>
@@ -64,7 +66,7 @@ function FilterControls({
           <button
             type="button"
             onClick={onClear}
-            className="text-sm font-medium text-lime-600 underline underline-offset-4"
+            className="text-sm font-medium text-lime-800 underline underline-offset-4"
           >
             Clear all
           </button>
@@ -170,6 +172,7 @@ function FilterControls({
 
 /** Desktop panel with a mobile bottom-drawer counterpart. */
 export function CourseFilters(props: CourseFiltersProps) {
+  const headingId = useId()
   if (!props.open) return null
 
   return (
@@ -177,19 +180,19 @@ export function CourseFilters(props: CourseFiltersProps) {
       <section
         id="all-course-filters"
         className="mt-4 hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:block"
-        aria-labelledby="course-filter-heading"
+        aria-labelledby={`${headingId}-desktop`}
       >
-        <FilterControls {...props} />
+        <FilterControls {...props} headingId={`${headingId}-desktop`} />
       </section>
       <Dialog
         open={props.open}
         onClose={props.onClose}
-        labelledBy="course-filter-heading"
+        labelledBy={`${headingId}-mobile`}
         mobileOnly
         closeOnDragDown
         className="p-5"
       >
-        <FilterControls {...props} mobile />
+        <FilterControls {...props} headingId={`${headingId}-mobile`} mobile />
       </Dialog>
     </>
   )

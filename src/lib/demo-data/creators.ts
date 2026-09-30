@@ -11,7 +11,7 @@ export const creators = [
     slug: 'maya-khan',
     name: 'Maya Khan',
     tagline: 'Product designer & creative mentor',
-    bio: 'Maya turns complex product ideas into simple, thoughtful experiences. Her courses make design systems and product thinking feel practical.',
+    bio: 'Maya turns complex product ideas into simple, thoughtful experiences. Her courses make product thinking and mobile UX feel practical.',
     avatar: '/assets/creators/maya-khan.jpg',
     followers: 124,
   },
@@ -182,6 +182,22 @@ export const creators = [
     bio: 'Ben helps teams connect sharp creative direction with campaigns that people understand and remember.',
     avatar: '/assets/creators/ben-ito.jpg',
     followers: 198,
+  },
+  {
+    slug: 'rida-hossain',
+    name: 'Rida Hossain',
+    avatar: undefined,
+    tagline: 'UX researcher & learning designer',
+    bio: 'Rida is preparing practical courses on user research and inclusive learning experiences.',
+    followers: 18,
+  },
+  {
+    slug: 'marcus-reed',
+    name: 'Marcus Reed',
+    avatar: undefined,
+    tagline: 'Creative coding instructor',
+    bio: 'Marcus is developing beginner-friendly courses in creative coding and interactive media.',
+    followers: 11,
   },
 ] as const
 

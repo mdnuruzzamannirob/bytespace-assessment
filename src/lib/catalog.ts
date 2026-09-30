@@ -1,8 +1,28 @@
 import type { DurationFilter } from '@/lib/constants/catalog'
 import { courses, type Course } from '@/lib/demo-data/courses'
-import { creators } from '@/lib/demo-data/creators'
+import { creators, type Creator } from '@/lib/demo-data/creators'
 
 export { courses, creators }
+export const platformStats = {
+  courses: courses.length,
+  creators: creators.length,
+  enrollments: courses.reduce((sum, course) => sum + course.enrollments, 0),
+  reviews: courses.reduce((sum, course) => sum + course.reviewCount, 0),
+  averageRating: Number(
+    (
+      courses.reduce((sum, course) => sum + course.rating * course.reviewCount, 0) /
+      courses.reduce((sum, course) => sum + course.reviewCount, 0)
+    ).toFixed(1),
+  ),
+}
+
+export function getCreatorStats(creator: Creator, followedSlugs: readonly string[] = []) {
+  return {
+    products: getCoursesByCreator(creator.slug).length,
+    followers: creator.followers + Number(followedSlugs.includes(creator.slug)),
+  }
+}
+
 export type { Course }
 
 export function getCourseById(id: number) {

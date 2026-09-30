@@ -2,15 +2,17 @@
 
 import { useMemo, useState } from 'react'
 import { LuListFilter } from 'react-icons/lu'
+import { FaArrowRight } from 'react-icons/fa6'
 
 import { SearchHero } from '@/components/catalog/SearchHero'
 import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
 import { CreatorStats } from '@/components/creators/CreatorStats'
 import { FollowButton } from '@/components/creators/FollowButton'
+import { useFollowedCreators } from '@/components/creators/FollowProvider'
 import { ButtonLink } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Select } from '@/components/ui/select'
-import { getCoursesByCreator } from '@/lib/catalog'
+import { getCreatorStats } from '@/lib/catalog'
 import { creators } from '@/lib/demo-data/creators'
 
 const pageSize = 9
@@ -20,7 +22,7 @@ export function CreatorsBrowser() {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<(typeof sortOptions)[number]>('Most popular')
   const [page, setPage] = useState(1)
-  const [followedCreators, setFollowedCreators] = useState<string[]>([])
+  const { followedCreators, toggleFollow } = useFollowedCreators()
 
   const visibleCreators = useMemo(() => {
     const query = search.trim().toLowerCase()
@@ -31,11 +33,13 @@ export function CreatorsBrowser() {
     if (sort === 'Name A–Z') return [...matching].sort((a, b) => a.name.localeCompare(b.name))
     if (sort === 'Name Z–A') return [...matching].sort((a, b) => b.name.localeCompare(a.name))
     if (sort === 'Most products')
-      return [...matching].sort(
-        (a, b) => getCoursesByCreator(b.slug).length - getCoursesByCreator(a.slug).length,
-      )
-    return [...matching].sort((a, b) => b.followers - a.followers)
-  }, [search, sort])
+      return [...matching].sort((a, b) => getCreatorStats(b).products - getCreatorStats(a).products)
+    return [...matching].sort(
+      (a, b) =>
+        getCreatorStats(b, followedCreators).followers -
+        getCreatorStats(a, followedCreators).followers,
+    )
+  }, [search, sort, followedCreators])
 
   const pageCount = Math.max(1, Math.ceil(visibleCreators.length / pageSize))
   const activePage = Math.min(page, pageCount)
@@ -44,12 +48,6 @@ export function CreatorsBrowser() {
   function updateSearch(value: string) {
     setSearch(value)
     setPage(1)
-  }
-
-  function toggleFollow(slug: string) {
-    setFollowedCreators((current) =>
-      current.includes(slug) ? current.filter((value) => value !== slug) : [...current, slug],
-    )
   }
 
   return (
@@ -67,7 +65,7 @@ export function CreatorsBrowser() {
             value={sort}
             options={sortOptions}
             onSelect={(value) => {
-              setSort(value as (typeof sortOptions)[number])
+              setSort(value)
               setPage(1)
             }}
             icon={<LuListFilter aria-hidden="true" />}
@@ -102,8 +100,8 @@ export function CreatorsBrowser() {
                   </div>
                   <div className="mt-3">
                     <CreatorStats
-                      products={getCoursesByCreator(creator.slug).length}
-                      followers={creator.followers}
+                      products={getCreatorStats(creator, followedCreators).products}
+                      followers={getCreatorStats(creator, followedCreators).followers}
                     />
                   </div>
                   <ButtonLink
@@ -111,7 +109,7 @@ export function CreatorsBrowser() {
                     variant="outline"
                     className="mt-3 h-10 min-h-10 w-full px-4 text-sm"
                   >
-                    View profile →
+                    View profile <FaArrowRight aria-hidden="true" />
                   </ButtonLink>
                 </article>
               )
@@ -134,6 +132,7 @@ export function CreatorsBrowser() {
           <Pagination
             page={activePage}
             pageCount={pageCount}
+            label="Creator pages"
             className="mt-18"
             onPageChange={(nextPage) => {
               setPage(nextPage)

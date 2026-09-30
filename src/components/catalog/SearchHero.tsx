@@ -3,6 +3,7 @@
 import { gridPatternClassName } from '@/components/home/HomeShared'
 import { SearchField } from '@/components/ui/search-field'
 import { Select } from '@/components/ui/select'
+import type { CourseScope } from '@/lib/constants/catalog'
 
 export function SearchHero({
   heading,
@@ -14,8 +15,8 @@ export function SearchHero({
   heading: string
   search: string
   onSearch: (value: string) => void
-  scope?: string
-  onScopeChange?: (value: string) => void
+  scope?: CourseScope
+  onScopeChange?: (value: CourseScope) => void
 }) {
   const scopes = ['Courses', 'Categories'] as const
   return (
