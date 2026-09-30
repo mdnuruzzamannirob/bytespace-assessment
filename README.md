@@ -1,39 +1,87 @@
-# ByteSpace Assessment
+# ByteSpace
 
-Next.js 16, React 19, TypeScript, and Tailwind CSS 4 project for the ByteSpace course platform design in [docs](./docs).
+ByteSpace is a responsive course marketplace demo built from the ByteSpace design references in [`docs/`](./docs). It includes a course catalog, creator directory, course detail views, persistent demo authentication, responsive navigation, and reusable feedback UI.
 
-## Run locally
+## Tech Stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Swiper for the course category rail
+- React Icons
+- Prettier with Tailwind class sorting
+
+## Getting Started
+
+Requirements: Node.js 20+ and pnpm 11+.
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Check the project with `pnpm lint` and `pnpm build`.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Tailwind design system
+## Demo Authentication
 
-[src/app/globals.css](./src/app/globals.css) defines semantic colors in `:root` and exposes them with Tailwind `@theme inline` tokens. The light palette and typography come from the PNGs in [docs/Style](./docs/Style). A `.dark` palette is sketched in comments for future work, but dark mode is currently disabled. Use Tailwind classes in components for page styling:
+The project uses a client-side demo authentication flow. No backend or real OAuth provider is required.
 
-- Colors: `bg-primary` (`#0043ff` in light mode), `bg-accent` (`#bcfc01`), `bg-surface`, `text-foreground`, `text-muted`, and the neutral/blue/lime scales. These semantic utilities change with the root theme.
-- Typography: `font-heading text-heading-l` for the main title, `text-heading-m/s/xs` for smaller headings, `text-body-l/m/s/xs` for copy, and `text-label-l/m/s/xs` for labels. Heading tokens include Poppins SemiBold; body and label tokens use Satoshi.
-- Layout: `max-w-site` is 1440px. With `px-30` at the `wide` breakpoint, content is 1200px wide with 120px side margins. `wide` starts at 1440px.
+| Field    | Demo value           |
+| -------- | -------------------- |
+| Email    | `demo@bytespace.dev` |
+| Password | `demo12345`          |
 
-The design reference is light only. A future dark theme will need the commented `.dark` palette and `@custom-variant dark` enabled together, plus visual review.
+Signup users and the active session are persisted in `localStorage`. Google and Facebook buttons create demo social sessions only; they do not connect to real OAuth services. The header shows the current session, an initials avatar, an account popover, and a sign-out action.
 
-Example section and grid:
+## Routes
 
-```tsx
-<section className="max-w-site wide:px-30 mx-auto w-full px-5 md:px-10">
-  <h2 className="font-heading text-heading-m">Discover your passion</h2>
-  <div className="wide:grid-cols-12 wide:gap-10 grid grid-cols-4 gap-4 md:grid-cols-8 md:gap-6">
-    {/* Cards go here */}
-  </div>
-</section>
+| Route              | Purpose                                                            |
+| ------------------ | ------------------------------------------------------------------ |
+| `/`                | Homepage and featured course discovery                             |
+| `/courses`         | Searchable, filterable, sortable course catalog                    |
+| `/courses/[id]`    | Data-driven course details, lessons, reviews, and enrollment panel |
+| `/creators`        | Searchable and paginated creator directory                         |
+| `/creators/[slug]` | Creator profile and creator-specific courses                       |
+| `/login`           | Demo sign-in                                                       |
+| `/signup`          | Demo account creation                                              |
+| `/coming-soon`     | Shared fallback for unreleased navigation destinations             |
+
+## Project Structure
+
+```text
+src/
+  app/                  App Router pages, layouts, and metadata
+  components/           Feature sections and reusable UI primitives
+  lib/
+    constants/          Navigation, catalog, and homepage constants
+    demo-data/          Courses, creators, and course detail content
+    auth-session.ts     Client-side demo session helpers
+    catalog.ts          Course and creator lookup/filter/sort helpers
+public/assets/          Local course, creator, and design assets
+docs/                   Design references and screen captures
 ```
 
-Poppins is loaded through `next/font/google`. Satoshi is served by [Fontshare](https://www.fontshare.com/fonts/satoshi) through its CSS endpoint, so the first visit needs access to Fontshare; Arial is the fallback. Design screenshots are references, not page assets.
+## Data Model
 
-## Current implementation
+Courses reference creators through `creatorSlug`. Creator product counts are derived from the course catalog rather than manually maintained. Catalog behavior is centralized in [`src/lib/catalog.ts`](./src/lib/catalog.ts), including:
 
-This branch establishes the Tailwind design tokens, root typography, metadata, and responsive layout conventions. Page routes and sections are the next implementation step.
+- `getCourseById`
+- `getCreatorBySlug`
+- `getCoursesByCreator`
+- `filterCourses`
+- `sortCourses`
+
+Course detail content lives in [`src/lib/demo-data/course-details.ts`](./src/lib/demo-data/course-details.ts), while the UI is split into focused overview, lesson, and review components.
+
+## Quality Checks
+
+```bash
+pnpm format       # Format source files and sort Tailwind classes
+pnpm format:check # Check formatting without changing files
+pnpm lint         # Run ESLint
+pnpm exec tsc --noEmit
+pnpm build        # Create the production build
+```
+
+Prettier configuration is kept intentionally small in [`.prettierrc.json`](./.prettierrc.json), with generated files and binary asset directories excluded in [`.prettierignore`](./.prettierignore).
