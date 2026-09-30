@@ -23,10 +23,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
   const { showToast } = useToast()
   const creator = getCreatorBySlug(course.creatorSlug)
   const details = getCourseDetails(course)
-  const title =
-    course.id === 2
-      ? 'Build Digital Asset: A Comprehensive Guide'
-      : course.title
+  const title = course.id === 2 ? 'Build Digital Asset: A Comprehensive Guide' : course.title
 
   async function share() {
     const url = window.location.href
@@ -44,9 +41,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
 
   function showLessons() {
     setTab('Lessons')
-    document
-      .getElementById('course-information')
-      ?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('course-information')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -61,9 +56,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
               <h1 id="course-title" className="font-heading text-heading-s">
                 {title}
               </h1>
-              <p className="mt-2 font-heading text-xl leading-tight">
-                {details.subtitle}
-              </p>
+              <p className="font-heading mt-2 text-xl leading-tight">{details.subtitle}</p>
               <p className="mt-6 text-lg text-blue-50">
                 by{' '}
                 <Link
@@ -101,7 +94,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
             </div>
           </div>
           <div className="mt-16 grid items-start gap-8 xl:grid-cols-[725px_412px] xl:gap-15.75">
-            <div className="relative aspect-720/479 overflow-hidden rounded-card bg-neutral-100">
+            <div className="rounded-card relative aspect-720/479 overflow-hidden bg-neutral-100">
               <Image
                 src={course.id === 2 ? `${assets}/preview.jpg` : course.image}
                 alt={`${title} course preview`}
@@ -114,13 +107,13 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 type="button"
                 onClick={showLessons}
                 aria-label="Explore course lessons"
-                className="absolute left-1/2 top-1/2 flex size-26 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-card bg-neutral-800/25 p-4 backdrop-blur-md"
+                className="rounded-card absolute top-1/2 left-1/2 flex size-26 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-neutral-800/25 p-4 backdrop-blur-md"
               >
                 <DetailIcon name="play.svg" size={72} />
               </button>
             </div>
             <aside
-              className="relative z-10 rounded-card border border-neutral-200 bg-white p-6 text-neutral-950 shadow-sm sm:p-10"
+              className="rounded-card relative z-10 border border-neutral-200 bg-white p-6 text-neutral-950 shadow-sm sm:p-10"
               aria-label="Course enrollment"
             >
               <h2 className="font-heading text-xl">
@@ -139,21 +132,16 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 ))}
               </ol>
               <p className="mt-3 text-sm text-neutral-700">
-                {Math.max(details.lessons - details.lessonsList.length, 0)} more
-                videos
+                {Math.max(details.lessons - details.lessonsList.length, 0)} more videos
               </p>
-              <p className="mt-6 font-heading text-4xl text-blue-800">
+              <p className="font-heading mt-6 text-4xl text-blue-800">
                 ${course.price}
-                <span className="font-sans text-base font-normal text-neutral-700">
-                  /lifetime
-                </span>
+                <span className="font-sans text-base font-normal text-neutral-700">/lifetime</span>
               </p>
               <ButtonLink href="/signup" className="mt-5 w-full">
                 Enroll Now
               </ButtonLink>
-              <h3 className="mt-7 font-heading text-xl">
-                This course includes
-              </h3>
+              <h3 className="font-heading mt-7 text-xl">This course includes</h3>
               <ul className="mt-5 space-y-3 text-base text-neutral-700">
                 {includedItems.map((item) => (
                   <li className="flex items-center gap-2" key={item.label}>
@@ -178,9 +166,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                     >
                       {creator?.name}
                     </Link>
-                    <p className="text-base text-neutral-700">
-                      Professional Creator
-                    </p>
+                    <p className="text-base text-neutral-700">Professional Creator</p>
                   </div>
                 </div>
                 <Link
@@ -221,17 +207,11 @@ export function CourseDetailsContent({ course }: { course: Course }) {
             ))}
           </div>
           {tab === 'About' && (
-            <CourseOverview
-              description={details.description}
-              keyPoints={details.keyPoints}
-            />
+            <CourseOverview description={details.description} keyPoints={details.keyPoints} />
           )}
           {tab === 'Lessons' && <CourseLessons modules={details.modules} />}
           {tab === 'Reviews' && (
-            <CourseReviews
-              activeRating={activeRating}
-              onRatingChange={setActiveRating}
-            />
+            <CourseReviews activeRating={activeRating} onRatingChange={setActiveRating} />
           )}
         </div>
       </section>

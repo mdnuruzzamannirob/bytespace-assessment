@@ -6,14 +6,13 @@ import { NewsletterForm } from './NewsletterForm'
 
 export function Footer() {
   return (
-    <footer className="border-t border-neutral-200 bg-background text-foreground">
+    <footer className="bg-background text-foreground border-t border-neutral-200">
       <div className="mx-auto w-full max-w-300 px-5 pt-12 lg:pt-18 xl:px-0">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
           <div className="max-w-126">
             <Logo variant="dark" />
-            <p className="mt-3 mb-11 text-body-s">
-              Stay Up to date with our latest features and releases by joining
-              our newsletter.
+            <p className="text-body-s mt-3 mb-11">
+              Stay Up to date with our latest features and releases by joining our newsletter.
             </p>
             <NewsletterForm />
           </div>
@@ -39,7 +38,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-neutral-200 pt-4 pb-12 text-body-xs sm:flex-row sm:items-center sm:justify-between lg:mt-32">
+        <div className="text-body-xs mt-16 flex flex-col gap-4 border-t border-neutral-200 pt-4 pb-12 sm:flex-row sm:items-center sm:justify-between lg:mt-32">
           <p>© 2023 ByteSpace. All rights reserved.</p>
           <nav aria-label="Legal navigation">
             <ul className="flex flex-wrap gap-x-6 gap-y-2">

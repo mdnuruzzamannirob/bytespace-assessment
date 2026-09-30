@@ -63,8 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   function socialLogin(provider: 'google' | 'facebook') {
     const nextUser = {
-      name:
-        provider === 'google' ? 'Google Demo Learner' : 'Facebook Demo Learner',
+      name: provider === 'google' ? 'Google Demo Learner' : 'Facebook Demo Learner',
       email: `${provider}@bytespace.dev`,
       password: '',
       provider,
@@ -79,9 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ user, loading, login, signup, socialLogin, logout }}
-    >
+    <AuthContext.Provider value={{ user, loading, login, signup, socialLogin, logout }}>
       {children}
     </AuthContext.Provider>
   )

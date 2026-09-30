@@ -99,24 +99,11 @@ export function CoursesBrowser({
       }),
       sort,
     )
-  }, [
-    search,
-    scope,
-    category,
-    level,
-    sort,
-    duration,
-    ratingMin,
-    lessonsMin,
-    priceMax,
-  ])
+  }, [search, scope, category, level, sort, duration, ratingMin, lessonsMin, priceMax])
 
   const pageCount = Math.ceil(filtered.length / pageSize)
   const currentPage = Math.min(page, Math.max(pageCount, 1))
-  const visibleCourses = filtered.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  )
+  const visibleCourses = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
   const changeCategory = (value: string) => {
     setCategory(value)
     setPage(1)
@@ -134,9 +121,7 @@ export function CoursesBrowser({
   }
   const goToPage = (value: number) => {
     setPage(value)
-    document
-      .getElementById('course-results')
-      ?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('course-results')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -219,7 +204,7 @@ export function CoursesBrowser({
                   type="button"
                   aria-pressed={category === item}
                   onClick={() => changeCategory(item)}
-                  className={`whitespace-nowrap rounded-full px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${category === item ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
+                  className={`rounded-full px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 ${category === item ? 'bg-lime-400 text-neutral-950' : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100'}`}
                 >
                   {item}
                 </button>
@@ -235,9 +220,7 @@ export function CoursesBrowser({
           </div>
         ) : (
           <div className="py-28 text-center">
-            <p className="mt-2 text-neutral-500">
-              Try another search or clear your filters.
-            </p>
+            <p className="mt-2 text-neutral-500">Try another search or clear your filters.</p>
             <button
               type="button"
               onClick={clearFilters}

@@ -36,9 +36,7 @@ export function StudentFaces({ compact = false }: { compact?: boolean }) {
 
 export function FloatingStudents({ className = '' }: { className?: string }) {
   return (
-    <div
-      className={`w-65 rounded-xl bg-white px-4 py-5 text-neutral-950 shadow-lg ${className}`}
-    >
+    <div className={`w-65 rounded-xl bg-white px-4 py-5 text-neutral-950 shadow-lg ${className}`}>
       <p className="text-label-m">Happy Students</p>
       <p className="flex items-center gap-1 text-[10px]">
         4.5 <span className="text-neutral-400">(240) </span>{' '}

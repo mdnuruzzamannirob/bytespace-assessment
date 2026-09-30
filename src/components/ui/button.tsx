@@ -14,11 +14,7 @@ type ButtonLinkProps = ComponentProps<typeof Link> & {
   size?: ButtonSize
 }
 
-function buttonClassName(
-  variant: ButtonVariant,
-  size: ButtonSize,
-  className: string,
-) {
+function buttonClassName(variant: ButtonVariant, size: ButtonSize, className: string) {
   const appearance =
     variant === 'outline'
       ? 'border border-neutral-200 bg-transparent text-foreground hover:border-neutral-500'
@@ -40,13 +36,7 @@ export function Button({
   size = 'large',
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      className={buttonClassName(variant, size, className)}
-      type={type}
-      {...props}
-    />
-  )
+  return <button className={buttonClassName(variant, size, className)} type={type} {...props} />
 }
 
 export function ButtonLink({
@@ -55,7 +45,5 @@ export function ButtonLink({
   size = 'large',
   ...props
 }: ButtonLinkProps) {
-  return (
-    <Link className={buttonClassName(variant, size, className)} {...props} />
-  )
+  return <Link className={buttonClassName(variant, size, className)} {...props} />
 }

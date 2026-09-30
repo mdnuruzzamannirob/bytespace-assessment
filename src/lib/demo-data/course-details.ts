@@ -121,9 +121,7 @@ export function getCourseDetails(course: {
       { title: 'Your practical project', duration: '16 mins' },
     ],
     modules: defaultModules.map((module, index) =>
-      index === 0
-        ? { ...module, title: `Module 1: Introduction to ${course.title}` }
-        : module,
+      index === 0 ? { ...module, title: `Module 1: Introduction to ${course.title}` } : module,
     ),
   }
 }

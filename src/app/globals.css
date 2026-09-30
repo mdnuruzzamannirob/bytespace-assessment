@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Dark mode is not enabled in the current assessment. */
 
@@ -87,8 +87,8 @@
   --color-lime-900: #465a0d;
   --color-lime-950: #243300;
 
-  --font-sans: "Satoshi", Arial, sans-serif;
-  --font-heading: var(--font-poppins), "Poppins", Arial, sans-serif;
+  --font-sans: 'Satoshi', Arial, sans-serif;
+  --font-heading: var(--font-poppins), 'Poppins', Arial, sans-serif;
 
   --text-heading-l: clamp(2.75rem, 5vw, 4.5rem);
   --text-heading-l--line-height: 1.2;
@@ -179,7 +179,7 @@
   }
 
   button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]) {
+  [role='button']:not([aria-disabled='true']) {
     cursor: pointer;
   }
 

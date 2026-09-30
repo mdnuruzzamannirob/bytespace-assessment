@@ -27,10 +27,7 @@ export function Dialog({
   const [dragOffset, setDragOffset] = useState(0)
 
   useEffect(() => {
-    if (
-      !open ||
-      (mobileOnly && !window.matchMedia('(max-width: 639px)').matches)
-    ) {
+    if (!open || (mobileOnly && !window.matchMedia('(max-width: 639px)').matches)) {
       return
     }
 
@@ -90,11 +87,7 @@ export function Dialog({
                 setDragOffset(Math.max(0, event.clientY - dragStartY.current))
             }}
             onPointerUp={(event) => {
-              if (
-                dragStartY.current !== null &&
-                event.clientY - dragStartY.current > 100
-              )
-                onClose()
+              if (dragStartY.current !== null && event.clientY - dragStartY.current > 100) onClose()
               setDragOffset(0)
               dragStartY.current = null
             }}

@@ -12,7 +12,7 @@ export function Input({ className = '', variant = 'pill', ...props }: InputProps
 
   return (
     <input
-      className={`h-13 w-full border bg-background px-6 text-foreground focus:border-transparent focus:ring-2 focus:ring-lime-400 focus:outline-none ${appearance} ${className}`}
+      className={`bg-background text-foreground h-13 w-full border px-6 focus:border-transparent focus:ring-2 focus:ring-lime-400 focus:outline-none ${appearance} ${className}`}
       {...props}
     />
   )

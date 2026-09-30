@@ -14,9 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const creator = getCreatorBySlug(slug)
   return {
-    title: creator
-      ? `${creator.name} | ByteSpace`
-      : 'Creator not found | ByteSpace',
+    title: creator ? `${creator.name} | ByteSpace` : 'Creator not found | ByteSpace',
     description: creator?.tagline,
   }
 }

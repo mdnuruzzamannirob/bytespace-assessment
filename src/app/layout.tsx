@@ -15,8 +15,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'ByteSpace — Learn without limits',
-  description:
-    'Discover creative courses, learn new skills, and grow with ByteSpace.',
+  description: 'Discover creative courses, learn new skills, and grow with ByteSpace.',
 }
 
 export default function RootLayout({
@@ -28,11 +27,7 @@ export default function RootLayout({
     <html lang="en" className={poppins.variable}>
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" />
-        <link
-          rel="preconnect"
-          href="https://cdn.fontshare.com"
-          crossOrigin="anonymous"
-        />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
           href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"

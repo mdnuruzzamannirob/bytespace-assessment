@@ -38,10 +38,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     const pendingToast = consumePendingToast()
     if (!pendingToast) return
     startTransition(() => {
-      setToasts((current) => [
-        ...current,
-        { ...pendingToast, id: Date.now() + Math.random() },
-      ])
+      setToasts((current) => [...current, { ...pendingToast, id: Date.now() + Math.random() }])
     })
   }, [pathname])
 
@@ -54,31 +51,20 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         aria-atomic="true"
       >
         {toasts.map((toast) => (
-          <ToastNotice
-            key={toast.id}
-            toast={toast}
-            onDismiss={() => dismissToast(toast.id)}
-          />
+          <ToastNotice key={toast.id} toast={toast} onDismiss={() => dismissToast(toast.id)} />
         ))}
       </div>
     </ToastContext.Provider>
   )
 }
 
-function ToastNotice({
-  toast,
-  onDismiss,
-}: {
-  toast: ToastItem
-  onDismiss: () => void
-}) {
+function ToastNotice({ toast, onDismiss }: { toast: ToastItem; onDismiss: () => void }) {
   useEffect(() => {
     const timeout = window.setTimeout(onDismiss, 4200)
     return () => window.clearTimeout(timeout)
   }, [onDismiss])
 
-  const Icon =
-    toast.tone === 'success' ? FiCheck : toast.tone === 'error' ? FiX : FiInfo
+  const Icon = toast.tone === 'success' ? FiCheck : toast.tone === 'error' ? FiX : FiInfo
   return (
     <div
       role="status"

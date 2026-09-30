@@ -5,8 +5,7 @@ import { categories } from '@/lib/constants/catalog'
 
 export const metadata: Metadata = {
   title: 'Courses | ByteSpace',
-  description:
-    'Find your next course in design, business, marketing, and more.',
+  description: 'Find your next course in design, business, marketing, and more.',
 }
 
 type SearchParams = Record<string, string | string[] | undefined>
@@ -15,11 +14,7 @@ function valueOf(value: string | string[] | undefined) {
   return typeof value === 'string' ? value : ''
 }
 
-function allowedValue(
-  value: string,
-  options: readonly string[],
-  fallback: string,
-) {
+function allowedValue(value: string, options: readonly string[], fallback: string) {
   return options.includes(value) ? value : fallback
 }
 
@@ -50,11 +45,7 @@ export default async function CoursesPage({
       initialRatingMin={[1, 2, 3, 4].includes(rating) ? rating : 0}
       initialLessonsMin={[10, 17, 22].includes(lessons) ? lessons : 0}
       initialPriceMax={[25, 35, 50].includes(price) ? price : 0}
-      initialScope={allowedValue(
-        valueOf(params.scope),
-        ['Courses', 'Categories'],
-        'Courses',
-      )}
+      initialScope={allowedValue(valueOf(params.scope), ['Courses', 'Categories'], 'Courses')}
       initialSearch={valueOf(params.q)}
       initialDuration={
         allowedValue(

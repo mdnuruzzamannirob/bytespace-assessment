@@ -6,12 +6,7 @@ import { LuListFilter, LuShapes } from 'react-icons/lu'
 
 import { CourseFilters } from '@/components/courses/CourseFilters'
 import { Select } from '@/components/ui/select'
-import {
-  categories,
-  levels,
-  sortOptions,
-  type DurationFilter,
-} from '@/lib/constants/catalog'
+import { categories, levels, sortOptions, type DurationFilter } from '@/lib/constants/catalog'
 
 type Props = {
   category: string
@@ -55,19 +50,17 @@ export function CourseBrowseControls(props: Props) {
           options={levels}
           onSelect={props.onLevelChange}
           icon={<FaChartSimple aria-hidden="true" />}
-          className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+          className="w-full sm:w-auto [&>button]:w-full sm:[&>button]:w-auto"
         />
         <Select
           label="Course category"
           contentWidth={256}
-          triggerLabel={
-            props.category === 'Featured' ? 'Category' : props.category
-          }
+          triggerLabel={props.category === 'Featured' ? 'Category' : props.category}
           value={props.category}
           options={categories}
           onSelect={props.onCategoryChange}
           icon={<LuShapes aria-hidden="true" />}
-          className="w-full [&>button]:w-full sm:w-auto sm:[&>button]:w-auto"
+          className="w-full sm:w-auto [&>button]:w-full sm:[&>button]:w-auto"
         />
         <Select
           label="Sort courses"
@@ -76,7 +69,7 @@ export function CourseBrowseControls(props: Props) {
           onSelect={props.onSortChange}
           icon={<LuListFilter aria-hidden="true" />}
           align="right"
-          className="w-full [&>button]:w-full sm:ml-auto sm:w-auto sm:[&>button]:w-auto"
+          className="w-full sm:ml-auto sm:w-auto [&>button]:w-full sm:[&>button]:w-auto"
         />
       </div>
       <CourseFilters

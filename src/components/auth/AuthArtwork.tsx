@@ -18,13 +18,7 @@ const happyStudents = [
   'home/people/student-outdoors.png',
 ]
 
-function StudentAvatars({
-  students,
-  count,
-}: {
-  students: string[]
-  count: string
-}) {
+function StudentAvatars({ students, count }: { students: string[]; count: string }) {
   return (
     <span className="flex items-center -space-x-2">
       {students.map((student) => (
@@ -65,18 +59,16 @@ function CourseCard({
         width={341}
       />
       <div className="mt-5 flex items-start justify-between gap-3">
-        <p className="font-heading text-lg leading-tight font-semibold">
-          {title}
-        </p>
-        <span className="shrink-0 text-body-s">
+        <p className="font-heading text-lg leading-tight font-semibold">{title}</p>
+        <span className="text-body-s shrink-0">
           4.5 <span className="text-lime-400">★</span>
         </span>
       </div>
-      <p className="mt-1 text-body-xs text-neutral-500">
+      <p className="text-body-xs mt-1 text-neutral-500">
         by <span className="text-blue-700">purepearl studio</span>
       </p>
       <div className="mt-4 flex items-center gap-3">
-        <span className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-body-xs">
+        <span className="text-body-xs inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1">
           <FaChartSimple aria-hidden="true" />
           Beginner
         </span>

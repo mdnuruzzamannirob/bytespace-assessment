@@ -33,9 +33,7 @@ export function filterCourses(
   const query = filters.query?.trim().toLowerCase() ?? ''
   return input.filter((course) => {
     const searchable =
-      filters.scope === 'Categories'
-        ? course.category
-        : `${course.title} ${course.description}`
+      filters.scope === 'Categories' ? course.category : `${course.title} ${course.description}`
     const matchesDuration =
       !filters.duration ||
       filters.duration === 'any' ||
@@ -49,9 +47,7 @@ export function filterCourses(
       (!filters.category ||
         filters.category === 'Featured' ||
         course.category === filters.category) &&
-      (!filters.level ||
-        filters.level === 'All levels' ||
-        course.level === filters.level) &&
+      (!filters.level || filters.level === 'All levels' || course.level === filters.level) &&
       matchesDuration &&
       (!filters.ratingMin || course.rating >= filters.ratingMin) &&
       (!filters.lessonsMin || course.lessons >= filters.lessonsMin) &&
@@ -61,11 +57,8 @@ export function filterCourses(
 }
 
 export function sortCourses(input: readonly Course[], sort: string) {
-  if (sort === 'Title A–Z')
-    return [...input].sort((a, b) => a.title.localeCompare(b.title))
-  if (sort === 'Title Z–A')
-    return [...input].sort((a, b) => b.title.localeCompare(a.title))
-  if (sort === 'Highest rated')
-    return [...input].sort((a, b) => b.rating - a.rating)
+  if (sort === 'Title A–Z') return [...input].sort((a, b) => a.title.localeCompare(b.title))
+  if (sort === 'Title Z–A') return [...input].sort((a, b) => b.title.localeCompare(a.title))
+  if (sort === 'Highest rated') return [...input].sort((a, b) => b.rating - a.rating)
   return [...input]
 }
