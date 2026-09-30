@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AiOutlineShopping } from 'react-icons/ai'
 import { PiList, PiX } from 'react-icons/pi'
 
+import { useAuth } from '@/components/auth/AuthProvider'
 import { Logo } from '@/components/ui/logo'
 import {
   headerAccountLinks,
@@ -18,6 +19,7 @@ export function Header() {
   const menuRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { user, loading, logout } = useAuth()
 
   useEffect(() => {
     const updateScrollState = () => setScrolled(window.scrollY > 0)
@@ -94,18 +96,34 @@ export function Header() {
         </nav>
 
         <div className="flex items-center justify-self-end gap-5 sm:gap-6">
-          {headerAccountLinks.map(({ label, href }) => (
-            <Link
-              aria-current={isActive(href) ? 'page' : undefined}
-              className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${
-                isActive(href) ? 'text-lime-400' : ''
-              }`}
-              href={href}
-              key={label}
-            >
-              {label}
-            </Link>
-          ))}
+          {!loading && user ? (
+            <>
+              <span
+                className="hidden max-w-32 truncate text-label-m sm:inline"
+                title={user.name}
+              >
+                {user.name}
+              </span>
+              <button
+                type="button"
+                onClick={logout}
+                className="hidden text-label-m transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            headerAccountLinks.map(({ label, href }) => (
+              <Link
+                aria-current={isActive(href) ? 'page' : undefined}
+                className={`hidden text-label-m font-normal transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 sm:inline ${isActive(href) ? 'text-lime-400' : ''}`}
+                href={href}
+                key={label}
+              >
+                {label}
+              </Link>
+            ))
+          )}
           <Link
             aria-label="Shopping bag"
             className="inline-flex size-7 items-center justify-center transition-colors hover:text-lime-400 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
@@ -149,18 +167,33 @@ export function Header() {
                       </Link>
                     </li>
                   ))}
-                  {headerAccountLinks.map(({ label, href }) => (
-                    <li className="sm:hidden" key={label}>
-                      <Link
-                        aria-current={isActive(href) ? 'page' : undefined}
-                        className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
-                        href={href}
-                        onClick={() => setMenuOpen(false)}
+                  {!loading && user ? (
+                    <li className="sm:hidden">
+                      <button
+                        type="button"
+                        className="block py-1 text-label-m font-normal hover:text-lime-400"
+                        onClick={() => {
+                          logout()
+                          setMenuOpen(false)
+                        }}
                       >
-                        {label}
-                      </Link>
+                        Sign out ({user.name})
+                      </button>
                     </li>
-                  ))}
+                  ) : (
+                    headerAccountLinks.map(({ label, href }) => (
+                      <li className="sm:hidden" key={label}>
+                        <Link
+                          aria-current={isActive(href) ? 'page' : undefined}
+                          className={`block py-1 text-label-m font-normal hover:text-lime-400 ${isActive(href) ? 'text-lime-400' : ''}`}
+                          href={href}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))
+                  )}
                 </ul>
               </nav>
             )}

@@ -167,7 +167,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
               <div className="mt-6 border-t border-neutral-200 pt-6">
                 <div className="flex items-center gap-3">
                   <Image
-                    src={`${assets}/creator.png`}
+                    src={creator?.avatar ?? `${assets}/creator.png`}
                     width={52}
                     height={52}
                     alt={`${creator?.name ?? 'Creator'} profile`}

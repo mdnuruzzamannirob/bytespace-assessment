@@ -1,11 +1,14 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 import { FaFacebook, FaGoogle } from 'react-icons/fa6'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { DEMO_EMAIL, DEMO_PASSWORD } from '@/lib/auth-session'
+import { useAuth } from './AuthProvider'
 
 type AuthFormProps = {
   mode: 'login' | 'signup'
@@ -45,15 +48,32 @@ function AuthField({
 
 export function AuthForm({ mode }: AuthFormProps) {
   const [message, setMessage] = useState('')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const { login, signup, socialLogin } = useAuth()
   const isLogin = mode === 'login'
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setMessage(
-      isLogin
-        ? 'Sign in is not connected yet. No account was accessed.'
-        : 'Account creation is not connected yet. No account was created.',
-    )
+    const formData = new FormData(event.currentTarget)
+    const name = String(formData.get('name') ?? '')
+    const email = String(formData.get('email') ?? '')
+    const password = String(formData.get('password') ?? '')
+    const success = isLogin
+      ? login(email, password)
+      : signup(name, email, password)
+    if (!success) {
+      setMessage(
+        'That email and password do not match. Try the demo credentials below.',
+      )
+      return
+    }
+    router.push(searchParams.get('next') || '/')
+  }
+
+  function handleSocialLogin(provider: 'google' | 'facebook') {
+    socialLogin(provider)
+    router.push(searchParams.get('next') || '/')
   }
 
   return (
@@ -102,6 +122,12 @@ export function AuthForm({ mode }: AuthFormProps) {
             {isLogin ? 'Sign In' : 'Continue'}
           </Button>
         </form>
+        {isLogin && (
+          <p className="mt-5 rounded-xl bg-blue-50 p-4 text-sm leading-relaxed text-blue-900">
+            Demo access: <strong>{DEMO_EMAIL}</strong> /{' '}
+            <strong>{DEMO_PASSWORD}</strong>
+          </p>
+        )}
         {message && (
           <p className="mt-4 text-body-s text-neutral-700" role="status">
             {message}
@@ -119,9 +145,7 @@ export function AuthForm({ mode }: AuthFormProps) {
               <button
                 aria-label="Sign in with Facebook"
                 className="flex size-18 items-center justify-center rounded-3xl border border-neutral-200 text-black transition-colors hover:bg-neutral-50 focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:outline-none"
-                onClick={() =>
-                  setMessage('Facebook sign in is not connected yet.')
-                }
+                onClick={() => handleSocialLogin('facebook')}
                 type="button"
               >
                 <FaFacebook aria-hidden="true" className="size-10" />
@@ -129,9 +153,7 @@ export function AuthForm({ mode }: AuthFormProps) {
               <button
                 aria-label="Sign in with Google"
                 className="flex size-18 items-center justify-center rounded-3xl border border-neutral-200 text-black transition-colors hover:bg-neutral-50 focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:outline-none"
-                onClick={() =>
-                  setMessage('Google sign in is not connected yet.')
-                }
+                onClick={() => handleSocialLogin('google')}
                 type="button"
               >
                 <FaGoogle aria-hidden="true" className="size-10" />
