@@ -36,7 +36,7 @@ export function StudentFaces({
       <span
         className={`${compact ? 'size-6' : 'size-10'} flex items-center justify-center rounded-full bg-lime-400 text-[8px] font-bold text-neutral-950`}
       >
-        {formatCompactNumber(count)}
+        {formatCompactNumber(count)}+
       </span>
     </span>
   )

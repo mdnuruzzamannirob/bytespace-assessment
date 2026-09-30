@@ -10,20 +10,20 @@ import {
 } from 'react'
 
 import { courses } from '@/lib/catalog'
-import { type DemoEnrollment } from '@/lib/demo-data/learning'
+import { featuredDemoEnrollments, type DemoEnrollment } from '@/lib/demo-data/learning'
 
 type Enrollment = DemoEnrollment
 type LearningContextValue = {
   enrollments: Enrollment[]
   enroll: (courseId: number) => void
-  completeNextLesson: (courseId: number) => void
+  markLessonComplete: (courseId: number, lessonIndex: number) => void
 }
 
-const storageKey = 'bytespace.demo.enrollments.v2'
+const storageKey = 'bytespace.demo.enrollments.v3'
 const LearningContext = createContext<LearningContextValue | null>(null)
 
 export function sanitizeEnrollments(value: unknown): Enrollment[] {
-  if (!Array.isArray(value)) return []
+  if (!Array.isArray(value)) return featuredDemoEnrollments
   const seen = new Set<number>()
   return value.flatMap((item) => {
     if (!item || typeof item !== 'object') return []
@@ -41,15 +41,15 @@ export function sanitizeEnrollments(value: unknown): Enrollment[] {
 }
 
 export function LearningProvider({ children }: { children: ReactNode }) {
-  const [enrollments, setEnrollments] = useState<Enrollment[]>([])
+  const [enrollments, setEnrollments] = useState<Enrollment[]>(featuredDemoEnrollments)
 
   useEffect(() => {
-    let restored: Enrollment[] = []
+    let restored: Enrollment[] = featuredDemoEnrollments
     try {
       const saved = window.localStorage.getItem(storageKey)
       if (saved) restored = sanitizeEnrollments(JSON.parse(saved))
     } catch {
-      // Keep an empty enrollment state when browser storage is unavailable.
+      // Keep the featured demo enrollments when browser storage is unavailable.
     }
     startTransition(() => setEnrollments(restored))
   }, [])
@@ -72,20 +72,20 @@ export function LearningProvider({ children }: { children: ReactNode }) {
     update([...enrollments, { courseId, completedLessons: 0 }])
   }
 
-  function completeNextLesson(courseId: number) {
+  function markLessonComplete(courseId: number, lessonIndex: number) {
     const course = courses.find((item) => item.id === courseId)
-    if (!course) return
+    if (!course || lessonIndex < 0 || lessonIndex >= course.lessons) return
     update(
       enrollments.map((item) =>
         item.courseId === courseId
-          ? { ...item, completedLessons: Math.min(item.completedLessons + 1, course.lessons) }
+          ? { ...item, completedLessons: Math.max(item.completedLessons, lessonIndex + 1) }
           : item,
       ),
     )
   }
 
   return (
-    <LearningContext.Provider value={{ enrollments, enroll, completeNextLesson }}>
+    <LearningContext.Provider value={{ enrollments, enroll, markLessonComplete }}>
       {children}
     </LearningContext.Provider>
   )

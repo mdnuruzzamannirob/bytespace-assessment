@@ -9,11 +9,11 @@ import { DetailIcon } from './DetailPrimitives'
 export function CourseLessons({
   modules,
   completedLessons,
-  onCompleteNext,
+  onMarkLessonComplete,
 }: {
   modules: CourseModule[]
   completedLessons?: number
-  onCompleteNext: () => void
+  onMarkLessonComplete: (index: number) => void
 }) {
   const totalLessons = modules.reduce((total, module) => total + module.lessons.length, 0)
   const progress = getProgressPercent(completedLessons ?? 0, totalLessons)
@@ -54,10 +54,20 @@ export function CourseLessons({
                     const completed = enrolled && previousLessons + lessonIndex < completedLessons
                     return (
                       <li
-                        className="flex items-start justify-between gap-4 text-sm text-neutral-700"
+                        className={`flex items-start justify-between gap-4 text-sm ${completed ? 'font-medium text-lime-800' : enrolled ? 'text-neutral-500' : 'text-neutral-700'}`}
                         key={`${lesson.title}-${lessonIndex}`}
                       >
-                        <span className="flex items-start gap-2">
+                        <button
+                          type="button"
+                          disabled={!enrolled || completed}
+                          onClick={() => onMarkLessonComplete(previousLessons + lessonIndex)}
+                          aria-label={
+                            enrolled
+                              ? `${completed ? 'Completed' : 'Mark complete'}: ${lesson.title}`
+                              : undefined
+                          }
+                          className="flex items-start gap-2 text-left disabled:cursor-default"
+                        >
                           {enrolled &&
                             (completed ? (
                               <FaCheck aria-hidden="true" className="mt-1 shrink-0 text-lime-700" />
@@ -70,12 +80,12 @@ export function CourseLessons({
                           <span>
                             {lesson.title}
                             {enrolled && (
-                              <span className="ml-2 text-xs text-neutral-500">
-                                {completed ? 'Completed' : 'Pending'}
+                              <span className="sr-only">
+                                {completed ? ' completed' : ' not completed'}
                               </span>
                             )}
                           </span>
-                        </span>
+                        </button>
                         <span className="shrink-0">{lesson.duration}</span>
                       </li>
                     )
@@ -116,20 +126,6 @@ export function CourseLessons({
                   style={{ width: `${progress}%` }}
                 />
               </div>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-4">
-              <p className="text-sm text-neutral-600">
-                {completedLessons} of {totalLessons} lessons completed
-              </p>
-              <button
-                type="button"
-                disabled={completedLessons >= totalLessons}
-                onClick={onCompleteNext}
-                className="inline-flex items-center gap-2 rounded-full bg-lime-400 px-4 py-2 text-sm font-medium text-neutral-950 hover:bg-lime-300 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                <FaCheck aria-hidden="true" />
-                {completedLessons >= totalLessons ? 'Course completed' : 'Complete next lesson'}
-              </button>
             </div>
           </div>
         )}

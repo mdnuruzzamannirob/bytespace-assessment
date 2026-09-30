@@ -183,6 +183,22 @@ export const creators = [
     avatar: '/assets/creators/ben-ito.jpg',
     followers: 198,
   },
+  {
+    slug: 'rida-hossain',
+    name: 'Rida Hossain',
+    avatar: undefined,
+    tagline: 'UX researcher & learning designer',
+    bio: 'Rida is preparing practical courses on user research and inclusive learning experiences.',
+    followers: 18,
+  },
+  {
+    slug: 'marcus-reed',
+    name: 'Marcus Reed',
+    avatar: undefined,
+    tagline: 'Creative coding instructor',
+    bio: 'Marcus is developing beginner-friendly courses in creative coding and interactive media.',
+    followers: 11,
+  },
 ] as const
 
 export type Creator = (typeof creators)[number]

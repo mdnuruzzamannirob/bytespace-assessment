@@ -26,7 +26,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
   })
   const [activeRating, setActiveRating] = useState<number | 'all'>('all')
   const { showToast } = useToast()
-  const { enrollments, enroll, completeNextLesson } = useLearning()
+  const { enrollments, enroll, markLessonComplete } = useLearning()
   const enrollment = enrollments.find((item) => item.courseId === course.id)
   const creator = getCreatorBySlug(course.creatorSlug)
   const details = getCourseDetails(course)
@@ -146,13 +146,13 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 <span className="font-sans text-base font-normal text-neutral-700">/lifetime</span>
               </p>
               {enrollment ? (
-                <Link
-                  href="#course-information"
-                  onClick={() => setTab('Lessons')}
-                  className="mt-5 flex min-h-12 w-full items-center justify-center rounded-full bg-lime-400 px-5 text-center font-medium text-neutral-950 hover:bg-lime-300"
+                <button
+                  type="button"
+                  disabled
+                  className="mt-5 min-h-12 w-full cursor-not-allowed rounded-full bg-neutral-200 px-5 font-medium text-neutral-600"
                 >
-                  Enrolled · View Progress
-                </Link>
+                  Already Enrolled
+                </button>
               ) : (
                 <button
                   type="button"
@@ -263,7 +263,7 @@ export function CourseDetailsContent({ course }: { course: Course }) {
             <CourseLessons
               modules={details.modules}
               completedLessons={enrollment?.completedLessons}
-              onCompleteNext={() => completeNextLesson(course.id)}
+              onMarkLessonComplete={(index) => markLessonComplete(course.id, index)}
             />
           )}
           {tab === 'Reviews' && (

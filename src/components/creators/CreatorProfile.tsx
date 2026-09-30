@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { CourseBrowseControls } from '@/components/courses/CourseBrowseControls'
 import { CourseCard } from '@/components/courses/CourseCard'
 import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
@@ -82,40 +84,56 @@ export function CreatorProfile({ creator }: { creator: Creator }) {
         className="mx-auto max-w-300 px-5 py-14 sm:py-16 xl:px-0"
         aria-label={`${creator.name} courses`}
       >
-        <CourseBrowseControls
-          category={category}
-          level={level}
-          sort={sort}
-          duration={duration}
-          ratingMin={ratingMin}
-          lessonsMin={lessonsMin}
-          priceMax={priceMax}
-          showFilters={showFilters}
-          onCategoryChange={setCategory}
-          onLevelChange={setLevel}
-          onSortChange={setSort}
-          onDurationChange={setDuration}
-          onRatingChange={setRatingMin}
-          onLessonsChange={setLessonsMin}
-          onPriceChange={setPriceMax}
-          onToggleFilters={() => setShowFilters((value) => !value)}
-          onClear={() => {
-            setCategory('Featured')
-            setLevel('All levels')
-            setSort('Most relevant')
-            setRatingMin(0)
-            setLessonsMin(0)
-            setPriceMax(0)
-            setDuration('any')
-          }}
-          onClose={closeFilters}
-        />
+        {stats.products > 0 && (
+          <CourseBrowseControls
+            category={category}
+            level={level}
+            sort={sort}
+            duration={duration}
+            ratingMin={ratingMin}
+            lessonsMin={lessonsMin}
+            priceMax={priceMax}
+            showFilters={showFilters}
+            onCategoryChange={setCategory}
+            onLevelChange={setLevel}
+            onSortChange={setSort}
+            onDurationChange={setDuration}
+            onRatingChange={setRatingMin}
+            onLessonsChange={setLessonsMin}
+            onPriceChange={setPriceMax}
+            onToggleFilters={() => setShowFilters((value) => !value)}
+            onClear={() => {
+              setCategory('Featured')
+              setLevel('All levels')
+              setSort('Most relevant')
+              setRatingMin(0)
+              setLessonsMin(0)
+              setPriceMax(0)
+              setDuration('any')
+            }}
+            onClose={closeFilters}
+          />
+        )}
 
         {creatorCourses.length ? (
           <div className="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {creatorCourses.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
+          </div>
+        ) : stats.products === 0 ? (
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-16 text-center">
+            <h2 className="font-heading text-xl">Courses coming soon</h2>
+            <p className="mx-auto mt-3 max-w-lg text-neutral-600">
+              {creator.name} has not published a course yet. Explore other creators while their
+              first course is being prepared.
+            </p>
+            <Link
+              href="/creators"
+              className="mt-6 inline-flex rounded-full bg-lime-400 px-6 py-3 font-medium text-neutral-950 hover:bg-lime-300"
+            >
+              Browse creators
+            </Link>
           </div>
         ) : (
           <p className="py-20 text-center text-neutral-500">No courses match these filters.</p>
