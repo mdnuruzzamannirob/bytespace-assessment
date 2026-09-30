@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
-import { FiSearch } from 'react-icons/fi'
 import { LuListFilter } from 'react-icons/lu'
 
 import { gridPatternClassName } from '@/components/home/HomeShared'
@@ -63,8 +62,8 @@ export function CreatorsBrowser() {
               placeholder="Search creators"
               value={search}
             />
-            <button type="button" onClick={() => document.getElementById('creator-results')?.scrollIntoView({ behavior: 'smooth' })} className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-lime-400 px-6 text-sm font-medium text-neutral-950 transition-colors hover:bg-lime-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
-              <FiSearch aria-hidden="true" /> Search
+            <button type="button" onClick={() => document.getElementById('creator-results')?.scrollIntoView({ behavior: 'smooth' })} className="h-12 min-h-12 shrink-0 rounded-full bg-lime-400 px-6 text-label-l text-neutral-950 transition-colors hover:bg-lime-300">
+              Search
             </button>
           </div>
         </div>
