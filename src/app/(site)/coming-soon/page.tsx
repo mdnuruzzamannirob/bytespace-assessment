@@ -16,21 +16,31 @@ export default async function ComingSoonPage({
   const title = feature || 'This feature'
 
   return (
-    <main className="flex min-h-[70svh] items-center justify-center px-5 py-28 text-center">
-      <section className="max-w-145">
-        <p className="text-sm font-medium uppercase tracking-[0.12em] text-blue-700">
-          ByteSpace demo
-        </p>
-        <h1 className="mt-4 font-heading text-heading-m">
-          {title} is coming soon
-        </h1>
-        <p className="mt-5 text-body-l text-neutral-600">
-          This area is not part of the current learning flow yet, but the link
-          is ready for a future release.
-        </p>
-        <ButtonLink href="/courses" className="mt-8">
-          Browse courses
-        </ButtonLink>
+    <main className="min-h-screen bg-blue-800 text-primary-foreground lg:min-h-240">
+      <section
+        className="flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(to_right,color-mix(in_srgb,var(--color-primary-foreground)_12%,transparent)_2px,transparent_2px),linear-gradient(to_bottom,color-mix(in_srgb,var(--color-primary-foreground)_12%,transparent)_2px,transparent_2px)] bg-size-[120px_120px] bg-position-[0_0,0_118px] max-md:bg-size-[80px_80px] max-md:bg-position-[0_0,0_78px] lg:min-h-240"
+        aria-labelledby="coming-soon-title"
+      >
+        <div className="flex w-full max-w-site flex-col items-center px-6 py-6 text-center lg:translate-y-4 max-md:px-5 max-sm:py-4">
+          <p
+            className="mb-[-0.25em] bg-linear-to-b/srgb from-lime-400 from-15% via-lime-400/78 via-55% to-lime-400/12 to-100% bg-clip-text font-heading text-[clamp(12rem,min(33.333vw,50vh),30rem)] leading-none font-semibold tracking-[-0.01em] text-transparent max-md:text-[clamp(9rem,min(40vw,32vh),20rem)]"
+            aria-label="Coming soon"
+          >
+            SOON
+          </p>
+          <h1
+            className="w-full max-w-233.75 font-heading text-heading-l max-md:text-[clamp(1.125rem,6vw,2.75rem)]"
+            id="coming-soon-title"
+          >
+            <span className="block whitespace-nowrap">{title}</span>
+            <span className="block whitespace-nowrap">is coming soon</span>
+          </h1>
+          <p className="my-8 text-body-l text-neutral-100 max-md:my-6 max-md:max-w-md max-md:text-body-m">
+            This area is not part of the current learning flow yet. Keep
+            exploring the courses and creators already available.
+          </p>
+          <ButtonLink href="/courses">Browse Courses</ButtonLink>
+        </div>
       </section>
     </main>
   )
