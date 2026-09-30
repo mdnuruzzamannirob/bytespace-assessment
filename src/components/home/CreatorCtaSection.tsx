@@ -8,9 +8,12 @@ const decorationPath = '/assets/home/decorations/'
 
 function CreatorCtaDecorations() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
       <Image
-        className="absolute -top-16 -left-11 w-36 sm:-top-32 sm:-left-12 sm:w-52 xl:-top-70 xl:-left-25 xl:w-96"
+        className="absolute -top-16 -left-11 w-36 sm:-top-32 sm:-left-12 sm:w-52 xl:-top-40 xl:-left-1 xl:w-70"
         src={`${decorationPath}decorative-lime-tall-squiggle.png`}
         alt=""
         width={266}
@@ -24,14 +27,14 @@ function CreatorCtaDecorations() {
         height={176}
       />
       <Image
-        className="absolute bottom-12 -left-7 w-22 sm:bottom-10 sm:-left-7 sm:w-24 xl:top-52 xl:bottom-auto xl:-left-7 xl:w-35"
+        className="absolute bottom-12 -left-7 w-22 sm:bottom-10 sm:-left-7 sm:w-24 xl:top-52 xl:bottom-auto xl:-left-1 xl:w-35"
         src={`${decorationPath}decorative-white-rounded-wedge.png`}
         alt=""
         width={139}
         height={189}
       />
       <Image
-        className="absolute -bottom-5 -left-5 w-36 sm:-bottom-10 sm:-left-6 sm:w-48 xl:-bottom-8 xl:left-0 xl:w-85.5"
+        className="absolute -bottom-5 -left-5 w-36 sm:-bottom-10 sm:-left-6 sm:w-48 xl:-bottom-1 xl:left-0 xl:w-85.5"
         src={`${decorationPath}decorative-lime-arch.png`}
         alt=""
         width={344}
@@ -79,10 +82,7 @@ export function CreatorCtaSection() {
           Course Editor, and showcase your expertise by publishing your finest
           course on the ByteSpace Course Library.
         </p>
-        <ButtonLink
-          href="/signup"
-          style={{ height: 46, minHeight: 46 }}
-        >
+        <ButtonLink href="/signup" style={{ height: 46, minHeight: 46 }}>
           Join as Creator
         </ButtonLink>
       </div>
