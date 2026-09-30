@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { LuListFilter } from 'react-icons/lu'
+import { FaArrowRight } from 'react-icons/fa6'
 
 import { SearchHero } from '@/components/catalog/SearchHero'
 import { CreatorAvatar } from '@/components/creators/CreatorAvatar'
@@ -108,7 +109,7 @@ export function CreatorsBrowser() {
                     variant="outline"
                     className="mt-3 h-10 min-h-10 w-full px-4 text-sm"
                   >
-                    View profile →
+                    View profile <FaArrowRight aria-hidden="true" />
                   </ButtonLink>
                 </article>
               )

@@ -9,7 +9,7 @@ import { CourseOverview } from '@/components/courses/details/CourseOverview'
 import { CourseReviews } from '@/components/courses/details/CourseReviews'
 import { DetailIcon } from '@/components/courses/details/DetailPrimitives'
 import { gridPatternClassName } from '@/components/home/HomeShared'
-import { ButtonLink } from '@/components/ui/button'
+import { useLearning } from '@/components/learning/LearningProvider'
 import { useToast } from '@/components/ui/toast'
 import { getCreatorBySlug, type Course } from '@/lib/catalog'
 import { getCourseDetails, includedItems } from '@/lib/demo-data/course-details'
@@ -26,6 +26,8 @@ export function CourseDetailsContent({ course }: { course: Course }) {
   })
   const [activeRating, setActiveRating] = useState<number | 'all'>('all')
   const { showToast } = useToast()
+  const { enrollments, enroll, completeNextLesson } = useLearning()
+  const enrollment = enrollments.find((item) => item.courseId === course.id)
   const creator = getCreatorBySlug(course.creatorSlug)
   const details = getCourseDetails(course)
   const title = course.title
@@ -143,9 +145,26 @@ export function CourseDetailsContent({ course }: { course: Course }) {
                 ${course.price}
                 <span className="font-sans text-base font-normal text-neutral-700">/lifetime</span>
               </p>
-              <ButtonLink href="/signup" className="mt-5 w-full">
-                Enroll Now
-              </ButtonLink>
+              {enrollment ? (
+                <Link
+                  href="#course-information"
+                  onClick={() => setTab('Lessons')}
+                  className="mt-5 flex min-h-12 w-full items-center justify-center rounded-full bg-lime-400 px-5 text-center font-medium text-neutral-950 hover:bg-lime-300"
+                >
+                  Enrolled · View Progress
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    enroll(course.id)
+                    showToast('Enrolled in this demo course.', 'success')
+                  }}
+                  className="mt-5 min-h-12 w-full rounded-full bg-lime-400 px-5 font-medium text-neutral-950 hover:bg-lime-300"
+                >
+                  Enroll Now
+                </button>
+              )}
               <h3 className="font-heading mt-7 text-xl">This course includes</h3>
               <ul className="mt-5 space-y-3 text-base text-neutral-700">
                 {includedItems.map((item) => (
@@ -240,7 +259,13 @@ export function CourseDetailsContent({ course }: { course: Course }) {
               previewImages={details.previewImages}
             />
           )}
-          {tab === 'Lessons' && <CourseLessons modules={details.modules} />}
+          {tab === 'Lessons' && (
+            <CourseLessons
+              modules={details.modules}
+              completedLessons={enrollment?.completedLessons}
+              onCompleteNext={() => completeNextLesson(course.id)}
+            />
+          )}
           {tab === 'Reviews' && (
             <CourseReviews
               course={course}

@@ -118,7 +118,7 @@ export function GrowthSection() {
           <div className="absolute top-[38.59%] left-[55.56%] z-4 box-border flex h-[25%] w-[37.36%] flex-col justify-between rounded-2xl bg-white p-[clamp(10px,2.58cqw,16px)] text-neutral-950 shadow-[0_12px_22px_rgba(0,0,0,0.14)]">
             <p className="text-[clamp(10px,2.25cqw,14px)] leading-[1.4]">Example Progress</p>
             <strong className="font-heading text-[clamp(27px,7.73cqw,48px)] leading-[1.2] font-semibold tracking-[-0.01em]">
-              55%
+              {demoLearnerProgress}%
             </strong>
             <div className="h-[clamp(5px,1.29cqw,8px)] w-full rounded-full bg-neutral-100">
               <div

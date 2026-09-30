@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { FaChartSimple } from 'react-icons/fa6'
+import { IoStarSharp } from 'react-icons/io5'
 
 import { courses, getCreatorBySlug, platformStats, type Course } from '@/lib/catalog'
 import { formatCompactNumber } from '@/lib/format'
@@ -56,7 +57,8 @@ function CourseCard({ course, className }: { course: Course; className: string }
       <div className="mt-5 flex items-start justify-between gap-3">
         <p className="font-heading text-lg leading-tight font-semibold">{course.title}</p>
         <span className="text-body-s shrink-0">
-          {course.rating.toFixed(1)} <span className="text-lime-400">★</span>
+          {course.rating.toFixed(1)}{' '}
+          <IoStarSharp aria-hidden="true" className="inline text-lime-400" />
         </span>
       </div>
       <p className="text-body-xs mt-1 text-neutral-500">
@@ -101,7 +103,10 @@ export function AuthArtwork() {
         <p className="text-body-m">Happy Students</p>
         <p className="text-body-xs">
           {platformStats.averageRating.toFixed(1)}{' '}
-          <span className="text-blue-700">({formatCompactNumber(platformStats.reviews)}) ★</span>
+          <span className="text-blue-700">
+            ({formatCompactNumber(platformStats.reviews)}){' '}
+            <IoStarSharp aria-hidden="true" className="inline" />
+          </span>
         </p>
         <div className="mt-2">
           <StudentAvatars students={happyStudents} count={platformStats.enrollments} />

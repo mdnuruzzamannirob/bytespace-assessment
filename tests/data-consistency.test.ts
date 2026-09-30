@@ -72,3 +72,12 @@ describe('creator and platform metrics', () => {
     expect(testimonials).toHaveLength(3)
   })
 })
+
+describe('demo learning progress', () => {
+  it('computes progress from actual completed and total lessons', async () => {
+    const { getProgressPercent } = await import('@/lib/demo-data/learning')
+    expect(getProgressPercent(0, courses[0].lessons)).toBe(0)
+    expect(getProgressPercent(courses[0].lessons, courses[0].lessons)).toBe(100)
+    expect(getProgressPercent(3, courses[0].lessons)).toBe(30)
+  })
+})

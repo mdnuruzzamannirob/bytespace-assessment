@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { IoStarSharp } from 'react-icons/io5'
 
 import { getCourseReviewData } from '@/lib/demo-data/course-reviews'
 import type { Course } from '@/lib/catalog'
@@ -44,7 +45,9 @@ export function CourseReviews({
                   style={{ width: `${item.percentage}%` }}
                 />
               </div>
-              <span className="text-sm text-neutral-700">{item.rating} ★</span>
+              <span className="text-sm text-neutral-700">
+                {item.rating} <IoStarSharp aria-hidden="true" className="inline text-lime-600" />
+              </span>
               <span className="text-sm text-neutral-700">{item.count}</span>
             </div>
           ))}

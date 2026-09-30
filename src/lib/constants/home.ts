@@ -38,6 +38,7 @@ export const testimonials = [
   },
 ] as const
 
+// Decorative example in the landing page artwork, independent of a learner session.
 export const demoLearnerProgress = 55
 
 export const partnerLogos = ['wave', 'sunburst', 'compass', 'flower', 'rings'] as const
